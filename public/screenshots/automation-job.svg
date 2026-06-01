@@ -1,0 +1,112 @@
+<svg width="1200" height="675" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0D1117"/><stop offset="1" stop-color="#161B22"/></linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#g1)"/>
+  <rect x="0" y="0" width="1200" height="44" fill="#161B22" rx="0"/>
+
+  <!-- Sidebar -->
+  <rect x="0" y="44" width="200" height="631" fill="#0D1117"/>
+  <rect x="16" y="64" width="168" height="32" rx="6" fill="#10B981"/>
+  <text x="100" y="85" fill="#090C10" font-family="system-ui,sans-serif" font-size="12" font-weight="600" text-anchor="middle">n8n Pipeline</text>
+  <rect x="16" y="108" width="168" height="32" rx="6" fill="none" stroke="#21262D" stroke-width="1"/>
+  <text x="100" y="129" fill="#8B949E" font-family="system-ui,sans-serif" font-size="11" text-anchor="middle">Scraper Workers</text>
+  <rect x="16" y="148" width="168" height="32" rx="6" fill="none" stroke="#21262D" stroke-width="1"/>
+  <text x="100" y="169" fill="#8B949E" font-family="system-ui,sans-serif" font-size="11" text-anchor="middle">Database</text>
+  <rect x="16" y="188" width="168" height="32" rx="6" fill="none" stroke="#21262D" stroke-width="1"/>
+  <text x="100" y="209" fill="#8B949E" font-family="system-ui,sans-serif" font-size="11" text-anchor="middle">AI Enrichment</text>
+  <rect x="16" y="228" width="168" height="32" rx="6" fill="none" stroke="#21262D" stroke-width="1"/>
+  <text x="100" y="249" fill="#8B949E" font-family="system-ui,sans-serif" font-size="11" text-anchor="middle">Outreach</text>
+
+  <!-- Top bar -->
+  <rect x="200" y="44" width="1000" height="44" fill="#161B22"/>
+  <text x="220" y="70" fill="#F0F2F5" font-family="system-ui,sans-serif" font-size="13" font-weight="600">Job Pipeline · Active</text>
+  <circle cx="330" cy="66" r="3" fill="#10B981"/>
+
+  <!-- Main dashboard area -->
+  <rect x="216" y="100" width="320" height="140" rx="8" fill="#161B22" stroke="#21262D" stroke-width="1"/>
+  <text x="236" y="126" fill="#8B949E" font-family="system-ui,sans-serif" font-size="10">OFFERS PROCESSED</text>
+  <text x="236" y="170" fill="#10B981" font-family="system-ui,sans-serif" font-size="36" font-weight="700">847</text>
+  <text x="236" y="192" fill="#484F58" font-family="system-ui,sans-serif" font-size="11">+23% vs yesterday</text>
+  <path d="M236 215 L536 215" stroke="#21262D" stroke-width="1"/>
+  <polyline points="240,210 260,205 280,207 300,200 310,203 340,198 360,195 380,190 400,188 420,185 440,182 460,178 480,175 500,172 520,170 530,168" fill="none" stroke="#10B981" stroke-width="1.5"/>
+
+  <rect x="556" y="100" width="200" height="140" rx="8" fill="#161B22" stroke="#21262D" stroke-width="1"/>
+  <text x="576" y="126" fill="#8B949E" font-family="system-ui,sans-serif" font-size="10">MATCH RATE</text>
+  <text x="576" y="170" fill="#34D399" font-family="system-ui,sans-serif" font-size="36" font-weight="700">92%</text>
+  <text x="576" y="192" fill="#484F58" font-family="system-ui,sans-serif" font-size="11">Claude classification</text>
+
+  <rect x="776" y="100" width="200" height="140" rx="8" fill="#161B22" stroke="#21262D" stroke-width="1"/>
+  <text x="796" y="126" fill="#8B949E" font-family="system-ui,sans-serif" font-size="10">EMAILS SENT</text>
+  <text x="796" y="170" fill="#F0F2F5" font-family="system-ui,sans-serif" font-size="36" font-weight="700">312</text>
+  <text x="796" y="192" fill="#484F58" font-family="system-ui,sans-serif" font-size="11">Automated via Resend</text>
+
+  <!-- Pipeline nodes -->
+  <rect x="216" y="260" width="160" height="50" rx="8" fill="#161B22" stroke="#21262D" stroke-width="1"/>
+  <text x="296" y="280" fill="#F0F2F5" font-family="system-ui,sans-serif" font-size="11" font-weight="500" text-anchor="middle">Webhook Trigger</text>
+  <text x="296" y="298" fill="#6E7681" font-family="system-ui,sans-serif" font-size="10" text-anchor="middle">Every 15 min</text>
+
+  <text x="392" y="287" fill="#30363D" font-family="monospace" font-size="14" font-weight="700">→</text>
+
+  <rect x="412" y="260" width="160" height="50" rx="8" fill="#161B22" stroke="#21262D" stroke-width="1"/>
+  <text x="492" y="280" fill="#F0F2F5" font-family="system-ui,sans-serif" font-size="11" font-weight="500" text-anchor="middle">HTTP Request</text>
+  <text x="492" y="298" fill="#6E7681" font-family="system-ui,sans-serif" font-size="10" text-anchor="middle">8 sources</text>
+
+  <text x="588" y="287" fill="#30363D" font-family="monospace" font-size="14" font-weight="700">→</text>
+
+  <rect x="608" y="260" width="160" height="50" rx="8" fill="#161B22" stroke="#21262D" stroke-width="1"/>
+  <text x="688" y="280" fill="#F0F2F5" font-family="system-ui,sans-serif" font-size="11" font-weight="500" text-anchor="middle">AI Classifier</text>
+  <text x="688" y="298" fill="#6E7681" font-family="system-ui,sans-serif" font-size="10" text-anchor="middle">Claude Sonnet</text>
+
+  <text x="784" y="287" fill="#30363D" font-family="monospace" font-size="14" font-weight="700">→</text>
+
+  <rect x="804" y="260" width="160" height="50" rx="8" fill="#161B22" stroke="#10B981" stroke-width="1.5"/>
+  <text x="884" y="280" fill="#10B981" font-family="system-ui,sans-serif" font-size="11" font-weight="500" text-anchor="middle">Send Email</text>
+  <text x="884" y="298" fill="#6E7681" font-family="system-ui,sans-serif" font-size="10" text-anchor="middle">Resend API</text>
+
+  <!-- Recent jobs table -->
+  <rect x="216" y="332" width="760" height="160" rx="8" fill="#161B22" stroke="#21262D" stroke-width="1"/>
+  <text x="236" y="356" fill="#F0F2F5" font-family="system-ui,sans-serif" font-size="12" font-weight="600">Recent Jobs</text>
+
+  <rect x="236" y="368" width="720" height="1" fill="#21262D"/>
+
+  <text x="236" y="390" fill="#6E7681" font-family="system-ui,sans-serif" font-size="10">Company</text>
+  <text x="336" y="390" fill="#6E7681" font-family="system-ui,sans-serif" font-size="10">Position</text>
+  <text x="586" y="390" fill="#6E7681" font-family="system-ui,sans-serif" font-size="10">Match</text>
+  <text x="686" y="390" fill="#6E7681" font-family="system-ui,sans-serif" font-size="10">Status</text>
+
+  <text x="236" y="412" fill="#F0F2F5" font-family="system-ui,sans-serif" font-size="11">Stripe</text>
+  <text x="336" y="412" fill="#8B949E" font-family="system-ui,sans-serif" font-size="11">Senior Backend Engineer</text>
+  <text x="586" y="412" fill="#10B981" font-family="monospace" font-size="10" font-weight="600">94%</text>
+  <rect x="686" y="406" width="60" height="16" rx="8" fill="rgba(16,185,129,0.1)"/>
+  <text x="716" y="418" fill="#10B981" font-family="system-ui,sans-serif" font-size="9" font-weight="500" text-anchor="middle">Sent</text>
+
+  <text x="236" y="438" fill="#F0F2F5" font-family="system-ui,sans-serif" font-size="11">Vercel</text>
+  <text x="336" y="438" fill="#8B949E" font-family="system-ui,sans-serif" font-size="11">Frontend Platform Engineer</text>
+  <text x="586" y="438" fill="#34D399" font-family="monospace" font-size="10" font-weight="600">88%</text>
+  <rect x="686" y="432" width="60" height="16" rx="8" fill="rgba(16,185,129,0.1)"/>
+  <text x="716" y="444" fill="#10B981" font-family="system-ui,sans-serif" font-size="9" font-weight="500" text-anchor="middle">Sent</text>
+
+  <text x="236" y="464" fill="#F0F2F5" font-family="system-ui,sans-serif" font-size="11">Anthropic</text>
+  <text x="336" y="464" fill="#8B949E" font-family="system-ui,sans-serif" font-size="11">ML Infrastructure</text>
+  <text x="586" y="464" fill="#D29922" font-family="monospace" font-size="10" font-weight="600">72%</text>
+  <rect x="686" y="458" width="60" height="16" rx="8" fill="rgba(210,153,34,0.1)"/>
+  <text x="716" y="470" fill="#D29922" font-family="system-ui,sans-serif" font-size="9" font-weight="500" text-anchor="middle">Pending</text>
+
+  <!-- Status bar bottom -->
+  <rect x="216" y="510" width="760" height="36" rx="6" fill="#0D1117"/>
+  <text x="236" y="533" fill="#484F58" font-family="system-ui,sans-serif" font-size="10">8 workers active · 4 proxies rotating · 2CAPTCHA connected · Uptime 99.8% · Last run: 2 min ago</text>
+
+  <!-- Agents panel -->
+  <rect x="216" y="558" width="370" height="62" rx="8" fill="#161B22" stroke="#21262D" stroke-width="1"/>
+  <text x="236" y="580" fill="#F0F2F5" font-family="system-ui,sans-serif" font-size="11" font-weight="600">AI Agent Status</text>
+  <text x="236" y="602" fill="#10B981" font-family="system-ui,sans-serif" font-size="10">● Claude Sonnet</text>
+  <text x="376" y="602" fill="#10B981" font-family="system-ui,sans-serif" font-size="10">● GPT-4o-mini</text>
+  <text x="526" y="602" fill="#484F58" font-family="system-ui,sans-serif" font-size="10">Tokens: 847K today</text>
+
+  <rect x="610" y="558" width="366" height="62" rx="8" fill="#161B22" stroke="#21262D" stroke-width="1"/>
+  <text x="630" y="580" fill="#F0F2F5" font-family="system-ui,sans-serif" font-size="11" font-weight="600">Coverage Detail</text>
+  <rect x="630" y="590" width="326" height="6" rx="3" fill="#21262D"/>
+  <rect x="630" y="590" width="228" height="6" rx="3" fill="#10B981"/>
+  <text x="630" y="612" fill="#6E7681" font-family="system-ui,sans-serif" font-size="9">70% of target sources covered (12/17)</text>
+</svg>

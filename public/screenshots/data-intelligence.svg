@@ -1,0 +1,152 @@
+<svg width="1200" height="675" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0D1117"/><stop offset="1" stop-color="#161B22"/></linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#g1)"/>
+  <rect x="0" y="0" width="1200" height="48" fill="#161B22"/>
+
+  <text x="24" y="30" fill="#F0F2F5" font-family="system-ui,sans-serif" font-size="14" font-weight="600">Data Intelligence · Dashboard</text>
+  <text x="400" y="30" fill="#8B949E" font-family="system-ui,sans-serif" font-size="10">Last updated: 2 min ago</text>
+  <rect x="1100" y="12" width="80" height="24" rx="6" fill="#10B981"/>
+  <text x="1140" y="29" fill="#090C10" font-family="system-ui,sans-serif" font-size="10" font-weight="600" text-anchor="middle">Live</text>
+
+  <!-- KPI cards -->
+  <rect x="16" y="60" width="190" height="110" rx="8" fill="#161B22" stroke="#21262D" stroke-width="1"/>
+  <text x="36" y="86" fill="#8B949E" font-family="system-ui,sans-serif" font-size="10">Total Revenue</text>
+  <text x="36" y="128" fill="#F0F2F5" font-family="system-ui,sans-serif" font-size="30" font-weight="700">€847K</text>
+  <text x="36" y="152" fill="#10B981" font-family="system-ui,sans-serif" font-size="10">+12.3% vs last month</text>
+  <polyline points="36,138 56,140 76,136 96,138 116,134 136,135 156,132 176,131 196,129" fill="none" stroke="#10B981" stroke-width="1.5"/>
+
+  <rect x="218" y="60" width="190" height="110" rx="8" fill="#161B22" stroke="#21262D" stroke-width="1"/>
+  <text x="238" y="86" fill="#8B949E" font-family="system-ui,sans-serif" font-size="10">Active Users</text>
+  <text x="238" y="128" fill="#F0F2F5" font-family="system-ui,sans-serif" font-size="30" font-weight="700">12.4K</text>
+  <text x="238" y="152" fill="#34D399" font-family="system-ui,sans-serif" font-size="10">+847 today</text>
+
+  <rect x="420" y="60" width="190" height="110" rx="8" fill="#161B22" stroke="#21262D" stroke-width="1"/>
+  <text x="440" y="86" fill="#8B949E" font-family="system-ui,sans-serif" font-size="10">Avg. Response</text>
+  <text x="440" y="128" fill="#F0F2F5" font-family="system-ui,sans-serif" font-size="30" font-weight="700">48ms</text>
+  <text x="440" y="152" fill="#6E7681" font-family="system-ui,sans-serif" font-size="10">p95 · ClickHouse</text>
+
+  <rect x="622" y="60" width="190" height="110" rx="8" fill="#161B22" stroke="#21262D" stroke-width="1"/>
+  <text x="642" y="86" fill="#8B949E" font-family="system-ui,sans-serif" font-size="10">AI Accuracy</text>
+  <text x="642" y="128" fill="#34D399" font-family="system-ui,sans-serif" font-size="30" font-weight="700">92%</text>
+  <text x="642" y="152" fill="#6E7681" font-family="system-ui,sans-serif" font-size="10">NL → SQL precision</text>
+
+  <!-- Big chart: Revenue over time -->
+  <rect x="16" y="182" width="580" height="260" rx="8" fill="#161B22" stroke="#21262D" stroke-width="1"/>
+  <text x="36" y="206" fill="#F0F2F5" font-family="system-ui,sans-serif" font-size="12" font-weight="600">Revenue Over Time</text>
+  <rect x="236" y="196" width="50" height="18" rx="4" fill="rgba(16,185,129,0.1)"/>
+  <text x="261" y="209" fill="#10B981" font-family="system-ui,sans-serif" font-size="9" font-weight="500" text-anchor="middle">Monthly</text>
+
+  <!-- Y axis labels -->
+  <text x="36" y="245" fill="#6E7681" font-family="system-ui,sans-serif" font-size="8">€80k</text>
+  <text x="36" y="285" fill="#6E7681" font-family="system-ui,sans-serif" font-size="8">€60k</text>
+  <text x="36" y="325" fill="#6E7681" font-family="system-ui,sans-serif" font-size="8">€40k</text>
+  <text x="36" y="365" fill="#6E7681" font-family="system-ui,sans-serif" font-size="8">€20k</text>
+  <text x="44" y="405" fill="#6E7681" font-family="system-ui,sans-serif" font-size="8">€0</text>
+
+  <!-- Grid lines -->
+  <line x1="60" y1="260" x2="580" y2="260" stroke="#21262D" stroke-width="1"/>
+  <line x1="60" y1="300" x2="580" y2="300" stroke="#21262D" stroke-width="1"/>
+  <line x1="60" y1="340" x2="580" y2="340" stroke="#21262D" stroke-width="1"/>
+  <line x1="60" y1="380" x2="580" y2="380" stroke="#21262D" stroke-width="1"/>
+
+  <!-- Bars -->
+  <rect x="72" y="360" width="52" height="60" rx="3" fill="#10B981" opacity="0.6"/>
+  <rect x="136" y="340" width="52" height="80" rx="3" fill="#10B981" opacity="0.65"/>
+  <rect x="200" y="300" width="52" height="120" rx="3" fill="#10B981" opacity="0.7"/>
+  <rect x="264" y="270" width="52" height="150" rx="3" fill="#10B981" opacity="0.75"/>
+  <rect x="328" y="250" width="52" height="170" rx="3" fill="#10B981" opacity="0.8"/>
+  <rect x="392" y="230" width="52" height="190" rx="3" fill="#10B981" opacity="0.85"/>
+  <rect x="456" y="215" width="52" height="205" rx="3" fill="#10B981" opacity="0.9"/>
+  <rect x="520" y="200" width="52" height="220" rx="3" fill="#10B981"/>
+
+  <!-- Line overlayed -->
+  <polyline points="98,310 162,290 226,265 290,245 354,230 418,215 482,200 546,190" fill="none" stroke="#34D399" stroke-width="2"/>
+
+  <!-- X labels -->
+  <text x="98" y="435" fill="#6E7681" font-family="system-ui,sans-serif" font-size="8" text-anchor="middle">Oct</text>
+  <text x="162" y="435" fill="#6E7681" font-family="system-ui,sans-serif" font-size="8" text-anchor="middle">Nov</text>
+  <text x="226" y="435" fill="#6E7681" font-family="system-ui,sans-serif" font-size="8" text-anchor="middle">Dec</text>
+  <text x="290" y="435" fill="#6E7681" font-family="system-ui,sans-serif" font-size="8" text-anchor="middle">Jan</text>
+  <text x="354" y="435" fill="#6E7681" font-family="system-ui,sans-serif" font-size="8" text-anchor="middle">Feb</text>
+  <text x="418" y="435" fill="#6E7681" font-family="system-ui,sans-serif" font-size="8" text-anchor="middle">Mar</text>
+  <text x="482" y="435" fill="#6E7681" font-family="system-ui,sans-serif" font-size="8" text-anchor="middle">Apr</text>
+  <text x="546" y="435" fill="#6E7681" font-family="system-ui,sans-serif" font-size="8" text-anchor="middle">May</text>
+
+  <!-- Data table -->
+  <rect x="608" y="182" width="576" height="260" rx="8" fill="#161B22" stroke="#21262D" stroke-width="1"/>
+  <text x="628" y="206" fill="#F0F2F5" font-family="system-ui,sans-serif" font-size="12" font-weight="600">Recent Queries (NL → SQL)</text>
+
+  <rect x="608" y="214" width="576" height="1" fill="#21262D"/>
+
+  <text x="628" y="236" fill="#6E7681" font-family="system-ui,sans-serif" font-size="9">Query (Natural Language)</text>
+  <text x="948" y="236" fill="#6E7681" font-family="system-ui,sans-serif" font-size="9">Runtime</text>
+  <text x="1060" y="236" fill="#6E7681" font-family="system-ui,sans-serif" font-size="9">Confidence</text>
+
+  <text x="628" y="258" fill="#F0F2F5" font-family="system-ui,sans-serif" font-size="9">Show revenue by channel last quarter</text>
+  <text x="948" y="258" fill="#34D399" font-family="monospace" font-size="9">423ms</text>
+  <rect x="1060" y="250" width="60" height="4" rx="2" fill="#21262D"/>
+  <rect x="1060" y="250" width="56" height="4" rx="2" fill="#10B981"/>
+
+  <text x="628" y="280" fill="#F0F2F5" font-family="system-ui,sans-serif" font-size="9">Top 10 customers by lifetime value</text>
+  <text x="948" y="280" fill="#34D399" font-family="monospace" font-size="9">287ms</text>
+  <rect x="1060" y="272" width="60" height="4" rx="2" fill="#21262D"/>
+  <rect x="1060" y="272" width="56" height="4" rx="2" fill="#10B981"/>
+
+  <text x="628" y="302" fill="#F0F2F5" font-family="system-ui,sans-serif" font-size="9">Churn rate per month YoY comparison</text>
+  <text x="948" y="302" fill="#D29922" font-family="monospace" font-size="9">612ms</text>
+  <rect x="1060" y="294" width="60" height="4" rx="2" fill="#21262D"/>
+  <rect x="1060" y="294" width="52" height="4" rx="2" fill="#D29922"/>
+
+  <text x="628" y="324" fill="#F0F2F5" font-family="system-ui,sans-serif" font-size="9">Average deal size by source</text>
+  <text x="948" y="324" fill="#34D399" font-family="monospace" font-size="9">198ms</text>
+  <rect x="1060" y="316" width="60" height="4" rx="2" fill="#21262D"/>
+  <rect x="1060" y="316" width="55" height="4" rx="2" fill="#10B981"/>
+
+  <text x="628" y="346" fill="#F0F2F5" font-family="system-ui,sans-serif" font-size="9">Conversion rate funnel last 30 days</text>
+  <text x="948" y="346" fill="#34D399" font-family="monospace" font-size="9">345ms</text>
+  <rect x="1060" y="338" width="60" height="4" rx="2" fill="#21262D"/>
+  <rect x="1060" y="338" width="56" height="4" rx="2" fill="#10B981"/>
+
+  <text x="628" y="368" fill="#F0F2F5" font-family="system-ui,sans-serif" font-size="9">Campaign ROI breakdown by platform</text>
+  <text x="948" y="368" fill="#34D399" font-family="monospace" font-size="9">478ms</text>
+  <rect x="1060" y="360" width="60" height="4" rx="2" fill="#21262D"/>
+  <rect x="1060" y="360" width="50" height="4" rx="2" fill="#D29922"/>
+
+  <!-- Ask Anything input -->
+  <rect x="16" y="454" width="700" height="52" rx="8" fill="#161B22" stroke="#10B981" stroke-width="1.5"/>
+  <text x="36" y="478" fill="#8B949E" font-family="system-ui,sans-serif" font-size="12">Ask anything about your data...</text>
+  <rect x="636" y="464" width="64" height="32" rx="6" fill="#10B981"/>
+  <text x="668" y="485" fill="#090C10" font-family="system-ui,sans-serif" font-size="10" font-weight="600" text-anchor="middle">Ask AI</text>
+
+  <!-- n8n status -->
+  <rect x="730" y="454" width="454" height="52" rx="8" fill="#161B22" stroke="#21262D" stroke-width="1"/>
+  <text x="750" y="480" fill="#8B949E" font-family="system-ui,sans-serif" font-size="10">n8n Automations: 6 active · 18 triggered today · 0 errors</text>
+
+  <!-- Bottom: Connectors row -->
+  <rect x="16" y="518" width="1168" height="44" rx="8" fill="#0D1117"/>
+  <text x="36" y="545" fill="#6E7681" font-family="system-ui,sans-serif" font-size="10">Connectors:</text>
+  <rect x="136" y="532" width="60" height="20" rx="6" fill="rgba(16,185,129,0.08)"/>
+  <text x="166" y="546" fill="#10B981" font-family="system-ui,sans-serif" font-size="9" font-weight="500" text-anchor="middle">GA4</text>
+  <rect x="204" y="532" width="70" height="20" rx="6" fill="rgba(16,185,129,0.08)"/>
+  <text x="239" y="546" fill="#10B981" font-family="system-ui,sans-serif" font-size="9" font-weight="500" text-anchor="middle">PostgreSQL</text>
+  <rect x="282" y="532" width="60" height="20" rx="6" fill="rgba(16,185,129,0.08)"/>
+  <text x="312" y="546" fill="#10B981" font-family="system-ui,sans-serif" font-size="9" font-weight="500" text-anchor="middle">Stripe</text>
+  <rect x="350" y="532" width="65" height="20" rx="6" fill="rgba(16,185,129,0.08)"/>
+  <text x="382" y="546" fill="#10B981" font-family="system-ui,sans-serif" font-size="9" font-weight="500" text-anchor="middle">HubSpot</text>
+  <rect x="423" y="532" width="60" height="20" rx="6" fill="rgba(16,185,129,0.08)"/>
+  <text x="453" y="546" fill="#10B981" font-family="system-ui,sans-serif" font-size="9" font-weight="500" text-anchor="middle">MySQL</text>
+  <rect x="491" y="532" width="65" height="20" rx="6" fill="rgba(16,185,129,0.08)"/>
+  <text x="523" y="546" fill="#10B981" font-family="system-ui,sans-serif" font-size="9" font-weight="500" text-anchor="middle">Shopify</text>
+  <text x="560" y="546" fill="#6E7681" font-family="system-ui,sans-serif" font-size="9">+8 more</text>
+
+  <!-- n8n workflow indicator bottom -->
+  <rect x="16" y="572" width="1168" height="80" rx="8" fill="#161B22" stroke="#21262D" stroke-width="1"/>
+  <text x="36" y="594" fill="#F0F2F5" font-family="system-ui,sans-serif" font-size="11" font-weight="600">n8n Automation Rules</text>
+  <rect x="280" y="582" width="50" height="16" rx="8" fill="rgba(16,185,129,0.1)"/>
+  <text x="305" y="594" fill="#10B981" font-family="system-ui,sans-serif" font-size="9" font-weight="500" text-anchor="middle">Active</text>
+
+  <text x="36" y="622" fill="#8B949E" font-family="system-ui,sans-serif" font-size="10">When revenue drops &gt; 15% → Slack alert + email summary · When new source added → auto-ingest schema · When anomaly detected → PagerDuty</text>
+  <text x="36" y="642" fill="#6E7681" font-family="system-ui,sans-serif" font-size="9">ClickHouse Cloud · Supabase Realtime · Next.js 14 · NestJS · Claude API · 50M rows · 12 connectors</text>
+</svg>

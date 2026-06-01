@@ -1,0 +1,80 @@
+<svg width="1440" height="900" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1440" height="900" rx="34" fill="#090C10"/>
+  <rect x="1" y="1" width="1438" height="898" rx="33" stroke="#24313D"/>
+  <circle cx="260" cy="120" r="220" fill="#10B981" opacity=".12"/>
+  <circle cx="1180" cy="80" r="240" fill="#3B82F6" opacity=".1"/>
+  <circle cx="1180" cy="780" r="300" fill="#10B981" opacity=".07"/>
+  <path d="M0 160H1440M0 320H1440M0 480H1440M0 640H1440M0 800H1440M160 0V900M320 0V900M480 0V900M640 0V900M800 0V900M960 0V900M1120 0V900M1280 0V900" stroke="#FFFFFF" stroke-opacity=".04"/>
+
+  <text x="80" y="96" fill="#34D399" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18" font-weight="700">GROWORK EMAIL OPERATIONS OS</text>
+  <text x="80" y="142" fill="#F0F2F5" font-family="Inter, Arial, sans-serif" font-size="54" font-weight="800">Sistema interno de envios</text>
+  <text x="80" y="184" fill="#8B949E" font-family="Inter, Arial, sans-serif" font-size="22">Clientes, workflows, Google Workspace, IA, Drive, respuestas y reputacion conectados en una sola operacion.</text>
+
+  <g filter="url(#shadow)">
+    <rect x="76" y="244" width="390" height="436" rx="22" fill="#121821" stroke="#26313D"/>
+    <text x="112" y="296" fill="#34D399" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="15">FRONTEND NEXT.JS</text>
+    <text x="112" y="332" fill="#F0F2F5" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="800">Panel operativo</text>
+    <g font-family="Inter, Arial, sans-serif" font-size="18" fill="#DDE3EA">
+      <text x="112" y="386">Dashboard de KPIs</text>
+      <text x="112" y="430">Clientes, planes y parejas</text>
+      <text x="112" y="474">Kanban de workflows</text>
+      <text x="112" y="518">Preview y aprobacion</text>
+      <text x="112" y="562">Centro de envios</text>
+      <text x="112" y="606">Correos corporativos</text>
+    </g>
+    <g fill="#10B981">
+      <circle cx="94" cy="380" r="4"/><circle cx="94" cy="424" r="4"/><circle cx="94" cy="468" r="4"/><circle cx="94" cy="512" r="4"/><circle cx="94" cy="556" r="4"/><circle cx="94" cy="600" r="4"/>
+    </g>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="522" y="244" width="396" height="436" rx="22" fill="#10161F" stroke="#26313D"/>
+    <text x="558" y="296" fill="#34D399" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="15">BACKEND NESTJS</text>
+    <text x="558" y="332" fill="#F0F2F5" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="800">Motor de negocio</text>
+    <g font-family="Inter, Arial, sans-serif" font-size="18" fill="#DDE3EA">
+      <text x="558" y="386">Scheduler diario 6 AM</text>
+      <text x="558" y="430">Worker cada minuto</text>
+      <text x="558" y="474">OpenAI + cartas PDF</text>
+      <text x="558" y="518">Gmail API con threading</text>
+      <text x="558" y="562">Sync Twenty + Finance</text>
+      <text x="558" y="606">PostgreSQL como verdad</text>
+    </g>
+    <g fill="#3B82F6">
+      <circle cx="540" cy="380" r="4"/><circle cx="540" cy="424" r="4"/><circle cx="540" cy="468" r="4"/><circle cx="540" cy="512" r="4"/><circle cx="540" cy="556" r="4"/><circle cx="540" cy="600" r="4"/>
+    </g>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="974" y="244" width="390" height="436" rx="22" fill="#121821" stroke="#26313D"/>
+    <text x="1010" y="296" fill="#34D399" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="15">SERVICIOS CONECTADOS</text>
+    <text x="1010" y="332" fill="#F0F2F5" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="800">Ecosistema real</text>
+    <g font-family="Inter, Arial, sans-serif" font-size="18" fill="#DDE3EA">
+      <text x="1010" y="386">Twenty CRM</text>
+      <text x="1010" y="430">n8n Cloud</text>
+      <text x="1010" y="474">Google Drive</text>
+      <text x="1010" y="518">Google Workspace</text>
+      <text x="1010" y="562">Gmail API</text>
+      <text x="1010" y="606">OpenAI</text>
+    </g>
+    <g fill="#F59E0B">
+      <circle cx="992" cy="380" r="4"/><circle cx="992" cy="424" r="4"/><circle cx="992" cy="468" r="4"/><circle cx="992" cy="512" r="4"/><circle cx="992" cy="556" r="4"/><circle cx="992" cy="600" r="4"/>
+    </g>
+  </g>
+
+  <path d="M466 462H522" stroke="#34D399" stroke-width="3" stroke-linecap="round"/>
+  <path d="M918 462H974" stroke="#34D399" stroke-width="3" stroke-linecap="round"/>
+  <path d="M502 450L522 462L502 474" stroke="#34D399" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M954 450L974 462L954 474" stroke="#34D399" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <g filter="url(#shadow)">
+    <rect x="160" y="724" width="1120" height="86" rx="20" fill="#0F151D" stroke="#26313D"/>
+    <text x="202" y="759" fill="#8B949E" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14">FLUJO PRINCIPAL</text>
+    <text x="202" y="790" fill="#F0F2F5" font-family="Inter, Arial, sans-serif" font-size="23" font-weight="700">Twenty -> n8n -> Drive -> Workspace -> Scheduler -> IA -> Gmail -> Respuestas -> Dashboard</text>
+  </g>
+
+  <defs>
+    <filter id="shadow" x="40" y="210" width="1360" height="640" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="28" stdDeviation="28" flood-color="#000000" flood-opacity=".36"/>
+    </filter>
+  </defs>
+</svg>

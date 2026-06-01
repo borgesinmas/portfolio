@@ -1,0 +1,23 @@
+
+> portfolio-luis@0.1.0 dev
+> next dev
+
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3000
+  - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 1504ms
+ ○ Compiling /projects/swiss-hotel-job-scraper ...
+ ✓ Compiled /projects/swiss-hotel-job-scraper in 2.7s (630 modules)
+ GET /projects/swiss-hotel-job-scraper 200 in 3015ms
+ ✓ Compiled in 287ms (287 modules)
+ GET /projects/swiss-hotel-job-scraper 200 in 50ms
+ ✓ Compiled in 146ms (287 modules)
+ ✓ Compiled in 220ms (597 modules)
+ ✓ Compiled in 223ms (287 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 4.8s (752 modules)
+ ✓ Compiled in 2.5s (373 modules)
+ ✓ Compiled in 3.9s (373 modules)
+ ✓ Compiled in 629ms (373 modules)
