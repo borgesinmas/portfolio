@@ -34,3 +34,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# lockfiles de otros gestores (este repo usa pnpm)
+package-lock.json
+yarn.lock
+
+# archivos locales que no deben subirse a GitHub (se quedan en disco)
+.dev-*.log
+ANALISIS_PROYECTO_GROWORK.md
+Luis Martinez Borges - English CV.pdf

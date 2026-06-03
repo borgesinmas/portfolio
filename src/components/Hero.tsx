@@ -1,12 +1,12 @@
 import Link from "next/link";
 
 const IMAGES = {
-  workflow: "/screenshots/n8n-home.png",
-  crm: "/screenshots/central.png",
+  workflow: "/screenshots/n8n-home.webp",
+  crm: "/screenshots/central.webp",
   data: "https://lh3.googleusercontent.com/aida-public/AB6AXuA97_aXp_MEYRZBHx6gNn77vpacDiRez_VcPRxaY7VfvAwFsG3Q36Ym45kjcw_tZV1FWUiIqwHJaMaT1cRzik2nPQD8AcCJ84-vpc8YG7HQgTBkODY0jJDWNU7ltGac9YzVspwxiDmnOZP-XNivftP54Y8cGvC4Yh0n6G-dsapS0BXdcflUfomkxW9KiHTFrqnKZ3G2mU5qIgruMXR-Q9gQf5TQK3w_5wRQLEDtQ4d5eRz2NXuVSiOFSZCNe-0jR5H0WN_F3CTKKZG7=w900",
-  integration: "/screenshots/manager.png",
+  integration: "/screenshots/manager.webp",
   services: "https://lh3.googleusercontent.com/aida-public/AB6AXuBe_rAKzjENlwd_4p6iwFfHAXif1JIvWrasWpU0jyliwlM8G1SX3g7SnZNc22PCYvPzgDoJp__G8cffsQp7V2KzsJ2hNFg8NOGVILFdb8ruZuKrpzwJV6--VT6A5xln77Xs0l3rxH29zMeNep11ds2aO0TYPnvtLCsoqSG3B_dUhK5oB83p4UxxCTHRFf2Sft07CtZQpJKYFfAPM8iY2rdvP7l-B-CYTzbmogp_UaL-Ae-Q8WWQkXpYkMzXHrtFtWu6L7MtR9_SR-Jh=w900",
-  onya: "/screenshots/onya-phone.png",
+  onya: "/screenshots/onya-phone.webp",
   mobile: "https://lh3.googleusercontent.com/aida-public/AB6AXuBpbaoiHPCyRJbU8dJUWOFF7TCBLQhvw2pIKzfTR_vXZmx22KXF7Zhz0Fgy5B4vI_Q90FiuUaz--_I5Xs3tAElAD_7BKjgjWVYmt5LZpMu1uSnvQiiqx1LYZ4tBtuHqTdbVKQFW1L892eKkKFyrLa-S_b0fUhOxWQ3h1LHnNtXd83PC6Lbu-p64kv0sxE5gkgVWV1pxVerMKmzEQP4v_qmQXX5iNVZ69DD7h8ZTgpaRUIYf7GoZm3rL-zGXkSxFUyTCjGKfANV-fgEe=w900",
 };
 
@@ -35,7 +35,7 @@ export function Hero() {
     <main className="relative flex-grow flex flex-col lg:flex-row items-center pt-32 lg:pt-8 min-h-screen px-6 md:px-12 lg:px-24">
       <div
         className="absolute inset-0 -z-10 bg-cover bg-center bg-no-repeat opacity-30"
-        style={{ backgroundImage: "url(/screenshots/fondo-port.png)" }}
+        style={{ backgroundImage: "url(/screenshots/fondo-port.webp)" }}
       />
       <div className="w-full lg:w-2/5 flex flex-col justify-center py-12 lg:py-0 z-10 relative">
         <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tight mb-6">
@@ -44,8 +44,7 @@ export function Hero() {
         </h1>
 
         <p className="text-lg md:text-xl text-gray-400 max-w-xl mb-10 leading-relaxed">
-          Desarrollo CRMs, dashboards, scrapers y flujos de trabajo con n8n, Python y TypeScript.
-          Convierto procesos manuales en sistemas que funcionan solos.
+          Software engineer autodidacta. Diseño, construyo y despliego plataformas full-stack, CRMs, dashboards, scrapers y automatizaciones con IA, sobre Next.js, Python, TypeScript y n8n.
         </p>
 
         <div className="flex flex-wrap items-center gap-4">

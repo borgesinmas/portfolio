@@ -2,16 +2,16 @@ import Image from "next/image";
 
 const TECHS = [
   { name: "Zoho", src: "/screenshots/zoho-logo.svg" },
-  { name: "Antigravity", src: "/screenshots/antigrabity-logo.png" },
-  { name: "ChatGPT", src: "/screenshots/chatgpt-logo.png" },
-  { name: "Dokploy", src: "/screenshots/dokploy-logo.png" },
+  { name: "Antigravity", src: "/screenshots/antigrabity-logo.webp" },
+  { name: "ChatGPT", src: "/screenshots/chatgpt-logo.webp" },
+  { name: "Dokploy", src: "/screenshots/dokploy-logo.webp" },
   { name: "Anthropic", src: "/screenshots/anthropic-logo.svg" },
-  { name: "Cloudflare", src: "/screenshots/cloudflare-logo.png" },
+  { name: "Cloudflare", src: "/screenshots/cloudflare-logo.webp" },
   { name: "n8n", src: "/screenshots/n8n-logo.svg" },
-  { name: "Supabase", src: "/screenshots/supabase.png" },
-  { name: "PostgreSQL", src: "/screenshots/postgresql.png" },
-  { name: "React", src: "/screenshots/react.png" },
-  { name: "Stripe", src: "/screenshots/stripe.png" },
+  { name: "Supabase", src: "/screenshots/supabase.webp" },
+  { name: "PostgreSQL", src: "/screenshots/postgresql.webp" },
+  { name: "React", src: "/screenshots/react.webp" },
+  { name: "Stripe", src: "/screenshots/stripe.webp" },
 ];
 
 export function TechMarquee() {

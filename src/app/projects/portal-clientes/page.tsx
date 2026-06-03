@@ -1,11 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
+import { ApiContract, CodeBlock } from "@/components/CaseStudyPrimitives";
 
 export const metadata: Metadata = {
-  title: "Portal Privado de Clientes - Growork",
+  title: "Portal Privado de Clientes — Growork",
   description:
-    "Caso de estudio del portal privado de Growork: dashboard, candidaturas, respuestas, documentos, planes, seguridad, automatizaciones e IA conectadas a datos reales.",
+    "Caso de estudio del portal privado de Growork: dashboard, candidaturas, respuestas, documentos, planes, seguridad, automatizaciones e IA contextual conectados a datos reales.",
 };
 
 const techStack = [
@@ -13,12 +14,13 @@ const techStack = [
   "React 19",
   "TypeScript",
   "PostgreSQL",
+  "jose (JWT)",
+  "bcryptjs",
   "Stripe",
   "Twenty CRM",
   "OpenAI",
   "n8n",
-  "JWT",
-  "Tailwind CSS",
+  "Tailwind CSS 4",
 ];
 
 const productModules = [
@@ -32,11 +34,11 @@ const productModules = [
   },
   {
     name: "Respuestas",
-    text: "Bandeja privada con respuestas clasificadas, contador de no leídas, hilo de conversación, sugerencia de respuesta y envío directo.",
+    text: "Bandeja privada con respuestas clasificadas, contador de no leídas, hilo de conversación, sugerencia de respuesta y envío directo en hilo.",
   },
   {
-    name: "Rendimiento",
-    text: "Métricas de campaña por periodo: tasa de respuesta, enviados, entrevistas, regiones con más tracción y tipos de respuesta.",
+    name: "Estadísticas",
+    text: "Métricas de campaña por periodo con Chart.js: tasa de respuesta, enviados, entrevistas, regiones con más tracción y tipos de respuesta.",
   },
   {
     name: "Mi plan",
@@ -44,11 +46,75 @@ const productModules = [
   },
   {
     name: "Perfil",
-    text: "Datos personales, información profesional y subida segura de CV/carta en PDF, también preparada para cuentas de pareja.",
+    text: "Datos personales, información profesional y subida segura de CV y carta en PDF, también preparada para cuentas de pareja.",
   },
   {
     name: "Chat IA",
     text: "Asistente contextual con datos reales del cliente, límites de uso, sanitización de prompts y alcance restringido a Growork.",
+  },
+];
+
+const securityCode = `// src/lib/portal/session.ts — sesión firmada en cookie HTTP-only
+import { SignJWT, jwtVerify } from "jose";
+
+const secret = new TextEncoder().encode(process.env.PORTAL_JWT_SECRET);
+
+export async function createSession(claims: SessionClaims) {
+  const token = await new SignJWT(claims)
+    .setProtectedHeader({ alg: "HS256" })
+    .setIssuedAt()
+    .setExpirationTime("7d")
+    .sign(secret);
+
+  cookies().set("portal_session", token, {
+    httpOnly: true,                              // no accesible desde JS
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    maxAge: 60 * 60 * 24 * 7,
+  });
+}`;
+
+const ownershipCode = `// La descarga de adjuntos valida la pertenencia antes de servir nada
+const session = await getSessionFromRequest(req);
+if (!session) return unauthorized();
+
+const candidatura = await getCandidatura(id);
+if (candidatura.clientId !== session.clientId) {
+  // Nunca se devuelven documentos de otro cliente, aunque
+  // se adivine el identificador o el nombre del fichero.
+  return forbidden();
+}
+
+return proxyAttachment(candidatura, filename);`;
+
+const portalApi = [
+  {
+    method: "GET",
+    path: "/api/portal/me",
+    description:
+      "Resuelve la sesión a partir de la cookie firmada y devuelve el contexto del usuario y su pareja.",
+    auth: "JWT en cookie HTTP-only",
+  },
+  {
+    method: "GET",
+    path: "/api/portal/candidaturas/[id]/attachments/[filename]",
+    description:
+      "Sirve un adjunto solo tras comprobar que pertenece al cliente autenticado; proxy server-side hacia la web interna.",
+    auth: "JWT + comprobación de propiedad",
+  },
+  {
+    method: "POST",
+    path: "/api/portal/respuestas/send-reply",
+    description:
+      "Responde a un hotel manteniendo el hilo (In-Reply-To, References, threadId de Gmail).",
+    auth: "JWT",
+  },
+  {
+    method: "POST",
+    path: "/api/portal/chat",
+    description:
+      "Chat IA con contexto acotado, sanitización de prompts y límites por hora, día y mes.",
+    auth: "JWT + rate limit",
   },
 ];
 
@@ -59,7 +125,7 @@ const complexityItems = [
   },
   {
     title: "Fuentes de verdad repartidas",
-    text: "PostgreSQL guarda usuarios, sesiones, servicios, pagos, rate limits y chat. Twenty CRM mantiene el perfil comercial. La web interna aporta candidaturas, respuestas, documentos y métricas. Stripe confirma compras. El portal orquesta todo sin exponer esa complejidad.",
+    text: "PostgreSQL guarda usuarios, sesiones, servicios, pagos, rate limits y chat. Twenty CRM mantiene el perfil comercial. La web interna aporta candidaturas, respuestas, documentos y métricas. Stripe confirma las compras. El portal orquesta todo sin exponer esa complejidad.",
   },
   {
     title: "Planes que empiezan cuando tiene sentido",
@@ -67,44 +133,44 @@ const complexityItems = [
   },
   {
     title: "Modo pareja de verdad",
-    text: "No era duplicar un formulario. Había que soportar dos emails, dos CVs, dos perfiles, vinculación en CRM, precio pareja, documentos separados, plan compartido y visibilidad correcta dentro del portal.",
+    text: "No era duplicar un formulario. Había que soportar dos emails, dos CV, dos perfiles, vinculación en el CRM, precio de pareja, documentos separados, plan compartido y visibilidad correcta dentro del portal.",
   },
   {
     title: "Sesión preparada para datos asíncronos",
-    text: "El sistema contempla escenarios imperfectos: usuarios creados por Stripe, entidades que Twenty transforma después, IDs que cambian y cookies que deben refrescarse sin romper la sesión.",
+    text: "El sistema contempla escenarios imperfectos: usuarios creados por Stripe, entidades que Twenty transforma después, identificadores que cambian y cookies que deben refrescarse sin romper la sesión.",
   },
   {
     title: "Seguridad en todas las entradas",
-    text: "JWT en cookies HTTP-only, bcrypt, bloqueo tras intentos fallidos, rate limits persistidos, tokens de un solo uso, validación real de PDFs, proxy server-side con API key y comprobación de pertenencia antes de servir adjuntos.",
+    text: "JWT en cookies HTTP-only firmado con jose, bcrypt, bloqueo tras intentos fallidos, rate limits persistidos, tokens de un solo uso, validación real de PDF, proxy server-side con API key y comprobación de pertenencia antes de servir adjuntos.",
   },
 ];
 
 const beforeAfter = [
   {
-    before: "Antes: el cliente dependia de mensajes manuales para saber si su busqueda avanzaba.",
+    before: "Antes: el cliente dependía de mensajes manuales para saber si su búsqueda avanzaba.",
     after:
-      "Despues: entra al portal y ve candidaturas, respuestas, documentos, rendimiento, plan y siguientes pasos con datos reales.",
+      "Después: entra al portal y ve candidaturas, respuestas, documentos, rendimiento, plan y siguientes pasos con datos reales.",
   },
   {
-    before: "Antes: la operacion estaba repartida entre CRM, web interna, pagos, documentos y automatizaciones.",
+    before: "Antes: la operación estaba repartida entre CRM, web interna, pagos, documentos y automatizaciones.",
     after:
-      "Despues: el portal actua como una capa clara encima de esas fuentes sin exponer la complejidad tecnica.",
+      "Después: el portal actúa como una capa clara encima de esas fuentes sin exponer la complejidad técnica.",
   },
   {
-    before: "Antes: muchas preguntas se repetian porque el progreso no era visible.",
+    before: "Antes: muchas preguntas se repetían porque el progreso no era visible.",
     after:
-      "Despues: el panel reduce incertidumbre, baja soporte repetitivo y aumenta confianza en el servicio.",
+      "Después: el panel reduce la incertidumbre, baja el soporte repetitivo y aumenta la confianza en el servicio.",
   },
 ];
 
 const businessValue = [
   {
     title: "Cliente",
-    text: "Gana visibilidad y control: entiende que se ha hecho, que respuesta ha llegado, cuanto plan queda y que documentos siguen activos.",
+    text: "Gana visibilidad y control: entiende qué se ha hecho, qué respuesta ha llegado, cuánto plan le queda y qué documentos siguen activos.",
   },
   {
     title: "Empresa",
-    text: "Gana escala operativa: menos seguimiento manual, mejor trazabilidad, menos dudas repetidas y una experiencia premium despues del pago.",
+    text: "Gana escala operativa: menos seguimiento manual, mejor trazabilidad, menos dudas repetidas y una experiencia premium después del pago.",
   },
   {
     title: "Producto",
@@ -113,8 +179,8 @@ const businessValue = [
 ];
 
 const selfTaughtSignals = [
-  "Aprendizaje autodidacta aplicado a un problema real: leer documentacion, probar APIs, validar hipotesis y convertir errores de integracion en diseno defensivo.",
-  "Capacidad para pensar en producto despues del checkout: no solo vender, sino sostener confianza durante la prestacion del servicio.",
+  "Aprendizaje autodidacta aplicado a un problema real: leer documentación, probar APIs, validar hipótesis y convertir errores de integración en diseño defensivo.",
+  "Capacidad para pensar en producto después del checkout: no solo vender, sino sostener la confianza durante la prestación del servicio.",
   "Criterio para equilibrar experiencia y seguridad cuando hay documentos personales, pagos, sesiones privadas e IA con contexto de usuario.",
 ];
 
@@ -132,15 +198,15 @@ const decisions = [
     a: "El asistente solo recibe el contexto permitido del cliente y solo puede hablar de Growork, búsqueda de empleo en Suiza, plan, candidaturas, respuestas y perfil. Tiene rate limits por hora, día y mes.",
   },
   {
-    q: "Proteger documentos como datos sensibles",
-    a: "Los CVs, cartas y adjuntos pasan por validación de tipo, tamaño y magic bytes. Los nombres se sanitizan y las descargas se validan server-side antes de devolver archivos.",
+    q: "Proteger los documentos como datos sensibles",
+    a: "Los CV, cartas y adjuntos pasan por validación de tipo, tamaño y magic bytes. Los nombres se sanitizan y las descargas se validan server-side antes de devolver archivos.",
   },
 ];
 
 const stackContext = [
   {
     name: "Next.js + React",
-    why: "Portal privado con App Router, Server Components para carga de datos y Client Components donde había interacción real.",
+    why: "Portal privado con App Router, Server Components para la carga de datos y Client Components donde había interacción real.",
   },
   {
     name: "TypeScript",
@@ -151,12 +217,16 @@ const stackContext = [
     why: "Estado propio del portal: usuarios, servicios, pagos, sesiones auxiliares, tokens, rate limits y mensajes del chat.",
   },
   {
+    name: "jose + bcryptjs",
+    why: "Sesión JWT firmada (HS256) en cookie HTTP-only y contraseñas hasheadas con bcrypt.",
+  },
+  {
     name: "Twenty CRM",
     why: "Perfil comercial, clientes, parejas, estado del plan y sincronización con la operativa de Growork.",
   },
   {
     name: "Stripe",
-    why: "Pagos, renovaciones, upgrades, checkout guest y aprovisionamiento posterior mediante webhooks.",
+    why: "Pagos, renovaciones, upgrades, checkout invitado y aprovisionamiento posterior mediante webhooks.",
   },
   {
     name: "Web interna",
@@ -164,11 +234,7 @@ const stackContext = [
   },
   {
     name: "OpenAI",
-    why: "Chat privado con contexto limitado, sanitización de prompts y controles de abuso.",
-  },
-  {
-    name: "n8n",
-    why: "Automatizaciones de documentos, carpetas, avisos y procesos que no necesitaban vivir dentro del monolito web.",
+    why: "Chat privado con contexto acotado, sanitización de prompts y controles de abuso.",
   },
 ];
 
@@ -190,7 +256,8 @@ export default function PortalClientesCaseStudy() {
       <article className="max-w-[1100px] mx-auto px-6 pt-16 pb-32">
         <header className="mb-20">
           <div className="flex items-center gap-3 mb-8 flex-wrap">
-            <span className="text-xs text-text-muted font-mono">2024 - presente</span>
+            <span className="text-xs text-text-muted font-mono">2024 — presente</span>
+            <span className="text-xs text-text-muted font-mono">Parte del ecosistema Growork</span>
           </div>
 
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-8">
@@ -203,9 +270,9 @@ export default function PortalClientesCaseStudy() {
 
           <div className="grid md:grid-cols-3 gap-4 mb-8">
             {[
-              { value: "8", label: "módulos privados conectados" },
+              { value: "7", label: "módulos privados conectados" },
               { value: "5", label: "sistemas sincronizados" },
-              { value: "0", label: "mocks en la experiencia cliente" },
+              { value: "0", label: "mocks en la experiencia del cliente" },
             ].map((item) => (
               <div key={item.label} className="card p-5">
                 <p className="text-3xl font-bold text-accent-light mb-1">{item.value}</p>
@@ -225,7 +292,7 @@ export default function PortalClientesCaseStudy() {
 
         <div className="mb-24">
           <Image
-            src="/screenshots/PORTAL.png"
+            src="/screenshots/PORTAL.webp"
             alt="Dashboard del portal privado de Growork"
             width={1200}
             height={675}
@@ -237,20 +304,20 @@ export default function PortalClientesCaseStudy() {
         <section className="prose-custom mb-24">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-8">El reto</h2>
           <p className="text-lg text-text-secondary leading-relaxed mb-6">
-            Growork no vendía solo una página bonita. Detrás había una operación real: buscar hoteles, enviar candidaturas, gestionar respuestas, actualizar documentos, activar planes, registrar pagos y mantener sincronizados CRM, base de datos, web interna y automatizaciones.
+            Growork no vendía solo una página atractiva. Detrás había una operación real: buscar hoteles, enviar candidaturas, gestionar respuestas, actualizar documentos, activar planes, registrar pagos y mantener sincronizados CRM, base de datos, web interna y automatizaciones.
           </p>
           <p className="text-lg text-text-secondary leading-relaxed mb-6">
-            El problema era que gran parte de ese trabajo quedaba invisible. Para el cliente, si no había un mensaje por WhatsApp, parecía que no pasaba nada. Y para el equipo, responder una y otra vez a preguntas de seguimiento no escalaba.
+            El problema era que gran parte de ese trabajo quedaba invisible. Para el cliente, si no había un mensaje, parecía que no pasaba nada. Y, para el equipo, responder una y otra vez a preguntas de seguimiento no escalaba.
           </p>
           <blockquote className="pl-6 border-l-2 border-accent/40 text-text-secondary text-lg italic leading-relaxed my-10">
-            El objetivo del portal fue convertir una operativa compleja en una sensación clara de avance: esto es lo que hemos enviado, esto ha respondido, esto queda de plan y esto puedes hacer ahora.
+            El objetivo del portal fue convertir una operativa compleja en una sensación clara de avance: esto es lo que hemos enviado, esto ha respondido, esto te queda de plan y esto puedes hacer ahora.
           </blockquote>
         </section>
 
         <section className="prose-custom mb-24">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-8">Qué construí</h2>
           <p className="text-lg text-text-secondary leading-relaxed mb-8">
-            Construí una capa privada bajo <code>/portal/*</code> que funciona como producto SaaS para candidatos. No es una página de estado: es una interfaz conectada a la operativa diaria de Growork, con rutas protegidas, paywall interno, datos por cliente y flujos preparados para usuarios individuales o parejas.
+            Construí una capa privada bajo <code>/portal/*</code> que funciona como un producto SaaS para candidatos. No es una página de estado: es una interfaz conectada a la operativa diaria de Growork, con rutas protegidas, paywall interno, datos por cliente y flujos preparados para usuarios individuales o de pareja.
           </p>
 
           <div className="grid md:grid-cols-2 gap-4">
@@ -264,9 +331,9 @@ export default function PortalClientesCaseStudy() {
         </section>
 
         <section className="prose-custom mb-24">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-8">Antes y despues</h2>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-8">Antes y después</h2>
           <p className="text-lg text-text-secondary leading-relaxed mb-8">
-            El portal cambio la percepcion del servicio: de una operacion que podia sentirse invisible a una experiencia donde el cliente ve progreso, contexto y valor despues de comprar.
+            El portal cambió la percepción del servicio: de una operación que podía sentirse invisible a una experiencia donde el cliente ve progreso, contexto y valor después de comprar.
           </p>
 
           <div className="space-y-4">
@@ -277,7 +344,7 @@ export default function PortalClientesCaseStudy() {
                   <p className="text-text-secondary leading-relaxed">{item.before}</p>
                 </div>
                 <div>
-                  <p className="text-sm font-mono text-accent-light mb-2">Despues</p>
+                  <p className="text-sm font-mono text-accent-light mb-2">Después</p>
                   <p className="text-text-secondary leading-relaxed">{item.after}</p>
                 </div>
               </div>
@@ -288,19 +355,18 @@ export default function PortalClientesCaseStudy() {
         <section className="prose-custom mb-24">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-8">Arquitectura del portal</h2>
           <p className="text-lg text-text-secondary leading-relaxed mb-8">
-            El portal actúa como una capa de producto sobre varios sistemas. Cada fuente tiene una responsabilidad distinta y el frontend no habla directamente con servicios sensibles: el servidor valida sesión, resuelve el cliente vinculado y consulta lo necesario por APIs protegidas.
+            El portal actúa como una capa de producto sobre varios sistemas. Cada fuente tiene una responsabilidad distinta y el frontend no habla directamente con los servicios sensibles: el servidor valida la sesión, resuelve el cliente vinculado y consulta lo necesario a través de APIs protegidas.
           </p>
 
           <div className="card p-6 md:p-8 overflow-hidden mb-6">
             <Image
-              src="/screenshots/arquitectura-portal.png"
+              src="/screenshots/arquitectura-portal.webp"
               alt="Arquitectura del portal privado de clientes"
               width={1200}
               height={800}
               className="w-full h-auto rounded"
             />
           </div>
-
         </section>
 
         <section className="prose-custom mb-24">
@@ -322,18 +388,33 @@ export default function PortalClientesCaseStudy() {
         <section className="prose-custom mb-24">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-8">Seguridad e IA contextual</h2>
           <p className="text-lg text-text-secondary leading-relaxed mb-8">
-            La parte sensible del portal no era solo autenticar usuarios. Habia que proteger documentos personales, adjuntos, pagos, sesiones y un asistente IA que conoce el contexto del cliente sin convertirse en una puerta abierta a datos internos.
+            La parte sensible del portal no era solo autenticar usuarios. Había que proteger documentos personales, adjuntos, pagos, sesiones y un asistente IA que conoce el contexto del cliente sin convertirse en una puerta abierta a los datos internos.
           </p>
+
+          <div className="grid lg:grid-cols-2 gap-6 mb-8">
+            <CodeBlock
+              code={securityCode}
+              filename="src/lib/portal/session.ts"
+              language="typescript"
+              caption="La sesión vive en una cookie HTTP-only firmada con jose. El token nunca queda expuesto a JavaScript del navegador."
+            />
+            <CodeBlock
+              code={ownershipCode}
+              filename="src/app/api/portal/.../attachments/[filename]/route.ts"
+              language="typescript"
+              caption="Cada descarga comprueba la pertenencia: el identificador del cliente del recurso debe coincidir con el de la sesión."
+            />
+          </div>
 
           <div className="grid md:grid-cols-2 gap-4">
             {[
               {
-                title: "Contexto limitado",
-                text: "El chat recibe solo datos necesarios del caso y queda restringido a Growork, busqueda de empleo en Suiza, plan, candidaturas, respuestas y perfil.",
+                title: "Contexto acotado",
+                text: "El chat recibe solo los datos necesarios del caso y queda restringido a Growork, búsqueda de empleo en Suiza, plan, candidaturas, respuestas y perfil.",
               },
               {
                 title: "Controles de abuso",
-                text: "Rate limits por hora, dia y mes, sanitizacion de prompts, validacion de pertenencia antes de adjuntos y APIs protegidas server-side.",
+                text: "Rate limits por hora, día y mes, sanitización de prompts, validación de pertenencia antes de servir adjuntos y APIs protegidas server-side.",
               },
             ].map((item) => (
               <div key={item.title} className="card p-6">
@@ -342,6 +423,21 @@ export default function PortalClientesCaseStudy() {
               </div>
             ))}
           </div>
+        </section>
+
+        <section className="mb-24">
+          <div className="mb-10">
+            <p className="text-sm font-mono text-accent-light mb-3 uppercase tracking-wider">
+              Contrato de API
+            </p>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+              Endpoints protegidos del portal
+            </h2>
+            <p className="text-lg text-text-secondary leading-relaxed max-w-3xl">
+              De los 33 endpoints del área del portal, estos resumen cómo se resuelve la sesión, se protegen los documentos y se mantienen los hilos de conversación.
+            </p>
+          </div>
+          <ApiContract endpoints={portalApi} />
         </section>
 
         <section className="prose-custom mb-24">
@@ -360,7 +456,7 @@ export default function PortalClientesCaseStudy() {
         <section className="prose-custom mb-24">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-8">Stack con intención</h2>
           <p className="text-lg text-text-secondary leading-relaxed mb-8">
-            Cada tecnología aparece porque resolvía una parte concreta del sistema, no para engordar una lista.
+            Cada tecnología aparece porque resolvía una parte concreta del sistema, no para engrosar una lista.
           </p>
 
           <div className="space-y-4">
@@ -379,7 +475,7 @@ export default function PortalClientesCaseStudy() {
         <section className="prose-custom mb-24">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-8">Impacto</h2>
           <p className="text-lg text-text-secondary leading-relaxed mb-8">
-            El portal no fue una mejora cosmetica. Fue una forma de aumentar confianza del cliente, reducir trabajo manual y darle a Growork una experiencia privada a la altura de lo que ya ocurria en operaciones.
+            El portal no fue una mejora cosmética. Fue una forma de aumentar la confianza del cliente, reducir el trabajo manual y dar a Growork una experiencia privada a la altura de lo que ya ocurría en operaciones.
           </p>
           <div className="grid md:grid-cols-3 gap-4">
             {businessValue.map((item) => (
@@ -397,14 +493,14 @@ export default function PortalClientesCaseStudy() {
             {[
               ...selfTaughtSignals,
               "Capacidad para convertir un proceso operativo real en una experiencia de producto clara.",
-              "Criterio para decidir que sistema es fuente de verdad para cada dato.",
+              "Criterio para decidir qué sistema es la fuente de verdad para cada dato.",
               "Experiencia conectando pagos, CRM, base de datos propia, backend interno, automatizaciones e IA.",
               "Seguridad aplicada desde el diseño, no como una capa al final.",
               "Pensamiento de producto: activación diferida, lenguaje entendible, modo pareja y reducción de fricción.",
-              "Frontend orientado a que el cliente entienda progreso, no a mostrar complejidad técnica.",
+              "Frontend orientado a que el cliente entienda el progreso, no a mostrar la complejidad técnica.",
             ].map((learning) => (
               <li key={learning} className="flex gap-3 items-start">
-                <span className="text-accent font-mono text-xs mt-1 shrink-0">-&gt;</span>
+                <span className="text-accent font-mono text-xs mt-1 shrink-0">&rarr;</span>
                 <span>{learning}</span>
               </li>
             ))}
@@ -413,7 +509,7 @@ export default function PortalClientesCaseStudy() {
 
         <footer className="text-center py-16 border-t border-border">
           <p className="text-xl md:text-2xl text-text-secondary leading-relaxed max-w-3xl mx-auto mb-10">
-            Este portal resume muy bien el tipo de producto que quiero seguir construyendo: interfaces claras sobre operaciones complejas, datos reales, seguridad desde el diseño e IA contextual que aporta valor sin perder control.
+            Este portal resume muy bien el tipo de producto que quiero seguir construyendo: interfaces claras sobre operaciones complejas, datos reales, seguridad desde el diseño e IA contextual que aporta valor sin perder el control.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <Link href="/projects/growork" className="btn btn-primary">

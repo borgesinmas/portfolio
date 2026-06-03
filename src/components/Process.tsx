@@ -12,7 +12,7 @@ export function Process() {
         <div className="mb-14">
           <p className="text-sm font-mono text-accent-light mb-3">Proceso</p>
           <h2 className="section-heading mb-4">Cómo trabajo</h2>
-          <p className="section-sub">Un proceso claro y directo. Sin humo, sin buzzwords, sin meses de espera.</p>
+          <p className="section-sub">Un proceso claro y directo: sin promesas vacías, sin tecnicismos huecos y sin esperas interminables.</p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {STEPS.map((s) => (

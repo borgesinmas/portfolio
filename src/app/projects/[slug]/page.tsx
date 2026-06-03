@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { getProjectBySlug, PROJECTS } from "@/lib/projects";
+import { ApiContract, CodeBlock, DataModelTable } from "@/components/CaseStudyPrimitives";
 
 function ProjectFeatureIcon({ icon, title }: { icon?: string; title: string }) {
   if (!icon) return null;
@@ -268,7 +269,7 @@ export default async function ProjectPage({ params }: Props) {
                 key={item.image}
                 className={`card overflow-hidden ${i < 2 ? "lg:col-span-2" : ""}`}
               >
-                <div className="relative h-[260px] md:h-[320px] bg-bg-primary border-b border-border overflow-hidden">
+                <div className="relative aspect-video bg-bg-primary border-b border-border overflow-hidden">
                   <Image
                     src={item.image}
                     alt={item.alt}
@@ -277,7 +278,7 @@ export default async function ProjectPage({ params }: Props) {
                     className={
                       project.imageFit === "contain"
                         ? "object-contain p-4"
-                        : "object-cover object-top"
+                        : "object-cover"
                     }
                   />
                 </div>
@@ -292,6 +293,54 @@ export default async function ProjectPage({ params }: Props) {
                 </div>
               </div>
             ))}
+          </div>
+        </section>
+      )}
+
+      {/* Mobile showcase */}
+      {project.mobileShowcase && (
+        <section className="max-w-content mx-auto px-6 mb-20">
+          <div className="card p-6 md:p-10">
+            <div className="grid lg:grid-cols-[1fr_auto] gap-10 items-center">
+              <div>
+                <h2 className="text-sm font-mono text-accent-light mb-3 uppercase tracking-wider">
+                  {project.mobileShowcase.eyebrow ?? "Mobile-first"}
+                </h2>
+                <p className="text-2xl md:text-3xl font-bold tracking-tight mb-4">
+                  {project.mobileShowcase.title}
+                </p>
+                <p className="text-text-secondary text-lg leading-relaxed mb-6 max-w-2xl">
+                  {project.mobileShowcase.text}
+                </p>
+                {project.mobileShowcase.bullets &&
+                  project.mobileShowcase.bullets.length > 0 && (
+                    <ul className="space-y-3">
+                      {project.mobileShowcase.bullets.map((bullet) => (
+                        <li
+                          key={bullet}
+                          className="flex gap-3 items-start text-text-secondary leading-relaxed"
+                        >
+                          <span className="text-accent font-mono text-xs mt-1.5 shrink-0">
+                            &rarr;
+                          </span>
+                          <span>{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+              </div>
+              <div className="mx-auto w-full max-w-[280px]">
+                <div className="relative aspect-[9/19] overflow-hidden rounded-[2rem] border border-border bg-bg-primary">
+                  <Image
+                    src={project.mobileShowcase.image}
+                    alt={project.mobileShowcase.alt}
+                    fill
+                    sizes="280px"
+                    className="object-contain"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       )}
@@ -461,6 +510,80 @@ export default async function ProjectPage({ params }: Props) {
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+      )}
+
+      {/* Data Model */}
+      {project.dataModel && project.dataModel.length > 0 && (
+        <section className="max-w-content mx-auto px-6 mb-20">
+          <div className="mb-10">
+            <h2 className="text-sm font-mono text-accent-light mb-3 uppercase tracking-wider">
+              Modelo de datos
+            </h2>
+            <p className="text-2xl md:text-3xl font-bold tracking-tight">
+              {project.dataModelTitle ?? "Cómo se estructuran los datos"}
+            </p>
+            {project.dataModelIntro && (
+              <p className="text-text-secondary text-lg leading-relaxed mt-4 max-w-3xl">
+                {project.dataModelIntro}
+              </p>
+            )}
+          </div>
+          <DataModelTable items={project.dataModel} />
+        </section>
+      )}
+
+      {/* API Contract */}
+      {project.apiContract && project.apiContract.length > 0 && (
+        <section className="max-w-content mx-auto px-6 mb-20">
+          <div className="mb-10">
+            <h2 className="text-sm font-mono text-accent-light mb-3 uppercase tracking-wider">
+              Contrato de API
+            </h2>
+            <p className="text-2xl md:text-3xl font-bold tracking-tight">
+              {project.apiContractTitle ?? "Endpoints e integraciones"}
+            </p>
+            {project.apiContractIntro && (
+              <p className="text-text-secondary text-lg leading-relaxed mt-4 max-w-3xl">
+                {project.apiContractIntro}
+              </p>
+            )}
+          </div>
+          <ApiContract endpoints={project.apiContract} />
+        </section>
+      )}
+
+      {/* Code Evidence */}
+      {project.codeEvidence && project.codeEvidence.length > 0 && (
+        <section className="max-w-content mx-auto px-6 mb-20">
+          <div className="mb-10">
+            <h2 className="text-sm font-mono text-accent-light mb-3 uppercase tracking-wider">
+              Evidencia técnica
+            </h2>
+            <p className="text-2xl md:text-3xl font-bold tracking-tight">
+              {project.codeEvidenceTitle ?? "Fragmentos del código real"}
+            </p>
+            {project.codeEvidenceIntro && (
+              <p className="text-text-secondary text-lg leading-relaxed mt-4 max-w-3xl">
+                {project.codeEvidenceIntro}
+              </p>
+            )}
+          </div>
+          <div className="space-y-6">
+            {project.codeEvidence.map((item, i) => (
+              <div key={i}>
+                {item.title && (
+                  <h3 className="text-lg font-semibold mb-3">{item.title}</h3>
+                )}
+                <CodeBlock
+                  code={item.code}
+                  filename={item.filename}
+                  language={item.language}
+                  caption={item.caption}
+                />
+              </div>
+            ))}
           </div>
         </section>
       )}

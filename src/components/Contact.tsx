@@ -55,7 +55,7 @@ export function Contact() {
             </p>
             <div className="relative w-full max-w-md aspect-[4/5] mb-8 rounded-2xl overflow-hidden border-2 border-border hover:border-accent/40 transition-colors">
               <Image
-                src="/screenshots/foto-luis.jpeg"
+                src="/screenshots/foto-luis.webp"
                 alt="Luis Martínez"
                 fill
                 className="object-cover"

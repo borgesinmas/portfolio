@@ -173,7 +173,7 @@ export function Work() {
           <p className="text-sm font-mono text-accent-light mb-3">Proyectos</p>
           <h2 className="section-heading mb-4">Casos reales</h2>
           <p className="section-sub">
-            Proyectos que resuelven problemas reales con código, automatizaciones e IA.
+            Productos full-stack, automatizaciones e infraestructura que resuelven problemas reales. Varios forman parte de un mismo ecosistema; otros son productos independientes.
           </p>
         </div>
 

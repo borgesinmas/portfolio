@@ -1,20 +1,21 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import type { Metadata } from "next";
 import { ZoomableImage } from "@/components/ZoomableImage";
+import { CodeBlock, DataModelTable } from "@/components/CaseStudyPrimitives";
 
 export const metadata: Metadata = {
-  title: "Sistema de Envios Growork - Caso de Estudio",
+  title: "Sistema de Envíos Growork — Caso de Estudio",
   description:
-    "Caso de estudio del sistema interno de Growork para gestionar clientes, workflows, Google Workspace, envios de email, respuestas, IA, Drive y configuracion operativa.",
+    "Caso de estudio del sistema interno de Growork para gestionar clientes, workflows, Google Workspace, envíos de email con warmup, respuestas con IA, Drive y configuración operativa, sobre NestJS y Next.js.",
 };
 
 const stack = [
-  "Next.js",
-  "React",
+  "Next.js 16",
+  "React 19",
   "TypeScript",
-  "NestJS",
+  "NestJS 11",
+  "TypeORM 0.3",
   "PostgreSQL",
-  "TypeORM",
   "Twenty CRM",
   "n8n",
   "Google Workspace",
@@ -29,120 +30,120 @@ const webSections = [
   {
     name: "Dashboard",
     image: "/screenshots/webinterna1.png",
-    imageAlt: "Panel de control de la web interna CV Sender",
+    imageAlt: "Panel de control de la web interna de envíos",
     caption: "Vista general de salud: clientes, estados, rendimiento de emails, pipeline y consumo de IA.",
     purpose:
-      "Vista ejecutiva con KPIs de clientes, distribucion por estado, estadisticas de envio y actividad reciente. Sirve para saber si la operacion esta sana sin abrir cada modulo.",
+      "Vista ejecutiva con KPIs de clientes, distribución por estado, estadísticas de envío y actividad reciente. Sirve para saber si la operación está sana sin abrir cada módulo.",
     connection:
-      "Lee agregados del backend sobre clients, email_sends y notifications. Se refresca en intervalos distintos segun el peso de cada consulta.",
+      "Lee agregados del backend sobre clients, email_sends y notifications. Se refresca en intervalos distintos según el peso de cada consulta.",
   },
   {
     name: "Clientes",
     image: "/screenshots/webinterna2.png",
-    imageAlt: "Gestion de clientes con estado CRM, plan, preview y warmup",
-    caption: "Tabla operativa para decidir quien envia, con que plan, en que estado y con que volumen.",
+    imageAlt: "Gestión de clientes con estado CRM, plan, preview y warmup",
+    caption: "Tabla operativa para decidir quién envía, con qué plan, en qué estado y con qué volumen.",
     purpose:
-      "Centro de control por cliente: estado CRM, plan, pareja, envio activo, modo preview, warmup, criterios de matching, estadisticas y respuestas.",
+      "Centro de control por cliente: estado CRM, plan, pareja, envío activo, modo preview, warmup, criterios de matching, estadísticas y respuestas.",
     connection:
-      "Sincroniza con Twenty CRM, guarda ClientSendSettings en PostgreSQL y propaga ajustes a la pareja cuando existe.",
+      "Sincroniza con Twenty CRM, guarda client_send_settings en PostgreSQL y propaga los ajustes a la pareja cuando existe.",
   },
   {
     name: "Pipeline de workflows",
     image: "/screenshots/webinterna3.png",
     imageAlt: "Pipeline de workflows por cliente en formato Kanban",
-    caption: "Kanban secuencial para saber que cliente necesita carpeta, creador, CV final o email corporativo.",
+    caption: "Kanban secuencial para saber qué cliente necesita carpeta, creador, CV final o email corporativo.",
     purpose:
-      "Kanban operativo para ver en que punto esta cada cliente: carpetas, creador de CV, nuevo archivo, aprobacion de CV y correo corporativo.",
+      "Kanban operativo para ver en qué punto está cada cliente: carpetas, creador de CV, nuevo archivo, aprobación de CV y correo corporativo.",
     connection:
-      "Cada columna se alimenta de client_workflow_states y se actualiza con webhooks de n8n. Los pasos manuales disparan workflows desde la UI.",
+      "Cada columna se alimenta de client_workflow_states y se actualiza con los webhooks de n8n. Los pasos manuales disparan workflows desde la propia interfaz.",
   },
   {
-    name: "Creadores CV",
+    name: "Creadores de CV",
     image: "/screenshots/webinterna4.png",
-    imageAlt: "Gestion de creadores de CV e idiomas asignados",
+    imageAlt: "Gestión de creadores de CV e idiomas asignados",
     caption: "Inventario de creadores, idiomas, estado y asignaciones para mantener el flujo documental.",
     purpose:
-      "Gestion de profesionales que preparan CVs: idiomas, estado, asignacion y visibilidad de trabajo activo.",
+      "Gestión de los profesionales que preparan los CV: idiomas, estado, asignación y visibilidad del trabajo activo.",
     connection:
-      "Se vincula con clientes y con WKF-1.1 para compartir carpetas de Drive y registrar el creador asignado.",
+      "Se vincula con los clientes y con el workflow WKF-1.1 para compartir carpetas de Drive y registrar el creador asignado.",
   },
   {
     name: "Dominios",
     image: "/screenshots/webinterna5.png",
-    imageAlt: "Gestion de dominios para correos corporativos",
+    imageAlt: "Gestión de dominios para correos corporativos",
     caption: "Control de dominios activos, prioridad y capacidad antes de crear cuentas de Workspace.",
     purpose:
-      "Administracion de dominios de envio: activo/inactivo, prioridad, usuarios actuales y capacidad maxima.",
+      "Administración de los dominios de envío: activo/inactivo, prioridad, usuarios actuales y capacidad máxima.",
     connection:
-      "n8n consulta estos datos antes de crear cuentas en Google Workspace y el backend los usa para validar emails corporativos gestionados.",
+      "n8n consulta estos datos antes de crear cuentas en Google Workspace, y el backend los usa para validar los emails corporativos gestionados.",
   },
   {
     name: "Correos corporativos",
     image: "/screenshots/webinterna6.png",
-    imageAlt: "Gestion de correos corporativos conectados a Google Workspace",
-    caption: "Cuentas activas, pendientes de borrado, uso por dominio y sincronizacion con Google Workspace.",
+    imageAlt: "Gestión de correos corporativos conectados a Google Workspace",
+    caption: "Cuentas activas, pendientes de borrado, uso por dominio y sincronización con Google Workspace.",
     purpose:
-      "Inventario de cuentas creadas para clientes, estado de gracia, borrado manual, sincronizacion con Google Workspace y limpieza de inconsistencias.",
+      "Inventario de las cuentas creadas para clientes: estado de gracia, borrado manual, sincronización con Google Workspace y limpieza de inconsistencias.",
     connection:
-      "Habla con Google Admin Directory API, clients.emailOperativo, dominios y notificaciones de borrado.",
+      "Habla con la Admin Directory API de Google, y se apoya en clients.emailOperativo, dominios y notificaciones de borrado.",
   },
   {
-    name: "Preview Emails",
+    name: "Preview de emails",
     image: "/screenshots/webinterna7.png",
-    imageAlt: "Preview de emails pendientes de revision",
+    imageAlt: "Preview de emails pendientes de revisión",
     caption: "Zona de control humano: revisar, aprobar, rechazar, editar o regenerar antes de enviar.",
     purpose:
-      "Bandeja de aprobacion donde los emails generados por IA se pueden revisar, editar, regenerar, rechazar o aprobar antes del envio.",
+      "Bandeja de aprobación donde los emails generados por IA se pueden revisar, editar, regenerar, rechazar o aprobar antes del envío.",
     connection:
-      "Consume email_sends en estado pending_review y al aprobar llama al EmailService para enviar con Gmail API.",
+      "Consume los email_sends en estado pending_review y, al aprobar, llama al EmailService para enviar con la Gmail API.",
   },
   {
-    name: "Centro de Envios",
+    name: "Centro de envíos",
     image: "/screenshots/webinterna8.png",
-    imageAlt: "Centro de envios con monitor, enviados y respuestas",
-    caption: "Monitor diario de jobs, historial de envios y gestion de respuestas desde una sola pantalla.",
+    imageAlt: "Centro de envíos con monitor, enviados y respuestas",
+    caption: "Monitor diario de jobs, historial de envíos y gestión de respuestas desde una sola pantalla.",
     purpose:
-      "Modulo unificado con tres pestanas: monitor diario de jobs, historial de enviados y gestion de respuestas.",
+      "Módulo unificado con tres pestañas: monitor diario de jobs, historial de enviados y gestión de respuestas.",
     connection:
-      "Une Scheduler, Worker, sent-emails, email-responses, clasificacion IA y threading de Gmail en una sola pantalla operativa.",
+      "Une scheduler, worker, sent-emails, email-responses, clasificación con IA y threading de Gmail en una sola pantalla operativa.",
   },
 ];
 
 const workflowSteps = [
   {
     id: "WKF-1",
-    title: "Crear estructura Drive",
-    mode: "Automatico",
+    title: "Crear estructura en Drive",
+    mode: "Automático",
     text:
-      "Cuando entra un cliente desde Twenty, n8n crea la carpeta principal y las subcarpetas CV, OLD, NEW y DEFINITIVA. Devuelve los IDs al backend para que el resto del sistema sepa donde leer y escribir.",
+      "Cuando entra un cliente desde Twenty, n8n crea la carpeta principal y las subcarpetas CV, OLD, NEW y DEFINITIVA. Devuelve los identificadores al backend para que el resto del sistema sepa dónde leer y escribir.",
   },
   {
     id: "WKF-1.1",
-    title: "Asignar creador CV",
+    title: "Asignar creador de CV",
     mode: "Manual",
     text:
-      "Desde el Kanban se dispara el workflow que comparte carpetas con el creador correcto segun idioma. El backend registra el creador y mueve al cliente al siguiente paso.",
+      "Desde el Kanban se dispara el workflow que comparte las carpetas con el creador correcto según el idioma. El backend registra el creador y mueve al cliente al siguiente paso.",
   },
   {
     id: "WKF-1.2",
     title: "Detectar nuevo CV",
-    mode: "Automatico",
+    mode: "Automático",
     text:
-      "n8n revisa carpetas NEW y avisa cuando aparece un archivo nuevo. El cliente se coloca en la columna de aprobacion, con metadata del archivo recibido.",
+      "n8n revisa la carpeta NEW y avisa cuando aparece un archivo nuevo. El cliente se coloca en la columna de aprobación, con la metadata del archivo recibido.",
   },
   {
     id: "WKF-1.3",
     title: "Mover a DEFINITIVA",
     mode: "Manual",
     text:
-      "El operador selecciona el CV correcto desde la interfaz. n8n lo mueve a la carpeta definitiva, quita accesos temporales y el backend marca el CV como finalizado.",
+      "El operador selecciona el CV correcto desde la interfaz. n8n lo mueve a la carpeta definitiva, retira los accesos temporales y el backend marca el CV como finalizado.",
   },
   {
     id: "WKF-1.4",
     title: "Crear email corporativo",
-    mode: "Automatico",
+    mode: "Automático",
     text:
-      "Tras aprobar el CV, se crea la cuenta de Google Workspace, se guarda email y password, se sincroniza con Twenty y, si hay pareja, se reutiliza o propaga la misma cuenta.",
+      "Tras aprobar el CV, se crea la cuenta de Google Workspace, se guardan email y contraseña, se sincroniza con Twenty y, si hay pareja, se reutiliza o propaga la misma cuenta.",
   },
 ];
 
@@ -151,89 +152,204 @@ const emailFlow = [
     step: "01",
     title: "Cliente activo y con plan",
     text:
-      "Solo los clientes en estado In Progress, con envio activo y plan vigente entran en el circuito. El worker vuelve a validar el plan justo antes de enviar.",
+      "Solo los clientes en estado In Progress, con envío activo y plan vigente, entran en el circuito. El worker vuelve a validar el plan justo antes de enviar (fail-closed).",
   },
   {
     step: "02",
     title: "Scheduler diario",
     text:
-      "A las 6 AM crea un SendJob por cliente activo. En parejas solo procesa el primario y exige que ambos esten activos para evitar duplicados.",
+      "A las 6:00 (zona Atlantic/Canary) crea un SendJob por cliente activo. En parejas solo procesa al primario y exige que ambos estén activos para evitar duplicados.",
   },
   {
     step: "03",
     title: "Warmup",
     text:
-      "El limite diario sube de forma gradual con currentDailyLimit, targetDailyLimit y warmupDailyIncrement. La reputacion se protege antes de escalar volumen.",
+      "El límite diario sube de forma gradual con currentDailyLimit, targetDailyLimit y warmupDailyIncrement, solo si el job del día anterior se completó. La reputación se protege antes de escalar volumen.",
   },
   {
     step: "04",
     title: "Matching de ofertas",
     text:
-      "El worker busca ofertas recientes por pais, ciudad y puesto. Excluye ofertas ya contactadas por el cliente o su pareja y emails con mala reputacion.",
+      "El worker busca ofertas recientes por país, ciudad y puesto (modo AND/OR). Excluye las ofertas ya contactadas por el cliente o su pareja y los emails con mala reputación.",
   },
   {
     step: "05",
     title: "IA y documentos",
     text:
-      "OpenAI genera el email, resume CVs y puede preparar carta de presentacion. Drive aporta los PDFs de la carpeta DEFINITIVA, con cache para no descargar lo mismo todo el tiempo.",
+      "OpenAI genera el email, resume el CV y puede preparar la carta de presentación. Drive aporta los PDF de la carpeta DEFINITIVA, con caché para no descargar lo mismo en cada tick.",
   },
   {
     step: "06",
-    title: "Preview o envio directo",
+    title: "Preview o envío directo",
     text:
-      "Por defecto el email queda en pending_review. Si el modo automatico esta activado, Gmail API lo envia directamente desde el email corporativo del cliente.",
+      "Por defecto el email queda en pending_review. Si el modo automático está activado, la Gmail API lo envía directamente desde el email corporativo del cliente.",
   },
   {
     step: "07",
-    title: "Tracking",
+    title: "Trazabilidad",
     text:
-      "Se guardan messageId, gmailThreadId, asunto, contenido, adjuntos, modelo IA, estado y fecha. Esto permite auditoria, respuestas en hilo y estadisticas reales.",
+      "Se guardan messageId, gmailThreadId, asunto, contenido, adjuntos, modelo de IA, estado y fecha. Esto permite auditoría, respuestas en hilo y estadísticas reales.",
   },
   {
     step: "08",
     title: "Respuestas",
     text:
-      "El sistema lee Gmail, guarda respuestas, clasifica con IA y permite contestar manteniendo In-Reply-To, References y threadId.",
+      "El sistema lee Gmail, guarda las respuestas, las clasifica con IA y permite contestar manteniendo In-Reply-To, References y el threadId.",
   },
 ];
 
 const dataModel = [
-  "clients: perfil, estado, pareja, plan, email operativo, carpetas Drive y datos sincronizados desde Twenty.",
-  "client_send_settings: envio activo, preview, warmup, limites diarios y criterios de matching.",
-  "client_workflow_states: estado PENDING/OK/ERROR de cada workflow por cliente.",
-  "send_jobs: trabajos diarios generados por el scheduler.",
-  "email_sends: cada email reservado, pendiente, enviado, fallido, rebotado, bloqueado o rechazado.",
-  "email_responses: respuestas recibidas, clasificacion IA, lectura y datos de threading.",
-  "dominios: dominios gestionados, prioridad, capacidad y usuarios actuales.",
-  "notifications: eventos de workflows, errores, borrados y avisos operativos.",
+  {
+    name: "client",
+    purpose:
+      "Cliente sincronizado desde Twenty CRM: estado operativo, vínculo de pareja, plan y email corporativo asignado.",
+    fields: ["twentyId", "estado", "parejaId", "isPrimaryPartner", "planStatus", "planExpiresAt", "paisesInteres", "ciudadesInteres"],
+  },
+  {
+    name: "client_send_settings",
+    purpose:
+      "Configuración de envío 1:1 por cliente: activación, parámetros de warmup, modo preview y criterios de matching en JSONB.",
+    fields: ["clientId (unique)", "active", "currentDailyLimit", "targetDailyLimit", "warmupDailyIncrement", "previewEnabled", "matchingCriteria (JSONB)"],
+  },
+  {
+    name: "send_job",
+    purpose:
+      "Trabajo diario por cliente generado por el scheduler; el worker lo consume respetando la ventana horaria.",
+    fields: ["clientId", "scheduledDate", "status", "emailsToSend", "emailsSentCount"],
+  },
+  {
+    name: "email_send",
+    purpose:
+      "Cada email reservado o enviado a una oferta. Sus constraints únicos impiden contactar dos veces la misma oferta o destinatario.",
+    fields: ["UNIQUE(clientId, jobOfferId)", "UNIQUE(clientId, recipientEmail)", "status", "messageId", "gmailThreadId", "aiModel"],
+  },
+  {
+    name: "email_response",
+    purpose:
+      "Respuesta recibida, con los datos de threading RFC 5322 y la clasificación de la IA con su nivel de confianza.",
+    fields: ["gmailMessageId (unique)", "gmailThreadId", "inReplyTo", "referencesHeader", "classification", "classificationConfidence"],
+  },
+  {
+    name: "client_workflow_state",
+    purpose:
+      "Estado PENDING/OK/ERROR de cada workflow (WKF_1 … WKF_1_4) por cliente; es lo que alimenta el Kanban.",
+    fields: ["UNIQUE(clientId, workflowType)", "status", "executionUrl", "metadata"],
+  },
+  {
+    name: "dominio",
+    purpose:
+      "Dominio de envío con prioridad y capacidad. n8n elige uno por sorteo ponderado antes de crear una cuenta corporativa.",
+    fields: ["dominio (unique)", "activo", "prioridad", "maxUsuarios", "usuariosActuales"],
+  },
+  {
+    name: "ai_usage_log · email_reputation",
+    purpose:
+      "Auditoría de cada llamada a OpenAI (operación, modelo, tokens y coste) y lista de rebotes/inválidos para excluir destinatarios con mala reputación.",
+    fields: ["operation", "model", "inputTokens", "outputTokens", "email", "is_bounced", "is_invalid"],
+  },
+];
+
+const codeEvidence = [
+  {
+    title: "Scheduler diario en zona horaria explícita",
+    filename: "backend/src/scheduler/scheduler.service.ts",
+    language: "typescript",
+    code: `// Un único job diario por cliente activo, en hora de Canarias.
+@Cron('0 0 6 * * *', { timeZone: 'Atlantic/Canary' })
+async handleDailyJobCreation() {
+  // 1. Clientes con estado 'In Progress' y plan vigente (fail-closed).
+  // 2. En parejas, solo el primario recibe SendJob.
+  // 3. Idempotente: no crea dos jobs para el mismo día (CURRENT_DATE).
+  // 4. Calcula una hora de arranque aleatoria dentro de la ventana.
+}`,
+    caption:
+      "El reparto diario es idempotente y consciente de la zona horaria; la asincronía del worker se ordena con un scheduler que no duplica trabajo.",
+  },
+  {
+    title: "Warmup: el límite diario sube solo si ayer se envió",
+    filename: "backend/src/scheduler/scheduler.service.ts",
+    language: "typescript",
+    code: `if (settings.isWarmupActive &&
+    settings.currentDailyLimit < settings.targetDailyLimit) {
+
+  const yesterdayJob = await this.sendJobRepository
+    .createQueryBuilder('job')
+    .where('job.client_id = :clientId', { clientId: client.id })
+    .andWhere("DATE(job.scheduled_date) = CURRENT_DATE - INTERVAL '1 day'")
+    .andWhere('job.status = :status', { status: SendJobStatus.DONE })
+    .andWhere('job.emails_sent_count > 0')
+    .getOne();
+
+  if (yesterdayJob) {
+    const next = settings.currentDailyLimit + settings.warmupDailyIncrement;
+    settings.currentDailyLimit = Math.min(next, settings.targetDailyLimit);
+    await this.settingsRepository.save(settings);
+  }
+}`,
+    caption:
+      "El warmup no escala por calendario, sino por entrega real del día anterior. Así protege la reputación del dominio antes de subir el volumen.",
+  },
+  {
+    title: "Respuestas en hilo conforme a RFC 5322",
+    filename: "backend/src/email/email.service.ts",
+    language: "typescript",
+    code: `// Para que el hotel vea la respuesta dentro de la misma conversación,
+// hay que reconstruir la cadena de headers, no solo el threadId de Gmail.
+await transporter.sendMail({
+  to,
+  from: fromEmail,
+  subject: replySubject,
+  html: htmlContent,
+  headers: {
+    'In-Reply-To': normalizeMessageId(inReplyToMessageId),
+    References: buildReferencesHeader(existingReferences, inReplyToMessageId),
+  },
+});`,
+    caption:
+      "El threading correcto exige In-Reply-To y la cadena References (RFC 5322), además del threadId propietario de Gmail. Un detalle invisible que evita romper conversaciones.",
+  },
+  {
+    title: "Anti-duplicados a nivel de base de datos",
+    filename: "backend/src/entities/email-send.entity.ts",
+    language: "typescript",
+    code: `@Entity('email_sends')
+// Dos garantías a nivel de esquema, no de aplicación:
+@Unique(['clientId', 'jobOfferId'])      // nunca la misma oferta dos veces
+@Unique(['clientId', 'recipientEmail'])  // nunca el mismo destinatario dos veces
+export class EmailSend {
+  // ...
+}`,
+    caption:
+      "Las reglas críticas viven en el esquema. Aunque dos ticks del worker compitan, la base de datos impide enviar la misma candidatura por duplicado.",
+  },
 ];
 
 const safeguards = [
-  "API Key global en endpoints internos y rate limiting con Throttler.",
-  "Domain-Wide Delegation para impersonar cuentas de cliente sin guardar sesiones Gmail.",
-  "Validacion de dominios gestionados para evitar tratar emails personales como corporativos.",
-  "Constraints unicos para no enviar dos veces la misma oferta o el mismo destinatario a un cliente.",
-  "Webhooks de n8n mapeados por workflowId y por event como fallback.",
-  "Clientes Closed quedan fuera de scheduler, worker, Kanban y webhooks operativos.",
-  "Periodo de gracia de 48h antes de borrar cuentas corporativas automaticamente.",
-  "Fallbacks: si falla IA se usa plantilla; si falla Drive, el sistema puede seguir sin adjuntos.",
+  "API key global en los endpoints internos y rate limiting con Throttler (100 peticiones / 60 s).",
+  "Domain-Wide Delegation para impersonar las cuentas de cliente sin guardar sesiones de Gmail.",
+  "Validación de los dominios gestionados para no tratar emails personales como corporativos.",
+  "Constraints únicos para no enviar dos veces la misma oferta ni el mismo destinatario a un cliente.",
+  "Webhooks de n8n mapeados por workflowId y, como fallback, por tipo de evento.",
+  "Los clientes en estado Closed quedan fuera del scheduler, el worker, el Kanban y los webhooks operativos.",
+  "Periodo de gracia de 48 horas antes de borrar cuentas corporativas de forma automática.",
+  "Fallbacks: si falla la IA se usa una plantilla; si falla Drive, el sistema puede seguir sin adjuntos.",
 ];
 
 const beforeAfter = [
   {
-    before: "Los estados de cliente vivian repartidos entre CRM, Drive, Gmail, hojas, n8n y memoria operativa.",
+    before: "Los estados de cada cliente vivían repartidos entre CRM, Drive, Gmail, hojas de cálculo, n8n y la memoria del equipo.",
     after:
-      "La web interna convierte esos estados en una unica consola: listo, bloqueado, pendiente de revision, enviado, respondido o en riesgo.",
+      "La web interna convierte esos estados en una única consola: listo, bloqueado, pendiente de revisión, enviado, respondido o en riesgo.",
   },
   {
-    before: "Un error pequeno podia duplicar contactos, enviar desde la cuenta equivocada o usar un CV no definitivo.",
+    before: "Un error pequeño podía duplicar contactos, enviar desde la cuenta equivocada o usar un CV no definitivo.",
     after:
-      "Cada envio pasa por validaciones de plan, cuenta corporativa, carpeta definitiva, historial de ofertas y reputacion.",
+      "Cada envío pasa por validaciones de plan, cuenta corporativa, carpeta DEFINITIVA, historial de ofertas y reputación.",
   },
   {
-    before: "La supervision dependia de revisar herramientas externas y reconstruir que habia pasado cliente por cliente.",
+    before: "La supervisión dependía de revisar herramientas externas y reconstruir qué había pasado cliente por cliente.",
     after:
-      "Jobs, emails, respuestas, workflows y notificaciones quedan trazados para auditar la operacion sin salir del sistema.",
+      "Jobs, emails, respuestas, workflows y notificaciones quedan trazados para auditar la operación sin salir del sistema.",
   },
 ];
 
@@ -241,22 +357,22 @@ const riskControls = [
   {
     risk: "Quemar dominios por volumen o cadencia incorrecta",
     control:
-      "Warmup progresivo, limites diarios por cliente, ventana global de envio, delays y capacidad por dominio antes de crear cuentas nuevas.",
+      "Warmup progresivo, límites diarios por cliente, ventana global de envío, delays aleatorios y capacidad por dominio antes de crear cuentas nuevas.",
   },
   {
     risk: "Duplicar candidaturas o contactar dos veces a la misma empresa",
     control:
-      "Constraints y filtros cruzados sobre cliente, pareja, oferta, destinatario y estado previo de email_sends.",
+      "Constraints únicos y filtros cruzados sobre cliente, pareja, oferta, destinatario y estado previo de email_sends.",
   },
   {
     risk: "Enviar documentos equivocados o incompletos",
     control:
-      "El worker solo toma PDFs desde la carpeta DEFINITIVA y conserva metadata del archivo usado en cada envio.",
+      "El worker solo toma PDF de la carpeta DEFINITIVA y conserva la metadata del archivo usado en cada envío.",
   },
   {
-    risk: "Perder contexto cuando llega una respuesta",
+    risk: "Perder el contexto cuando llega una respuesta",
     control:
-      "Se guardan gmailThreadId, messageId, headers y clasificacion IA para contestar dentro del hilo correcto.",
+      "Se guardan gmailThreadId, messageId, headers y clasificación de IA para contestar dentro del hilo correcto.",
   },
 ];
 
@@ -273,10 +389,10 @@ const architectureFlow = [
 ];
 
 const learnings = [
-  "La automatizacion valiosa no es la que elimina humanos, sino la que les muestra donde intervenir antes de que haya dano.",
-  "Un sistema de emails se parece mas a infraestructura de riesgo que a una campana de marketing: reputacion, identidad y trazabilidad mandan.",
+  "La automatización valiosa no es la que elimina personas, sino la que les muestra dónde intervenir antes de que haya daño.",
+  "Un sistema de emails se parece más a una infraestructura de riesgo que a una campaña de marketing: mandan la reputación, la identidad y la trazabilidad.",
   "Separar UI, backend y n8n evita que la interfaz cargue con trabajo sensible y permite recuperar procesos fallidos con estados claros.",
-  "Las parejas, los planes y los estados cerrados obligan a disenar reglas de negocio explicitas, no simples filtros visuales.",
+  "Las parejas, los planes y los estados cerrados obligan a diseñar reglas de negocio explícitas, no simples filtros visuales.",
 ];
 
 function Metric({ value, label }: { value: string; label: string }) {
@@ -357,22 +473,23 @@ export default function EmailOperationsCaseStudy() {
       <article className="max-w-[1120px] mx-auto px-6 pt-16 pb-32">
         <header className="mb-20">
           <div className="flex items-center gap-3 mb-8 flex-wrap">
-            <span className="text-xs text-text-muted font-mono">2024 - presente</span>
+            <span className="text-xs text-text-muted font-mono">2024 — presente</span>
+            <span className="text-xs text-text-muted font-mono">Web interna del ecosistema Growork</span>
           </div>
 
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-8">
-            Sistema de envios y workflows de Growork
+            Sistema de envíos y workflows de Growork
           </h1>
 
           <p className="text-xl md:text-2xl text-text-secondary leading-relaxed mb-8">
-            Este proyecto es el sistema operativo interno que reduce riesgo operativo en Growork: sincroniza clientes desde CRM, controla onboarding con n8n, valida documentos en Drive, crea cuentas de Google Workspace, regula envios con warmup, deja trazabilidad de cada email y convierte respuestas en trabajo accionable.
+            Es el sistema operativo interno que reduce el riesgo de Growork: sincroniza clientes desde el CRM, controla el onboarding con n8n, valida documentos en Drive, crea cuentas de Google Workspace, regula los envíos con warmup, deja trazabilidad de cada email y convierte las respuestas en trabajo accionable.
           </p>
 
           <div className="grid md:grid-cols-4 gap-4 mb-8">
-            <Metric value="8" label="apartados operativos de la web interna" />
+            <Metric value="8" label="áreas operativas de la web interna" />
             <Metric value="5" label="workflows secuenciales por cliente" />
-            <Metric value="14+" label="modulos backend conectados" />
-            <Metric value="24/7" label="crons, worker, syncs y monitorizacion" />
+            <Metric value="16" label="módulos backend conectados" />
+            <Metric value="24/7" label="crons, worker, syncs y monitorización" />
           </div>
 
           <div className="flex flex-wrap gap-2">
@@ -387,7 +504,7 @@ export default function EmailOperationsCaseStudy() {
         <div className="mb-24">
           <ZoomableImage
             src="/screenshots/email-operations-os.svg"
-            alt="Arquitectura del sistema interno de envios de Growork"
+            alt="Arquitectura del sistema interno de envíos de Growork"
             width={1440}
             height={900}
             caption="Arquitectura general del sistema: frontend operativo, backend de negocio y servicios conectados."
@@ -400,21 +517,21 @@ export default function EmailOperationsCaseStudy() {
         <section className="prose-custom mb-24">
           <SectionHeading
             eyebrow="El reto"
-            title="No era enviar emails. Era reducir el riesgo de una operacion completa."
+            title="No era enviar emails. Era reducir el riesgo de toda una operación."
           />
           <p className="text-lg text-text-secondary leading-relaxed mb-6">
-            Un cliente de Growork no necesita solo que se envie un correo. Antes tiene que existir en el CRM, tener su plan activo, avanzar por un onboarding, tener documentos ordenados, contar con un CV final, recibir una cuenta corporativa y entrar en una cadencia de envios que no dane la reputacion del dominio.
+            Un cliente de Growork no necesita solo que se envíe un correo. Antes tiene que existir en el CRM, tener su plan activo, avanzar por un onboarding, tener los documentos ordenados, contar con un CV final, recibir una cuenta corporativa y entrar en una cadencia de envíos que no dañe la reputación del dominio.
           </p>
           <p className="text-lg text-text-secondary leading-relaxed">
-            Por eso construi una web interna que no es un dashboard decorativo: es una consola de operaciones. Cada boton toca un proceso real, cada estado tiene consecuencias y cada envio deja trazabilidad suficiente para responder, auditar y mejorar.
+            Por eso construí una web interna que no es un dashboard decorativo: es una consola de operaciones. Cada botón toca un proceso real, cada estado tiene consecuencias y cada envío deja la trazabilidad suficiente para responder, auditar y mejorar.
           </p>
         </section>
 
         <section className="mb-24">
           <SectionHeading
-            eyebrow="Antes / despues"
+            eyebrow="Antes / después"
             title="De tareas dispersas a control operativo"
-            text="El cambio importante no fue automatizar por automatizar. Fue convertir acciones fragiles en un sistema con reglas, estados y puntos de control visibles."
+            text="El cambio importante no fue automatizar por automatizar. Fue convertir acciones frágiles en un sistema con reglas, estados y puntos de control visibles."
           />
 
           <div className="space-y-4">
@@ -431,7 +548,7 @@ export default function EmailOperationsCaseStudy() {
                 </div>
                 <div>
                   <p className="text-xs font-mono text-accent-light uppercase tracking-wider mb-2">
-                    Despues
+                    Después
                   </p>
                   <p className="text-text-secondary leading-relaxed">{item.after}</p>
                 </div>
@@ -443,8 +560,8 @@ export default function EmailOperationsCaseStudy() {
         <section className="mb-24">
           <SectionHeading
             eyebrow="Mapa de la web"
-            title="Que hace cada apartado"
-            text="La interfaz esta dividida por responsabilidades. Asi se puede operar el negocio sin entrar a la base de datos, n8n, Google Admin o logs del servidor para cada decision diaria."
+            title="Qué hace cada apartado"
+            text="La interfaz está dividida por responsabilidades. Así se puede operar el negocio sin entrar a la base de datos, a n8n, a Google Admin o a los logs del servidor para cada decisión diaria."
           />
 
           <div className="space-y-8">
@@ -455,7 +572,7 @@ export default function EmailOperationsCaseStudy() {
               >
                 <div className={index % 2 === 1 ? "lg:order-2" : ""}>
                   <p className="text-xs font-mono text-accent-light mb-3">
-                    MODULO {String(index + 1).padStart(2, "0")}
+                    MÓDULO {String(index + 1).padStart(2, "0")}
                   </p>
                   <h3 className="text-2xl md:text-3xl font-bold tracking-tight mb-5">
                     {section.name}
@@ -463,13 +580,13 @@ export default function EmailOperationsCaseStudy() {
                   <div className="space-y-4">
                     <div>
                       <p className="text-xs font-mono text-text-muted uppercase tracking-wider mb-2">
-                        Que resuelve
+                        Qué resuelve
                       </p>
                       <p className="text-text-secondary leading-relaxed">{section.purpose}</p>
                     </div>
                     <div>
                       <p className="text-xs font-mono text-text-muted uppercase tracking-wider mb-2">
-                        Conexion real
+                        Conexión real
                       </p>
                       <p className="text-text-secondary leading-relaxed">{section.connection}</p>
                     </div>
@@ -490,8 +607,8 @@ export default function EmailOperationsCaseStudy() {
         <section className="mb-24">
           <SectionHeading
             eyebrow="Conexiones"
-            title="Como se conectan todas las piezas"
-            text="La arquitectura separa producto, automatizacion, datos y servicios externos. La web no hace trabajo sensible directamente: habla con el backend, y el backend decide que sistema debe intervenir."
+            title="Cómo se conectan todas las piezas"
+            text="La arquitectura separa producto, automatización, datos y servicios externos. La web no hace trabajo sensible directamente: habla con el backend, y el backend decide qué sistema debe intervenir."
           />
 
           <div className="card p-6 md:p-8 mb-8">
@@ -504,7 +621,7 @@ export default function EmailOperationsCaseStudy() {
                   <p className="font-semibold">{step}</p>
                   {index < architectureFlow.length - 1 && (
                     <span className="hidden md:block absolute -right-3 top-1/2 -translate-y-1/2 text-accent/60 font-mono">
-                      -&gt;
+                      &rarr;
                     </span>
                   )}
                 </div>
@@ -517,32 +634,32 @@ export default function EmailOperationsCaseStudy() {
               {
                 title: "Capa de producto",
                 text:
-                  "Next.js organiza la operacion en pantallas: clientes, workflows, preview, envios, respuestas, dominios y correos corporativos. El usuario ve procesos humanos, no endpoints.",
+                  "Next.js organiza la operación en pantallas: clientes, workflows, preview, envíos, respuestas, dominios y correos corporativos. El usuario ve procesos humanos, no endpoints.",
               },
               {
                 title: "Capa de negocio",
                 text:
-                  "NestJS contiene modulos para clients, scheduler, worker, email, responses, n8n, workflow-state, corporate-emails, dominios, dashboard, Drive, Twenty y Finance.",
+                  "NestJS concentra los módulos de clients, scheduler, worker, email, responses, n8n, workflow-state, corporate-emails, dominios, dashboard, Drive, Twenty y finance.",
               },
               {
                 title: "Capa de datos",
                 text:
-                  "PostgreSQL guarda la verdad operacional: cliente, estado, plan, settings, jobs, emails, respuestas, workflows, dominios y notificaciones.",
+                  "PostgreSQL guarda la verdad operacional: cliente, estado, plan, settings, jobs, emails, respuestas, workflows, dominios, reputación y notificaciones.",
               },
               {
-                title: "Automatizacion visual",
+                title: "Automatización visual",
                 text:
-                  "n8n ejecuta procesos que no deberian vivir en la UI: crear carpetas, compartir Drive, detectar archivos, mover CVs y crear cuentas Workspace.",
+                  "n8n ejecuta procesos que no deberían vivir en la UI: crear carpetas, compartir Drive, detectar archivos, mover CV y crear cuentas de Workspace.",
               },
               {
                 title: "Google Workspace",
                 text:
-                  "Google Admin crea cuentas corporativas; Gmail API envia y responde; Drive almacena los CVs y cartas finales que se adjuntan a cada candidatura.",
+                  "Google Admin crea las cuentas corporativas; la Gmail API envía y responde; Drive almacena los CV y cartas finales que se adjuntan a cada candidatura.",
               },
               {
                 title: "IA aplicada",
                 text:
-                  "OpenAI genera emails, resume CVs, crea cartas de presentacion, clasifica respuestas y propone replies. Siempre con fallback para que el proceso no se detenga.",
+                  "OpenAI genera emails, resume CV, redacta cartas de presentación, clasifica respuestas y propone réplicas, siempre con fallback para que el proceso no se detenga.",
               },
             ].map((item) => (
               <div key={item.title} className="card p-6">
@@ -557,7 +674,7 @@ export default function EmailOperationsCaseStudy() {
           <SectionHeading
             eyebrow="Workflows"
             title="El onboarding visual de cada cliente"
-            text="Cada cliente avanza por una secuencia de workflows. La UI muestra el primer paso pendiente, permite ejecutar los manuales y registra los automaticos cuando n8n devuelve el webhook."
+            text="Cada cliente avanza por una secuencia de workflows. La UI muestra el primer paso pendiente, permite ejecutar los manuales y registra los automáticos cuando n8n devuelve el webhook."
           />
 
           <div className="space-y-4">
@@ -576,9 +693,9 @@ export default function EmailOperationsCaseStudy() {
 
         <section className="mb-24">
           <SectionHeading
-            eyebrow="Envios"
-            title="Como se gestiona el envio de emails por cliente"
-            text="El sistema cuida el volumen, la calidad, el origen del envio, los adjuntos, la trazabilidad y las respuestas. Es un flujo disenado para operar muchos clientes sin perder control."
+            eyebrow="Envíos"
+            title="Cómo se gestiona el envío de emails por cliente"
+            text="El sistema cuida el volumen, la calidad, el origen del envío, los adjuntos, la trazabilidad y las respuestas. Es un flujo diseñado para operar muchos clientes sin perder el control."
           />
 
           <div className="grid md:grid-cols-2 gap-5">
@@ -596,24 +713,55 @@ export default function EmailOperationsCaseStudy() {
 
         <section className="mb-24">
           <SectionHeading
+            eyebrow="Modelo de datos"
+            title="PostgreSQL conserva el estado, las decisiones y la reputación"
+            text="La base de datos no solo almacena clientes: también guarda configuración, jobs, envíos, respuestas, estados de workflow, dominios, reputación y la auditoría de cada llamada a la IA."
+          />
+          <DataModelTable items={dataModel} />
+        </section>
+
+        <section className="mb-24">
+          <SectionHeading
+            eyebrow="Evidencia técnica"
+            title="Las garantías importantes viven en el código, no en la interfaz"
+            text="Cuando un sistema envía emails desde cuentas de clientes, una equivocación no es estética: puede quemar dominios, duplicar contactos o romper un hilo de conversación. Fragmentos reales, sanitizados."
+          />
+
+          <div className="space-y-6">
+            {codeEvidence.map((item) => (
+              <div key={item.filename + item.title}>
+                <h3 className="text-lg font-semibold mb-3">{item.title}</h3>
+                <CodeBlock
+                  code={item.code}
+                  filename={item.filename}
+                  language={item.language}
+                  caption={item.caption}
+                />
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-24">
+          <SectionHeading
             eyebrow="Google Workspace"
-            title="Cuentas corporativas, dominios y reputacion"
-            text="La cuenta de correo no se crea como un dato suelto. Forma parte de un ciclo de vida: asignacion, uso, seguimiento, periodo de gracia y limpieza."
+            title="Cuentas corporativas, dominios y reputación"
+            text="La cuenta de correo no se crea como un dato suelto. Forma parte de un ciclo de vida: asignación, uso, seguimiento, periodo de gracia y limpieza."
           />
 
           <div className="grid md:grid-cols-2 gap-6">
             <div className="card p-7">
-              <h3 className="text-2xl font-semibold mb-5">Creacion</h3>
+              <h3 className="text-2xl font-semibold mb-5">Creación</h3>
               <ul className="space-y-3 text-text-secondary">
                 {[
-                  "n8n genera alias normalizado y password.",
-                  "Consulta dominios activos y capacidad disponible.",
-                  "Crea el usuario mediante Google Workspace Admin API.",
-                  "Actualiza Twenty CRM y PostgreSQL con email, password y fecha.",
-                  "Si es pareja, hereda o propaga la misma cuenta para evitar duplicar identidad.",
+                  "n8n genera un alias normalizado y una contraseña aleatoria.",
+                  "Consulta los dominios activos y su capacidad disponible.",
+                  "Crea el usuario mediante la Admin Directory API de Google Workspace.",
+                  "Actualiza Twenty CRM y PostgreSQL con email, contraseña y fecha.",
+                  "Si es pareja, hereda o propaga la misma cuenta para no duplicar la identidad.",
                 ].map((item) => (
                   <li key={item} className="flex gap-3 items-start">
-                    <span className="text-accent font-mono text-xs mt-1">-&gt;</span>
+                    <span className="text-accent font-mono text-xs mt-1">&rarr;</span>
                     <span>{item}</span>
                   </li>
                 ))}
@@ -624,14 +772,14 @@ export default function EmailOperationsCaseStudy() {
               <h3 className="text-2xl font-semibold mb-5">Mantenimiento</h3>
               <ul className="space-y-3 text-text-secondary">
                 {[
-                  "La pagina de correos corporativos lista activos, pendientes de borrado y uso por dominio.",
+                  "La página de correos corporativos lista las cuentas activas, las pendientes de borrado y el uso por dominio.",
                   "Un cron horario marca cuentas por cierre, inactividad o exceso de rebotes.",
-                  "Hay 48 horas de gracia antes del borrado automatico.",
-                  "El operador puede cancelar la eliminacion o borrar manualmente.",
-                  "El sync con Workspace limpia emails que no existen o no pertenecen a dominios gestionados.",
+                  "Hay 48 horas de gracia antes del borrado automático.",
+                  "El operador puede cancelar la eliminación o borrar manualmente.",
+                  "La sincronización con Workspace limpia emails que no existen o no pertenecen a dominios gestionados.",
                 ].map((item) => (
                   <li key={item} className="flex gap-3 items-start">
-                    <span className="text-accent font-mono text-xs mt-1">-&gt;</span>
+                    <span className="text-accent font-mono text-xs mt-1">&rarr;</span>
                     <span>{item}</span>
                   </li>
                 ))}
@@ -642,9 +790,9 @@ export default function EmailOperationsCaseStudy() {
 
         <section className="mb-24">
           <SectionHeading
-            eyebrow="Configuracion"
-            title="Control fino de los envios"
-            text="El sistema no envia a ciegas. Cada cliente tiene configuracion propia y ademas existe una configuracion global para regular horarios y delays."
+            eyebrow="Configuración"
+            title="Control fino de los envíos"
+            text="El sistema no envía a ciegas. Cada cliente tiene su propia configuración y, además, existe una configuración global para regular horarios y delays."
           />
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -652,15 +800,15 @@ export default function EmailOperationsCaseStudy() {
               <p className="text-sm font-mono text-accent-light mb-4">Por cliente</p>
               <ul className="space-y-3 text-text-secondary">
                 {[
-                  "active: pausa o activa el envio del cliente.",
-                  "previewEnabled: decide si todo pasa por aprobacion manual.",
-                  "currentDailyLimit: volumen real del dia.",
+                  "active: pausa o activa el envío del cliente.",
+                  "previewEnabled: decide si todo pasa por aprobación manual.",
+                  "currentDailyLimit: volumen real del día.",
                   "targetDailyLimit: objetivo final del warmup.",
                   "warmupDailyIncrement: subida diaria controlada.",
-                  "matchingCriteria: paises, ciudades, puesto, modo AND/OR y filtros activos.",
+                  "matchingCriteria: países, ciudades, puesto, modo AND/OR y filtros activos.",
                 ].map((item) => (
                   <li key={item} className="flex gap-3 items-start">
-                    <span className="text-accent font-mono text-xs mt-1">-&gt;</span>
+                    <span className="text-accent font-mono text-xs mt-1">&rarr;</span>
                     <span>{item}</span>
                   </li>
                 ))}
@@ -671,14 +819,14 @@ export default function EmailOperationsCaseStudy() {
               <p className="text-sm font-mono text-accent-light mb-4">Global</p>
               <ul className="space-y-3 text-text-secondary">
                 {[
-                  "startHour y endHour definen la ventana de envio.",
+                  "startHour y endHour definen la ventana de envío.",
                   "minDelayMinutes y maxDelayMinutes generan pausas aleatorias.",
                   "enabled permite desactivar restricciones en situaciones controladas.",
-                  "El worker interpreta la ventana en zona Atlantic/Canary.",
+                  "El worker interpreta la ventana en la zona Atlantic/Canary.",
                   "El monitor permite ver jobs done, failed, running, queued o sin job.",
                 ].map((item) => (
                   <li key={item} className="flex gap-3 items-start">
-                    <span className="text-accent font-mono text-xs mt-1">-&gt;</span>
+                    <span className="text-accent font-mono text-xs mt-1">&rarr;</span>
                     <span>{item}</span>
                   </li>
                 ))}
@@ -689,46 +837,27 @@ export default function EmailOperationsCaseStudy() {
 
         <section className="mb-24">
           <SectionHeading
-            eyebrow="Datos"
-            title="Modelo de datos que sostiene la operacion"
-            text="La base de datos no solo almacena clientes. Tambien conserva decisiones, historial, configuracion, ejecuciones, reputacion y conversaciones."
-          />
-
-          <div className="card p-8 md:p-10">
-            <div className="grid md:grid-cols-2 gap-4">
-              {dataModel.map((item) => (
-                <div key={item} className="flex gap-3 items-start rounded-lg bg-bg-primary/50 p-4">
-                  <span className="text-accent font-mono text-xs mt-1">-&gt;</span>
-                  <p className="text-sm text-text-secondary leading-relaxed">{item}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="mb-24">
-          <SectionHeading
             eyebrow="Respuestas"
-            title="El envio no termina cuando sale el email"
-            text="La parte mas valiosa esta despues: leer respuestas, entenderlas y poder contestar bien sin romper el hilo."
+            title="El envío no termina cuando sale el email"
+            text="La parte más valiosa está después: leer las respuestas, entenderlas y poder contestar bien sin romper el hilo."
           />
 
           <div className="grid md:grid-cols-3 gap-5">
             {[
               {
-                title: "Lectura Gmail",
+                title: "Lectura de Gmail",
                 text:
-                  "El sistema busca replies por remitente, excluye mensajes propios, deduplica por gmailMessageId y conserva threadId.",
+                  "El sistema busca las réplicas por remitente, excluye los mensajes propios, deduplica por gmailMessageId y conserva el threadId.",
               },
               {
-                title: "Clasificacion IA",
+                title: "Clasificación con IA",
                 text:
-                  "Cada respuesta se clasifica como negativa, automatica, entrevista, mas informacion, contratado o sin clasificar, con confianza y razonamiento.",
+                  "Cada respuesta se clasifica como negativa, automática, entrevista, más información, contratado o sin clasificar, con confianza y razonamiento.",
               },
               {
-                title: "Reply en hilo",
+                title: "Respuesta en hilo",
                 text:
-                  "La respuesta se envia con headers In-Reply-To y References, ademas del threadId de Gmail, para mantener la conversacion ordenada.",
+                  "La respuesta se envía con los headers In-Reply-To y References, además del threadId de Gmail, para mantener la conversación ordenada.",
               },
             ].map((item) => (
               <div key={item.title} className="card p-6">
@@ -742,8 +871,8 @@ export default function EmailOperationsCaseStudy() {
         <section className="mb-24">
           <SectionHeading
             eyebrow="Riesgos"
-            title="Que podia salir mal y como lo controle"
-            text="El valor de esta pieza esta en prevenir fallos operativos caros: reputacion de dominio, duplicados, documentos incorrectos y perdida de contexto."
+            title="Qué podía salir mal y cómo lo controlé"
+            text="El valor de esta pieza está en prevenir fallos operativos caros: reputación de dominio, duplicados, documentos incorrectos y pérdida de contexto."
           />
 
           <div className="grid md:grid-cols-2 gap-5">
@@ -765,8 +894,8 @@ export default function EmailOperationsCaseStudy() {
         <section className="mb-24">
           <SectionHeading
             eyebrow="Seguridad y robustez"
-            title="Decisiones que evitan danos reales"
-            text="Cuando un sistema envia emails desde cuentas de clientes, una equivocacion no es estetica: puede quemar dominios, duplicar contactos o mezclar datos sensibles."
+            title="Decisiones que evitan daños reales"
+            text="Cuando un sistema envía emails desde cuentas de clientes, una equivocación no es estética: puede quemar dominios, duplicar contactos o mezclar datos sensibles."
           />
 
           <div className="grid md:grid-cols-2 gap-4">
@@ -782,27 +911,27 @@ export default function EmailOperationsCaseStudy() {
         <section className="prose-custom mb-24">
           <SectionHeading
             eyebrow="Lo que demuestra"
-            title="Este proyecto cuenta mucho mas que una lista de tecnologias"
+            title="Este proyecto cuenta mucho más que una lista de tecnologías"
           />
           <p className="text-lg text-text-secondary leading-relaxed mb-6">
-            Aqui hay producto, backend, frontend, automatizacion, datos, integraciones, IA, operaciones y criterio. El valor no esta en haber conectado Gmail o n8n, sino en haber disenado un sistema donde cada cliente tiene un camino claro, cada correo tiene trazabilidad y cada parte del negocio puede operar sin depender de tareas manuales repetitivas.
+            Aquí hay producto, backend, frontend, automatización, datos, integraciones, IA, operaciones y criterio. El valor no está en haber conectado Gmail o n8n, sino en haber diseñado un sistema donde cada cliente tiene un camino claro, cada correo tiene trazabilidad y cada parte del negocio puede operar sin depender de tareas manuales repetitivas.
           </p>
           <blockquote className="pl-6 border-l-2 border-accent/40 text-text-secondary text-lg italic leading-relaxed my-10">
-            Este sistema convierte una operacion compleja en una consola accionable: sabes quien esta listo, quien esta bloqueado, que se ha enviado, quien ha respondido, que cuenta esta en riesgo y que workflow necesita atencion.
+            Este sistema convierte una operación compleja en una consola accionable: sabes quién está listo, quién está bloqueado, qué se ha enviado, quién ha respondido, qué cuenta está en riesgo y qué workflow necesita atención.
           </blockquote>
         </section>
 
         <section className="mb-24">
           <SectionHeading
             eyebrow="Aprendizaje"
-            title="Lo que me dejo construir un sistema interno de verdad"
+            title="Lo que me dejó construir un sistema interno de verdad"
             text="La mayor complejidad no estuvo en una API concreta, sino en hacer que todos los estados fueran recuperables, visibles y suficientemente seguros para operar a diario."
           />
 
           <div className="grid md:grid-cols-2 gap-4">
             {learnings.map((item) => (
               <div key={item} className="card p-5 flex gap-3 items-start">
-                <span className="text-accent font-mono text-xs mt-1">-&gt;</span>
+                <span className="text-accent font-mono text-xs mt-1">&rarr;</span>
                 <p className="text-sm text-text-secondary leading-relaxed">{item}</p>
               </div>
             ))}
@@ -811,7 +940,7 @@ export default function EmailOperationsCaseStudy() {
 
         <footer className="text-center py-16 border-t border-border">
           <p className="text-xl md:text-2xl text-text-secondary leading-relaxed max-w-3xl mx-auto mb-10">
-            Es probablemente una de las piezas mas potentes de Growork: una infraestructura interna que conecta clientes, documentos, workflows, Google Workspace, IA, envios, respuestas y reputacion en un solo sistema operativo de trabajo.
+            Es probablemente una de las piezas más potentes de Growork: una infraestructura interna que conecta clientes, documentos, workflows, Google Workspace, IA, envíos, respuestas y reputación en un solo sistema operativo de trabajo.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <Link href="/projects/growork" className="btn btn-primary">

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
+import { CodeBlock } from "@/components/CaseStudyPrimitives";
 
 export const metadata: Metadata = {
   title: "Capa operativa n8n — Caso de Estudio",
@@ -23,7 +24,7 @@ const WORKFLOWS = [
       "Notifica errores en canal dedicado",
     ],
     stack: ["n8n", "Gmail API", "Google Sheets", "Google Drive", "Slack", "JavaScript"],
-    image: "/screenshots/n8n-email-masivo.png",
+    image: "/screenshots/n8n-email-masivo.webp",
     challenge:
       "Evitar que Gmail marque los correos como spam. Solución: delays aleatorios entre envíos, shuffle determinista por día/persona, y límite configurable de correos por ejecución (50-70).",
   },
@@ -42,7 +43,7 @@ const WORKFLOWS = [
       "Etiqueta correos como procesados y añade 'interesado' si aplica",
     ],
     stack: ["n8n", "Gmail API", "OpenAI GPT-5", "Slack", "JavaScript"],
-    image: "/screenshots/n8n-tracker-correos.png",
+    image: "/screenshots/n8n-tracker-correos.webp",
     challenge:
       "Clasificación precisa multilenguaje (ES, EN, FR, DE, IT). Solución: prompt especializado que ignora texto citado y firmas, devuelve JSON puro con categoría, confianza y razones. Limpieza de cuerpo con regex para 5 idiomas.",
   },
@@ -61,7 +62,7 @@ const WORKFLOWS = [
       "Incluye: servicio, días restantes, importe, pagador, método de pago y enlace",
     ],
     stack: ["n8n", "Google Sheets", "Discord API", "JavaScript"],
-    image: "/screenshots/n8n-finanzas-discord.png",
+    image: "/screenshots/n8n-finanzas-discord.webp",
     challenge:
       "Cálculo de fechas con formato español DD/MM/YYYY. Solución: split('/').reverse().join('-') para invertir el formato y poder calcular la diferencia en días con JavaScript Date.",
   },
@@ -79,7 +80,7 @@ const WORKFLOWS = [
       "Notifica al backend (webinterna) con la estructura creada",
     ],
     stack: ["n8n", "Google Drive API", "Twenty CRM", "Webhooks", "JavaScript"],
-    image: "/screenshots/n8n-creador-carpetas.png",
+    image: "/screenshots/n8n-creador-carpetas.webp",
     challenge:
       "Gestión de errores cuando las carpetas ya existen. Solución: búsqueda previa con query, creación condicional con onError: continueErrorOutput, y merge para detectar qué subcarpetas faltan antes de crearlas.",
   },
@@ -99,7 +100,7 @@ const WORKFLOWS = [
       "Actualiza Twenty CRM con el creador asignado",
     ],
     stack: ["n8n", "Google Drive API", "SMTP", "Twenty CRM", "Finance API", "JavaScript"],
-    image: "/screenshots/n8n-avisar-creadores.png",
+    image: "/screenshots/n8n-avisar-creadores.webp",
     challenge:
       "Algoritmo de selección ponderada que balancea tarifa y carga de trabajo. Solución: fórmula peso = 1/(tarifa+1) * 1/(activeJobs+1) donde menor tarifa y menos jobs activos dan mayor probabilidad de ser seleccionado.",
   },
@@ -118,7 +119,7 @@ const WORKFLOWS = [
       "Notifica al backend con datos del archivo detectado",
     ],
     stack: ["n8n", "Google Drive API", "HTTP Requests", "JavaScript"],
-    image: "/screenshots/n8n-detectar-archivo.png",
+    image: "/screenshots/n8n-detectar-archivo.webp",
     challenge:
       "Navegación recursiva de estructura de carpetas y detección de archivos recientes. Solución: queries de Drive API con createdTime filter, removeDuplicates para evitar procesar el mismo archivo dos veces, y normalización de nombres con regex para generar slugs.",
   },
@@ -136,7 +137,7 @@ const WORKFLOWS = [
       "Llama al workflow 1.4 para generar email corporativo",
     ],
     stack: ["n8n", "Google Drive API", "HTTP Requests", "Execute Workflow"],
-    image: "/screenshots/n8n-mover-cv.png",
+    image: "/screenshots/n8n-mover-cv.webp",
     challenge:
       "Navegación precisa de estructura de carpetas anidadas. Solución: filtros secuenciales con IF nodes para quedarse solo con CV y luego solo con DEFINITIVA, evitando errores cuando faltan subcarpetas.",
   },
@@ -156,7 +157,7 @@ const WORKFLOWS = [
       "Actualiza Twenty CRM con email operativo y password",
     ],
     stack: ["n8n", "Google Workspace API", "Twenty CRM", "HTTP Requests", "JavaScript"],
-    image: "/screenshots/n8n-generar-email.png",
+    image: "/screenshots/n8n-generar-email.webp",
     challenge:
       "Gestión de dominios con capacidad limitada y normalización de nombres. Solución: consulta de API de dominios con filtro de usuarios actuales vs máximo, y función de normalización que elimina acentos y caracteres especiales para generar alias válidos.",
   },
@@ -176,7 +177,7 @@ const WORKFLOWS = [
       "Responde con URL de la carpeta creada",
     ],
     stack: ["n8n", "Google Drive API", "Twenty CRM", "Webhooks", "JavaScript"],
-    image: "/screenshots/n8n-subir-leads.png",
+    image: "/screenshots/n8n-subir-leads.webp",
     challenge:
       "Manejo de archivos binarios en webhooks multipart. Solución: uso de binary data fields en n8n, validación condicional de existencia de archivos, y sanitización de nombres de carpeta eliminando caracteres inválidos.",
   },
@@ -195,7 +196,7 @@ const WORKFLOWS = [
       "Responde con fileId y fileName del archivo subido",
     ],
     stack: ["n8n", "Google Drive API", "Webhooks", "JavaScript"],
-    image: "/screenshots/n8n-subir-carta.png",
+    image: "/screenshots/n8n-subir-carta.webp",
     challenge:
       "Conversión de base64 a binario en n8n y reemplazo de archivos. Solución: uso de Buffer.from para decodificar base64, prepareBinaryData helper de n8n, y búsqueda con query de Drive API filtrando por nombre.",
   },
@@ -214,7 +215,7 @@ const WORKFLOWS = [
       "Responde con fileId y fileName del archivo subido",
     ],
     stack: ["n8n", "Google Drive API", "Webhooks", "JavaScript"],
-    image: "/screenshots/n8n-subir-cv.png",
+    image: "/screenshots/n8n-subir-cv.webp",
     challenge:
       "Gestión de reemplazo de archivos y conversión de base64. Solución: query de Drive API con mimeType filter para PDFs, eliminación condicional, y conversión robusta de base64 a binario con manejo de errores.",
   },
@@ -288,6 +289,85 @@ const LEARNINGS = [
 ];
 
 const FLOW_STEPS = ["Evento", "Validación", "Transformación", "API externa", "Estado", "Notificación"];
+
+const CODE_SNIPPETS = [
+  {
+    title: "Selección ponderada del creador de CV",
+    filename: "WKF-1.1 · Code node",
+    language: "javascript",
+    code: `// Menor tarifa y menos trabajos activos => mayor probabilidad.
+const weights = candidatos.map((c) => {
+  const tarifa = parseFloat(c.tarifa) || 0;
+  const jobs = c.activeJobs || 0;
+  return (1 / (tarifa + 1)) * (1 / (jobs + 1));
+});
+
+// Reparto por ruleta sobre la suma de pesos.
+const total = weights.reduce((sum, w) => sum + w, 0);
+let r = Math.random() * total;
+for (let i = 0; i < candidatos.length; i++) {
+  r -= weights[i];
+  if (r <= 0) { seleccionado = candidatos[i]; break; }
+}`,
+    caption:
+      "El reparto de trabajo no es un 50/50 ciego: pondera tarifa y carga activa para que el creador más barato y menos saturado tenga más opciones, sin dejar de ser aleatorio.",
+  },
+  {
+    title: "Barajado determinista por día y persona",
+    filename: "WKF · Envío masivo · Code node",
+    language: "javascript",
+    code: `// La misma semilla produce el mismo orden ese día (reproducible),
+// pero cambia cada día y para cada persona.
+const seedFn = xmur3(\`\${today}::\${persona}\`);
+const rand = mulberry32(seedFn());
+
+function shuffleDet(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(rand() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+const orden = shuffleDet(destinatarios);`,
+    caption:
+      "Un Fisher-Yates sembrado (xmur3 + mulberry32) reparte los envíos de forma reproducible: el orden se puede reconstruir, pero no parece un patrón fijo de cara a Gmail.",
+  },
+  {
+    title: "Alias normalizado y dominio por capacidad",
+    filename: "WKF-1.4 · Code node",
+    language: "javascript",
+    code: `function normalizar(str) {
+  return (str || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\\u0300-\\u036f]/g, "") // quita acentos
+    .replace(/[^a-z0-9]/g, "");          // solo alfanumerico
+}
+
+const aliasBase = normalizar(nombre) + normalizar(apellido);
+
+// Solo dominios activos con hueco libre, sorteados por prioridad.
+const disponibles = dominios.filter(
+  (d) => d.activo && Number(d.usuariosActuales) < Number(d.maxUsuarios),
+);
+const emailFinal = aliasBase + "@" + elegirPonderado(disponibles).dominio;`,
+    caption:
+      "La creación de cuentas corporativas normaliza identidades (sin acentos ni símbolos) y reparte la carga entre dominios respetando su capacidad máxima.",
+  },
+  {
+    title: "Guardia de seguridad en los webhooks internos",
+    filename: "WKF · Webhook · Code node",
+    language: "javascript",
+    code: `// Cada webhook interno exige un secreto compartido antes de operar.
+const secret = headers["x-webhook-secret"];
+if (secret !== process.env.N8N_WEBHOOK_SECRET) {
+  return respondWith(401, { error: "unauthorized" });
+}`,
+    caption:
+      "Los endpoints de n8n no quedan abiertos: validan un x-webhook-secret antes de tocar Drive, el CRM o Workspace. (El secreto real vive en variables de entorno, nunca en el código.)",
+  },
+];
 
 function SectionHeading({
   eyebrow,
@@ -552,6 +632,28 @@ export default function N8nWorkflowsPage() {
                     <p className="text-sm text-text-secondary leading-relaxed">{wf.challenge}</p>
                   </div>
                 </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-24">
+          <SectionHeading
+            eyebrow="Evidencia técnica"
+            title="El techo técnico está en los nodos de código"
+            text="Detrás de la interfaz visual hay JavaScript real resolviendo selección ponderada, barajado determinista, normalización de identidades y seguridad de webhooks. Fragmentos reales, sanitizados."
+          />
+
+          <div className="space-y-6">
+            {CODE_SNIPPETS.map((snippet) => (
+              <div key={snippet.title}>
+                <h3 className="text-lg font-semibold mb-3">{snippet.title}</h3>
+                <CodeBlock
+                  code={snippet.code}
+                  filename={snippet.filename}
+                  language={snippet.language}
+                  caption={snippet.caption}
+                />
               </div>
             ))}
           </div>
