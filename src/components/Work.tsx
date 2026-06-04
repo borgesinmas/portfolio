@@ -26,62 +26,64 @@ function HeroProject({ project }: { project: (typeof PROJECTS)[number] }) {
         )}
       </div>
 
-      {/* Info — dos columnas debajo del media */}
-      <div className="bg-bg-secondary border-t border-border p-8 sm:p-10 grid lg:grid-cols-[1fr_360px] gap-8 items-start">
-        {/* Izquierda: título + descripción */}
-        <div>
-          <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight mb-4">
+      {/* Info — una sola fila horizontal */}
+      <div className="bg-bg-secondary border-t border-border px-8 sm:px-10 py-7 flex flex-wrap items-center gap-x-10 gap-y-5">
+
+        {/* Título + descripción */}
+        <div className="flex-1 min-w-[240px]">
+          <h3 className="text-xl sm:text-2xl font-bold tracking-tight mb-1.5 leading-tight">
             {project.title}
           </h3>
-          <p className="text-text-secondary text-sm sm:text-base leading-relaxed">
+          <p className="text-text-secondary text-sm leading-relaxed line-clamp-2">
             {project.solution}
           </p>
         </div>
 
-        {/* Derecha: métricas + stack + botones */}
-        <div className="flex flex-col gap-6">
-          <div className="flex flex-wrap gap-6">
-            {project.results.map((r) => (
-              <div key={r.label}>
-                <div className="text-xl sm:text-2xl font-bold tracking-tight text-accent-light">
-                  {r.value}
-                </div>
-                <div className="text-xs text-text-muted mt-1">{r.label}</div>
+        {/* Métricas */}
+        <div className="flex gap-6 shrink-0">
+          {project.results.map((r) => (
+            <div key={r.label} className="text-center">
+              <div className="text-xl font-bold text-accent-light">{r.value}</div>
+              <div className="text-[10px] text-text-muted mt-0.5 max-w-[72px] leading-snug uppercase tracking-wide">
+                {r.label}
               </div>
-            ))}
-          </div>
-
-          <div className="flex flex-wrap gap-2">
-            {project.stack.slice(0, 6).map((t) => (
-              <span key={t} className="tag">{t}</span>
-            ))}
-            {project.stack.length > 6 && (
-              <span className="tag opacity-60">+{project.stack.length - 6}</span>
-            )}
-          </div>
-
-          <div className="flex flex-wrap items-center gap-3">
-            <Link
-              href={`/projects/${project.slug}`}
-              className="btn btn-primary group/cta w-fit transition-all hover:-translate-y-0.5 hover:bg-accent-light hover:shadow-[0_10px_30px_-12px_rgba(52,211,153,0.75)]"
-            >
-              Ver mas del proyecto
-              <span aria-hidden="true" className="transition-transform group-hover/cta:translate-x-1">-&gt;</span>
-            </Link>
-
-            {project.websiteUrl && (
-              <a
-                href={project.websiteUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-outline group/website w-fit transition-all hover:-translate-y-0.5 hover:border-accent hover:bg-white/5 hover:text-accent-light hover:shadow-[0_10px_30px_-16px_rgba(52,211,153,0.55)]"
-              >
-                growork.es
-                <span aria-hidden="true" className="transition-transform group-hover/website:translate-x-1">-&gt;</span>
-              </a>
-            )}
-          </div>
+            </div>
+          ))}
         </div>
+
+        {/* Stack */}
+        <div className="flex flex-wrap gap-1.5 shrink-0">
+          {project.stack.slice(0, 5).map((t) => (
+            <span key={t} className="tag">{t}</span>
+          ))}
+          {project.stack.length > 5 && (
+            <span className="tag opacity-60">+{project.stack.length - 5}</span>
+          )}
+        </div>
+
+        {/* Botones */}
+        <div className="flex items-center gap-3 shrink-0 ml-auto">
+          <Link
+            href={`/projects/${project.slug}`}
+            className="btn btn-primary group/cta w-fit transition-all hover:-translate-y-0.5 hover:bg-accent-light hover:shadow-[0_10px_30px_-12px_rgba(52,211,153,0.75)]"
+          >
+            Ver mas del proyecto
+            <span aria-hidden="true" className="transition-transform group-hover/cta:translate-x-1">-&gt;</span>
+          </Link>
+
+          {project.websiteUrl && (
+            <a
+              href={project.websiteUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-outline group/website w-fit transition-all hover:-translate-y-0.5 hover:border-accent hover:bg-white/5 hover:text-accent-light hover:shadow-[0_10px_30px_-16px_rgba(52,211,153,0.55)]"
+            >
+              growork.es
+              <span aria-hidden="true" className="transition-transform group-hover/website:translate-x-1">-&gt;</span>
+            </a>
+          )}
+        </div>
+
       </div>
     </div>
   );
@@ -107,27 +109,32 @@ function ProjectCard({ project }: { project: (typeof PROJECTS)[number] }) {
       </div>
 
       <div className="p-6 flex flex-col flex-1">
-        <h3 className="min-h-[3.25rem] text-xl font-semibold tracking-tight leading-tight mb-3">
+        {/* Título — altura fija 2 líneas */}
+        <h3 className="h-[3.5rem] overflow-hidden text-xl font-semibold tracking-tight leading-tight mb-3 line-clamp-2">
           {project.title}
         </h3>
-        <p className="min-h-[7.5rem] text-sm text-text-secondary mb-5 leading-relaxed line-clamp-5">
+
+        {/* Descripción — altura fija 5 líneas */}
+        <p className="h-[7.5rem] overflow-hidden text-sm text-text-secondary mb-5 leading-relaxed line-clamp-5">
           {project.solution}
         </p>
 
-        <div className="grid min-h-[7.25rem] grid-cols-3 items-start gap-3 mb-5 py-4 border-y border-border">
+        {/* Métricas — altura fija */}
+        <div className="grid h-[6.5rem] overflow-hidden grid-cols-3 items-center gap-3 mb-5 py-4 border-y border-border">
           {project.results.map((r) => (
             <div key={r.label} className="text-center">
               <div className="text-lg font-bold tracking-tight text-accent-light">
                 {r.value}
               </div>
-              <div className="min-h-[2.25rem] text-[10px] text-text-muted mt-0.5 uppercase tracking-wide leading-relaxed">
+              <div className="h-[2rem] overflow-hidden line-clamp-2 text-[10px] text-text-muted mt-0.5 uppercase tracking-wide leading-tight">
                 {r.label}
               </div>
             </div>
           ))}
         </div>
 
-        <div className="flex min-h-[4.25rem] content-start flex-wrap gap-1.5">
+        {/* Stack — altura fija */}
+        <div className="h-[4.25rem] overflow-hidden flex content-start flex-wrap gap-1.5 mb-5">
           {project.stack.slice(0, 5).map((t) => (
             <span key={t} className="tag text-[10px]">
               {t}
@@ -138,14 +145,10 @@ function ProjectCard({ project }: { project: (typeof PROJECTS)[number] }) {
           )}
         </div>
 
+        {/* Botón — siempre al fondo */}
         <span className="btn btn-outline group/cta mt-auto w-fit text-sm transition-all hover:-translate-y-0.5 hover:border-accent hover:bg-white/5 hover:text-accent-light hover:shadow-[0_10px_30px_-16px_rgba(52,211,153,0.55)]">
           Ver mas
-          <span
-            aria-hidden="true"
-            className="transition-transform group-hover/cta:translate-x-1"
-          >
-            -&gt;
-          </span>
+          <span aria-hidden="true" className="transition-transform group-hover/cta:translate-x-1">-&gt;</span>
         </span>
       </div>
     </Link>
