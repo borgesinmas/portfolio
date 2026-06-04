@@ -3,11 +3,10 @@ import Link from "next/link";
 import { PROJECTS } from "@/lib/projects";
 
 function HeroProject({ project }: { project: (typeof PROJECTS)[number] }) {
-  const imageClassName = "object-contain p-4";
-
   return (
-    <div className="work-hero rounded-2xl overflow-hidden group grid lg:grid-cols-[2fr_1fr] items-stretch">
-      <div className={project.video ? "relative overflow-hidden" : "relative aspect-[16/10] lg:aspect-auto"}>
+    <div className="work-hero rounded-2xl overflow-hidden group flex flex-col">
+      {/* Media — ancho completo, ratio natural */}
+      <div className="relative bg-bg-secondary">
         {project.video ? (
           <video
             src={project.video}
@@ -15,78 +14,75 @@ function HeroProject({ project }: { project: (typeof PROJECTS)[number] }) {
             loop
             muted
             playsInline
-            className="w-full h-full object-cover block"
+            className="w-full h-auto block"
           />
         ) : (
-          <Image
-            src={project.images[0] ?? project.heroImage}
-            alt={project.title}
-            fill
-            className={imageClassName}
-          />
+          <div className="relative aspect-[16/10]">
+            <Image
+              src={project.images[0] ?? project.heroImage}
+              alt={project.title}
+              fill
+              className="object-contain p-4"
+            />
+          </div>
         )}
       </div>
 
-      <div className="bg-bg-secondary p-8 sm:p-10 flex flex-col justify-center">
-        <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight mb-4">
-          {project.title}
-        </h3>
-        <p className="text-text-secondary text-sm sm:text-base mb-8 leading-relaxed">
-          {project.solution}
-        </p>
+      {/* Info — dos columnas debajo del media */}
+      <div className="bg-bg-secondary border-t border-border p-8 sm:p-10 grid lg:grid-cols-[1fr_360px] gap-8 items-start">
+        {/* Izquierda: título + descripción */}
+        <div>
+          <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight mb-4">
+            {project.title}
+          </h3>
+          <p className="text-text-secondary text-sm sm:text-base leading-relaxed">
+            {project.solution}
+          </p>
+        </div>
 
-        <div className="flex flex-wrap gap-6 mb-8">
-          {project.results.map((r) => (
-            <div key={r.label}>
-              <div className="text-xl sm:text-2xl font-bold tracking-tight text-accent-light">
-                {r.value}
+        {/* Derecha: métricas + stack + botones */}
+        <div className="flex flex-col gap-6">
+          <div className="flex flex-wrap gap-6">
+            {project.results.map((r) => (
+              <div key={r.label}>
+                <div className="text-xl sm:text-2xl font-bold tracking-tight text-accent-light">
+                  {r.value}
+                </div>
+                <div className="text-xs text-text-muted mt-1">{r.label}</div>
               </div>
-              <div className="text-xs text-text-muted mt-1">{r.label}</div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
 
-        <div className="flex flex-wrap gap-2">
-          {project.stack.slice(0, 6).map((t) => (
-            <span key={t} className="tag">
-              {t}
-            </span>
-          ))}
-          {project.stack.length > 6 && (
-            <span className="tag opacity-60">+{project.stack.length - 6}</span>
-          )}
-        </div>
+          <div className="flex flex-wrap gap-2">
+            {project.stack.slice(0, 6).map((t) => (
+              <span key={t} className="tag">{t}</span>
+            ))}
+            {project.stack.length > 6 && (
+              <span className="tag opacity-60">+{project.stack.length - 6}</span>
+            )}
+          </div>
 
-        <div className="mt-8 flex flex-wrap items-center gap-3">
-          <Link
-            href={`/projects/${project.slug}`}
-            className="btn btn-primary group/cta w-fit transition-all hover:-translate-y-0.5 hover:bg-accent-light hover:shadow-[0_10px_30px_-12px_rgba(52,211,153,0.75)]"
-          >
-            Ver mas del proyecto
-            <span
-              aria-hidden="true"
-              className="transition-transform group-hover/cta:translate-x-1"
+          <div className="flex flex-wrap items-center gap-3">
+            <Link
+              href={`/projects/${project.slug}`}
+              className="btn btn-primary group/cta w-fit transition-all hover:-translate-y-0.5 hover:bg-accent-light hover:shadow-[0_10px_30px_-12px_rgba(52,211,153,0.75)]"
             >
-              -&gt;
-            </span>
-          </Link>
+              Ver mas del proyecto
+              <span aria-hidden="true" className="transition-transform group-hover/cta:translate-x-1">-&gt;</span>
+            </Link>
 
-          {project.websiteUrl && (
-            <a
-              href={project.websiteUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-outline group/website w-fit transition-all hover:-translate-y-0.5 hover:border-accent hover:bg-white/5 hover:text-accent-light hover:shadow-[0_10px_30px_-16px_rgba(52,211,153,0.55)]"
-            >
-              growork.es
-              <span
-                aria-hidden="true"
-                className="transition-transform group-hover/website:translate-x-1"
+            {project.websiteUrl && (
+              <a
+                href={project.websiteUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-outline group/website w-fit transition-all hover:-translate-y-0.5 hover:border-accent hover:bg-white/5 hover:text-accent-light hover:shadow-[0_10px_30px_-16px_rgba(52,211,153,0.55)]"
               >
-                -&gt;
-              </span>
-            </a>
-          )}
+                growork.es
+                <span aria-hidden="true" className="transition-transform group-hover/website:translate-x-1">-&gt;</span>
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </div>
