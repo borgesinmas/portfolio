@@ -39,7 +39,7 @@ export function Contact() {
           </div>
 
           {/* Columna derecha: canales de contacto */}
-          <div className="space-y-4 lg:pt-[200px]">
+          <div className="space-y-4 lg:pt-[180px]">
             <a
               href="https://wa.me/34625836509?text=Hola%20Luis%2C%20vi%20tu%20portfolio%20y%20me%20gustaría%20hablar%20contigo."
               target="_blank"
