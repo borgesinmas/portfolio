@@ -6,7 +6,7 @@ function HeroProject({ project }: { project: (typeof PROJECTS)[number] }) {
   const imageClassName = "object-contain p-4";
 
   return (
-    <div className="work-hero rounded-2xl overflow-hidden group grid lg:grid-cols-[2fr_1fr]">
+    <div className="work-hero rounded-2xl overflow-hidden group grid lg:grid-cols-[2fr_1fr] items-start">
       <div className={project.video ? "relative" : "relative aspect-[16/10] lg:aspect-auto"}>
         {project.video ? (
           <video

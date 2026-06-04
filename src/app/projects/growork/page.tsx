@@ -2,7 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { ZoomableImage } from "@/components/ZoomableImage";
-import { CodeBlock } from "@/components/CaseStudyPrimitives";
 
 export const metadata: Metadata = {
   title: "Growork — Caso de Estudio",
@@ -192,59 +191,16 @@ const decisions = [
   },
 ];
 
-const codeEvidence = [
+const techScreenshots = [
   {
-    title: "Idempotencia atómica del webhook de Stripe",
-    filename: "src/app/api/stripe/webhook/route.ts",
-    language: "typescript",
-    code: `// Stripe puede reenviar el mismo evento varias veces.
-// La idempotencia se resuelve con un UPDATE condicional:
-// solo procesa el pago si aún no se ha aprovisionado.
-const updated = await sql\`
-  UPDATE payments
-     SET status = 'paid',
-         stripe_payment_intent = \${session.payment_intent ?? null},
-         updated_at = NOW()
-   WHERE stripe_session_id = \${session.id}
-     AND portal_user_created = false
-\`;
-
-if (updated.count === 0) {
-  // Ya se procesó: cortamos sin crear usuarios ni cobros duplicados.
-  return NextResponse.json({ received: true });
-}`,
-    caption:
-      "Un único UPDATE con guarda en el WHERE elimina las condiciones de carrera: si afecta a 0 filas, el evento ya se había aprovisionado.",
+    src: "/screenshots/n8n-generar-email.webp",
+    alt: "Workflow de n8n para la generación automática de emails de candidatura",
+    caption: "El workflow de generación de emails combina datos del cliente, la oferta y el contexto para producir un email personalizado antes de pasarlo al worker de envío.",
   },
   {
-    title: "Activación diferida del plan al primer envío real",
-    filename: "src/lib/portal/planActivation.ts",
-    language: "typescript",
-    code: `// Comprobación barata por índice: ¿hay servicios sin activar?
-const pending = await sql\`
-  SELECT id FROM client_services
-   WHERE portal_user_id = \${userId}
-     AND status = 'active' AND activated_at IS NULL
-   LIMIT 1\`;
-if (pending.length === 0) return { activated: false };
-
-// Solo entonces consultamos a la web interna por envíos reales.
-const { totalSent } = await backendFetch(
-  \`/sent-emails/stats?clientId=\${clientId}\`,
-).then((r) => r.json());
-if (totalSent <= 0) return { activated: false };
-
-// El reloj del plan arranca aquí, no en el pago.
-await sql\`
-  UPDATE client_services cs
-     SET activated_at = NOW(),
-         expires_at   = NOW() + (p.duration_days || ' days')::interval
-    FROM products p
-   WHERE cs.product_slug = p.slug
-     AND cs.portal_user_id = \${userId}
-     AND cs.activated_at IS NULL\`;`,
-    caption:
-      "La duración del plan mide el uso, no el tiempo de calendario desde la compra. La lógica de negocio vive en una transacción idempotente.",
+    src: "/screenshots/n8n-creador-carpetas.webp",
+    alt: "Workflow de n8n para la creación automática de carpetas en Google Drive",
+    caption: "Cuando un lead entra al sistema, n8n crea automáticamente la estructura de carpetas en Drive: CV, cartas, versiones antiguas y definitivas, sin ninguna intervención manual.",
   },
 ];
 
@@ -538,22 +494,14 @@ export default function GroworkCaseStudy() {
         {/* ── 8. EVIDENCIA TÉCNICA ── */}
         <section className="mb-24">
           <SectionHeading
-            eyebrow="Evidencia técnica"
-            title="Dos fragmentos que explican las decisiones más importantes"
-            text="No son decorativos: son los puntos donde se resuelven la idempotencia de los pagos y la activación diferida del plan. Fragmentos reales, sanitizados."
+            eyebrow="Automatizaciones"
+            title="Los workflows que eliminan el trabajo manual"
+            text="Cada flujo de n8n encapsula un proceso que antes requería intervención humana. Estas son dos de las piezas que mejor muestran cómo el sistema opera solo."
           />
 
-          <div className="space-y-6">
-            {codeEvidence.map((item) => (
-              <div key={item.title}>
-                <h3 className="text-lg font-semibold mb-3">{item.title}</h3>
-                <CodeBlock
-                  code={item.code}
-                  filename={item.filename}
-                  language={item.language}
-                  caption={item.caption}
-                />
-              </div>
+          <div className="grid md:grid-cols-2 gap-7">
+            {techScreenshots.map((s, i) => (
+              <ScreenshotFigure key={s.src} {...s} priority={i === 0} />
             ))}
           </div>
         </section>
