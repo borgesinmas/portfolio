@@ -71,7 +71,7 @@ export interface Project {
 export const PROJECTS: Project[] = [
   {
     slug: "growork",
-    title: "Growork",
+    title: "Plataforma de Empleabilidad con Pagos, CRM, Portal Privado e IA",
     category: "Plataforma Full-Stack",
     shortLabel: "Growork",
     problem:
@@ -130,7 +130,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: "app-rrpp",
-    title: "App para RRPP",
+    title: "Verificación de Publicaciones en Instagram con Visión Artificial",
     category: "Plataforma B2B Multi-App",
     shortLabel: "App RRPP",
     problem:
@@ -513,7 +513,7 @@ status = ("match" if similarity >= 0.50
   },
   {
     slug: "email-operations-os",
-    title: "Sistema de Envíos y Workflows Growork",
+    title: "Consola Operativa de Candidaturas: NestJS, n8n, Gmail API y IA",
     category: "Automatización Full-Stack",
     shortLabel: "Email Operations OS",
     problem:
@@ -579,7 +579,7 @@ status = ("match" if similarity >= 0.50
   },
   {
     slug: "n8n-workflows",
-    title: "+10 Flujos de trabajo de n8n",
+    title: "Capa de Automatización con n8n: 11 Flujos en Producción para Drive, CRM y Google Workspace",
     category: "Automatización con IA",
     shortLabel: "+10 Flujos de trabajo de n8n",
     problem:
@@ -635,7 +635,7 @@ status = ("match" if similarity >= 0.50
   },
   {
     slug: "swiss-hotel-job-scraper",
-    title: "Scraper de Empleo de Hoteles Suizos",
+    title: "Multi-Scraper con FastAPI, Playwright y Dashboard en Tiempo Real",
     category: "Scraping y Automatización",
     shortLabel: "Scraper de Empleo",
     problem:
@@ -691,7 +691,7 @@ status = ("match" if similarity >= 0.50
   },
   {
     slug: "control-horario-onya",
-    title: "Control Horario Onya",
+    title: "Sistema de Fichaje para Hostelería: API Propia, App Móvil y 4 Idiomas",
     category: "Control horario full-stack",
     shortLabel: "Control Horario",
     problem:
@@ -926,7 +926,7 @@ status = ("match" if similarity >= 0.50
   },
   {
     slug: "command-center",
-    title: "Command Center",
+    title: "Hub de Herramientas Internas Protegido con Cloudflare Zero Trust",
     category: "Centro de operaciones",
     shortLabel: "Command Center",
     problem:
@@ -946,7 +946,7 @@ status = ("match" if similarity >= 0.50
   },
   {
     slug: "project-flow",
-    title: "Project Flow",
+    title: "Workspace de Agencia: Proyectos, Capacidad y Solicitudes entre Departamentos",
     category: "Workspace interno",
     shortLabel: "Project Flow",
     problem:
