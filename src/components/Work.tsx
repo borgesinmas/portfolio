@@ -5,8 +5,8 @@ import { PROJECTS } from "@/lib/projects";
 function HeroProject({ project }: { project: (typeof PROJECTS)[number] }) {
   return (
     <div className="work-hero rounded-2xl overflow-hidden group flex flex-col">
-      {/* Media — ancho completo, ratio natural */}
-      <div className="relative bg-bg-secondary">
+      {/* Media — ratio cinematográfico, más compacto */}
+      <div className="relative aspect-[21/9] overflow-hidden bg-bg-secondary">
         {project.video ? (
           <video
             src={project.video}
@@ -14,17 +14,15 @@ function HeroProject({ project }: { project: (typeof PROJECTS)[number] }) {
             loop
             muted
             playsInline
-            className="w-full h-auto block"
+            className="absolute inset-0 w-full h-full object-cover object-top"
           />
         ) : (
-          <div className="relative aspect-[16/10]">
-            <Image
-              src={project.images[0] ?? project.heroImage}
-              alt={project.title}
-              fill
-              className="object-contain p-4"
-            />
-          </div>
+          <Image
+            src={project.images[0] ?? project.heroImage}
+            alt={project.title}
+            fill
+            className="object-cover"
+          />
         )}
       </div>
 
@@ -91,7 +89,7 @@ function HeroProject({ project }: { project: (typeof PROJECTS)[number] }) {
 
 function ProjectCard({ project }: { project: (typeof PROJECTS)[number] }) {
   const imageClassName =
-    "object-contain p-4 transition-transform duration-500 group-hover:scale-105";
+    "object-cover transition-transform duration-500 group-hover:scale-105";
 
   return (
     <Link
