@@ -61,6 +61,7 @@ export interface Project {
     text: string;
     image: string;
     alt: string;
+    link?: string;
     bullets?: string[];
   };
   ctaTitle?: string;
@@ -489,6 +490,7 @@ status = ("match" if similarity >= 0.50
       text: "La versión que más se usa es la del teléfono. La app móvil está construida con React Native y Expo Router, con la sesión guardada en el dispositivo y el mismo branding que la web. El dashboard web es totalmente responsive, pero el objetivo es que el gestor de marca pueda crear eventos, asignar RRPP y revisar el cumplimiento desde el móvil, en el propio evento.",
       image: "/screenshots/avora-login-mobile.webp",
       alt: "Login de la app móvil con doble pestaña Empresa y RRPP",
+      link: "/projects/app-rrpp",
       bullets: [
         "App móvil con React Native + Expo Router y sesión persistida en el dispositivo.",
         "Web responsive: el dashboard y los formularios se adaptan a cualquier pantalla.",

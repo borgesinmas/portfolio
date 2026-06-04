@@ -20,7 +20,7 @@ export function Contact() {
   return (
     <section id="contact" className="py-20 sm:py-28 bg-bg-secondary">
       <div className="max-w-content mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 lg:items-center">
+        <div className="grid lg:grid-cols-2 gap-16 lg:items-start">
           {/* Columna izquierda: contexto + foto */}
           <div>
             <p className="text-sm font-mono text-accent-light mb-3">Contacto</p>
@@ -39,7 +39,7 @@ export function Contact() {
           </div>
 
           {/* Columna derecha: canales de contacto */}
-          <div className="space-y-4">
+          <div className="space-y-4 lg:pt-[200px]">
             <a
               href="https://wa.me/34625836509?text=Hola%20Luis%2C%20vi%20tu%20portfolio%20y%20me%20gustaría%20hablar%20contigo."
               target="_blank"

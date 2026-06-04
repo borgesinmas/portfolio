@@ -323,15 +323,39 @@ export default async function ProjectPage({ params }: Props) {
                   )}
               </div>
               <div className="mx-auto w-full max-w-[280px]">
-                <div className="relative aspect-[9/19] overflow-hidden rounded-[2rem] border border-border bg-bg-primary">
-                  <Image
-                    src={project.mobileShowcase.image}
-                    alt={project.mobileShowcase.alt}
-                    fill
-                    sizes="280px"
-                    className="object-contain"
-                  />
-                </div>
+                {project.mobileShowcase.link ? (
+                  <Link
+                    href={project.mobileShowcase.link}
+                    className="block group/mobile relative"
+                    title="Ver proyecto completo"
+                  >
+                    <div className="relative aspect-[9/19] overflow-hidden rounded-[2rem] border border-border bg-bg-primary transition-all group-hover/mobile:border-accent/50 group-hover/mobile:shadow-[0_0_30px_-8px_rgba(52,211,153,0.4)]">
+                      <Image
+                        src={project.mobileShowcase.image}
+                        alt={project.mobileShowcase.alt}
+                        fill
+                        sizes="280px"
+                        className="object-contain transition-transform duration-500 group-hover/mobile:scale-[1.03]"
+                      />
+                    </div>
+                    <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs font-mono text-accent opacity-0 group-hover/mobile:opacity-100 transition-opacity whitespace-nowrap flex items-center gap-1">
+                      Ver proyecto
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                      </svg>
+                    </span>
+                  </Link>
+                ) : (
+                  <div className="relative aspect-[9/19] overflow-hidden rounded-[2rem] border border-border bg-bg-primary">
+                    <Image
+                      src={project.mobileShowcase.image}
+                      alt={project.mobileShowcase.alt}
+                      fill
+                      sizes="280px"
+                      className="object-contain"
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </div>
