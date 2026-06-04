@@ -260,13 +260,12 @@ export default function CommandCenterPage() {
         </header>
 
         <section className="mb-20">
-          <div className="rounded-xl overflow-hidden border border-border bg-bg-secondary">
+          <div className="card card-lg overflow-hidden relative bg-bg-secondary aspect-video">
             <Image
               src="/screenshots/central.webp"
               alt="Command Center de Growork con tarjetas de acceso a n8n, scraper, web interna, finanzas, CRM, base de datos, gestor de contraseñas, Dokploy y Project Flow"
-              width={1880}
-              height={949}
-              className="w-full h-auto"
+              fill
+              className="object-contain p-4"
               priority
             />
           </div>

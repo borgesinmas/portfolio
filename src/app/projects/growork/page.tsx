@@ -628,17 +628,16 @@ function ScreenshotFigure({
 }) {
   return (
     <figure className="group">
-      <div className="overflow-hidden rounded-xl border border-border bg-bg-secondary">
+      <div className="card card-lg overflow-hidden relative bg-bg-secondary aspect-video">
         <ZoomableImage
           src={src}
           alt={alt}
-          width={1600}
-          height={900}
+          fill
           sizes="(min-width: 900px) 520px, 100vw"
           caption={caption}
           priority={priority}
-          className="w-full"
-          imageClassName="w-full h-auto transition-transform duration-700 group-hover:scale-[1.015]"
+          containerClassName="h-full"
+          imageClassName="object-contain p-4 transition-transform duration-700 group-hover:scale-[1.015]"
         />
       </div>
       <figcaption className="mt-3 text-xs text-text-muted leading-relaxed">{caption}</figcaption>
@@ -1107,13 +1106,12 @@ export default function GroworkCaseStudy() {
                 Ver Command Center
               </Link>
             </div>
-            <div className="overflow-hidden rounded-xl border border-border bg-bg-secondary">
+            <div className="card card-lg overflow-hidden relative bg-bg-secondary aspect-video">
               <Image
                 src="/screenshots/central.webp"
                 alt="Command Center de Growork con accesos a herramientas internas"
-                width={1600}
-                height={900}
-                className="w-full h-auto"
+                fill
+                className="object-contain p-4"
               />
             </div>
           </div>

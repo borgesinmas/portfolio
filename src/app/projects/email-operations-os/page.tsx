@@ -435,18 +435,16 @@ function ModuleScreenshot({
 }) {
   return (
     <figure className="group">
-      <div className="relative aspect-[16/8.6] overflow-hidden rounded-lg border border-border bg-bg-secondary">
+      <div className="relative aspect-video overflow-hidden card card-lg bg-bg-secondary">
         <ZoomableImage
           src={src}
           alt={alt}
-          width={1888}
-          height={906}
+          fill
           sizes="(min-width: 768px) 520px, 100vw"
           caption={caption}
-          className="h-full"
-          imageClassName="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.025]"
+          containerClassName="h-full"
+          imageClassName="object-contain p-4 transition-transform duration-700 group-hover:scale-[1.025]"
         />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg-primary/25 via-transparent to-transparent opacity-70" />
       </div>
       <figcaption className="mt-3 text-xs text-text-muted leading-relaxed">
         {caption}
@@ -501,15 +499,14 @@ export default function EmailOperationsCaseStudy() {
           </div>
         </header>
 
-        <div className="mb-24">
+        <div className="mb-24 card card-lg overflow-hidden relative bg-bg-secondary aspect-video">
           <ZoomableImage
             src="/screenshots/email-operations-os.svg"
             alt="Arquitectura del sistema interno de envíos de Growork"
-            width={1440}
-            height={900}
+            fill
             caption="Arquitectura general del sistema: frontend operativo, backend de negocio y servicios conectados."
-            className="rounded-xl border border-border"
-            imageClassName="w-full"
+            containerClassName="h-full"
+            imageClassName="object-contain p-4"
             priority
           />
         </div>

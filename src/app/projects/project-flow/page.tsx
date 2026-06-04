@@ -355,13 +355,12 @@ export default function ProjectFlowPage() {
         </header>
 
         <section className="mb-20">
-          <div className="rounded-xl overflow-hidden border border-border bg-bg-secondary">
+          <div className="card card-lg overflow-hidden relative bg-bg-secondary aspect-video">
             <Image
               src="/screenshots/manager.webp"
               alt="Dashboard de Project Flow con navegación lateral, prioridades, solicitudes y carga operativa"
-              width={1907}
-              height={949}
-              className="w-full h-auto"
+              fill
+              className="object-contain p-4"
               priority
             />
           </div>

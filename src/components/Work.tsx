@@ -3,10 +3,7 @@ import Link from "next/link";
 import { PROJECTS } from "@/lib/projects";
 
 function HeroProject({ project }: { project: (typeof PROJECTS)[number] }) {
-  const imageClassName =
-    project.imageFit === "contain"
-      ? "object-contain p-4"
-      : "object-cover object-top";
+  const imageClassName = "object-contain p-4";
 
   return (
     <div className="work-hero rounded-2xl overflow-hidden group grid lg:grid-cols-[2fr_1fr]">
@@ -98,9 +95,7 @@ function HeroProject({ project }: { project: (typeof PROJECTS)[number] }) {
 
 function ProjectCard({ project }: { project: (typeof PROJECTS)[number] }) {
   const imageClassName =
-    project.imageFit === "contain"
-      ? "object-contain p-4"
-      : "object-cover object-top transition-transform duration-500 group-hover:scale-105";
+    "object-contain p-4 transition-transform duration-500 group-hover:scale-105";
 
   return (
     <Link

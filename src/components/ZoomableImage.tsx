@@ -7,13 +7,15 @@ import { createPortal } from "react-dom";
 interface ZoomableImageProps {
   src: string;
   alt: string;
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
   className?: string;
+  containerClassName?: string;
   imageClassName?: string;
   caption?: string;
   priority?: boolean;
   sizes?: string;
+  fill?: boolean;
 }
 
 export function ZoomableImage({
@@ -22,10 +24,12 @@ export function ZoomableImage({
   width,
   height,
   className,
+  containerClassName,
   imageClassName,
   caption,
   priority,
   sizes,
+  fill,
 }: ZoomableImageProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -79,13 +83,14 @@ export function ZoomableImage({
                 </svg>
               </button>
 
-              <div className="overflow-hidden rounded-xl border border-white/15 bg-[#090C10] shadow-[0_30px_120px_rgba(0,0,0,0.65)]">
+              <div className="relative overflow-hidden rounded-xl border border-white/15 bg-[#090C10] shadow-[0_30px_120px_rgba(0,0,0,0.65)] max-h-[84vh]">
                 <Image
                   src={src}
                   alt={alt}
-                  width={width}
-                  height={height}
-                  className="max-h-[84vh] w-full object-contain"
+                  {...(fill
+                    ? { fill: true }
+                    : { width: width ?? 1600, height: height ?? 900 })}
+                  className={fill ? "object-contain" : "max-h-[84vh] w-full object-contain"}
                   priority
                 />
               </div>
@@ -106,14 +111,15 @@ export function ZoomableImage({
       <button
         type="button"
         onClick={() => setIsOpen(true)}
-        className={`group relative block w-full cursor-zoom-in overflow-hidden text-left ${className ?? ""}`}
+        className={`group relative block w-full cursor-zoom-in overflow-hidden text-left ${className ?? ""} ${containerClassName ?? ""}`}
         aria-label={`Ampliar imagen: ${alt}`}
       >
         <Image
           src={src}
           alt={alt}
-          width={width}
-          height={height}
+          {...(fill
+            ? { fill: true }
+            : { width: width ?? 1600, height: height ?? 900 })}
           sizes={sizes}
           priority={priority}
           className={imageClassName}

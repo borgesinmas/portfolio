@@ -99,10 +99,7 @@ export default async function ProjectPage({ params }: Props) {
   const idx = PROJECTS.findIndex((p) => p.slug === slug);
   const prev = PROJECTS[idx - 1];
   const next = PROJECTS[idx + 1];
-  const imageClassName =
-    project.imageFit === "contain"
-      ? "object-contain p-4"
-      : "object-cover object-top";
+  const imageClassName = "object-contain p-4";
   const isAutomationProject =
     project.category.toLowerCase().includes("automatizaci?n") ||
     project.stack.some((tool) => ["n8n", "openai"].includes(tool.toLowerCase()));
@@ -151,7 +148,7 @@ export default async function ProjectPage({ params }: Props) {
 
         <div className="grid lg:grid-cols-[7fr_3fr] gap-6">
           {/* Video */}
-          <div className="card card-lg overflow-hidden relative bg-bg-secondary">
+          <div className="card card-lg overflow-hidden relative bg-bg-secondary aspect-video">
             {project.video ? (
               <video
                 src={project.video}
@@ -159,7 +156,7 @@ export default async function ProjectPage({ params }: Props) {
                 loop
                 muted
                 playsInline
-                className="w-full h-auto"
+                className="w-full h-full object-cover"
               />
             ) : (
               <div className="aspect-video relative">
@@ -275,11 +272,7 @@ export default async function ProjectPage({ params }: Props) {
                     alt={item.alt}
                     fill
                     sizes="(min-width: 1024px) 50vw, 100vw"
-                    className={
-                      project.imageFit === "contain"
-                        ? "object-contain p-4"
-                        : "object-cover"
-                    }
+                    className="object-contain p-4"
                   />
                 </div>
                 <div className="p-6 md:p-8">

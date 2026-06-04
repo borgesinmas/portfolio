@@ -591,13 +591,12 @@ export default function N8nWorkflowsPage() {
                   </div>
                 </div>
 
-                <div className="mb-8">
+                <div className="mb-8 card card-lg overflow-hidden relative bg-bg-secondary aspect-video">
                   <Image
                     src={wf.image}
                     alt={`Workflow ${wf.title}`}
-                    width={1200}
-                    height={675}
-                    className="w-full h-auto rounded-lg border border-border"
+                    fill
+                    className="object-contain p-4"
                   />
                 </div>
 

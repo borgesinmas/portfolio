@@ -329,13 +329,12 @@ export default function SwissHotelJobScraperPage() {
         </header>
 
         <section className="mb-20">
-          <div className="rounded-xl overflow-hidden border border-border bg-bg-secondary">
+          <div className="card card-lg overflow-hidden relative bg-bg-secondary aspect-video">
             <Image
               src="/screenshots/scraper.webp"
               alt="Dashboard del scraper mostrando el historial de ejecuciones de HotelCareer"
-              width={1880}
-              height={920}
-              className="w-full h-auto"
+              fill
+              className="object-contain p-4"
               priority
             />
           </div>
@@ -480,13 +479,12 @@ export default function SwissHotelJobScraperPage() {
         </section>
 
         <section className="mb-24">
-          <div className="rounded-xl overflow-hidden border border-border bg-bg-secondary">
+          <div className="card card-lg overflow-hidden relative bg-bg-secondary aspect-video">
             <Image
               src="/screenshots/scrapersito.webp"
               alt="Dashboard del scraper de Hogapage con el historial de ejecuciones"
-              width={1880}
-              height={954}
-              className="w-full h-auto"
+              fill
+              className="object-contain p-4"
             />
           </div>
         </section>

@@ -24,7 +24,6 @@ export interface Project {
   stack: string[];
   images: string[];
   heroImage: string;
-  imageFit?: "cover" | "contain";
   video?: string;
   websiteUrl?: string;
   features?: ProjectFeature[];
@@ -177,7 +176,6 @@ export const PROJECTS: Project[] = [
       "/screenshots/avora-tareas.webp",
     ],
     heroImage: "/screenshots/avora-dashoard.webp",
-    imageFit: "cover",
     toolsIntro:
       "Elegí herramientas que me permitieran entregar dos apps, un backend robusto y servicios de IA sin pagar infraestructura cloud durante el desarrollo.",
     tools: [
@@ -542,7 +540,6 @@ status = ("match" if similarity >= 0.50
       "/screenshots/email-operations-os.svg",
     ],
     heroImage: "/screenshots/webinterna1.webp",
-    imageFit: "cover",
     features: [
       {
         title: "Panel operativo completo",
@@ -711,7 +708,6 @@ status = ("match" if similarity >= 0.50
     stack: ["React Native", "TypeScript", "FastAPI", "SQLAlchemy", "Alembic", "PostgreSQL", "python-jose (JWT)", "Passlib (bcrypt)", "React Navigation", "AsyncStorage", "pandas"],
     images: ["/screenshots/onya-phone.webp"],
     heroImage: "/screenshots/onya-phone.webp",
-    imageFit: "contain",
     toolsIntro:
       "Elegí herramientas que me permitieran construir un backend propio sólido y consumirlo desde dos clientes (móvil y web) con una interfaz usable por perfiles no técnicos.",
     tools: [
@@ -996,7 +992,6 @@ status = ("match" if similarity >= 0.50
       "/screenshots/cloudflare1.webp",
     ],
     heroImage: "/screenshots/servidores-vps.svg",
-    imageFit: "contain",
     toolsIntro:
       "El foco no era montar una infraestructura enterprise, sino entender y aplicar las piezas esenciales para publicar proyectos propios con una seguridad razonable, un mantenimiento sencillo y el tráfico público aislado del interno.",
     tools: [

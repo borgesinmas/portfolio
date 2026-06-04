@@ -290,13 +290,12 @@ export default function PortalClientesCaseStudy() {
           </div>
         </header>
 
-        <div className="mb-24">
+        <div className="mb-24 card card-lg overflow-hidden relative bg-bg-secondary aspect-video">
           <Image
             src="/screenshots/PORTAL.webp"
             alt="Dashboard del portal privado de Growork"
-            width={1200}
-            height={675}
-            className="w-full rounded-xl border border-border"
+            fill
+            className="object-contain p-4"
             priority
           />
         </div>
@@ -358,13 +357,12 @@ export default function PortalClientesCaseStudy() {
             El portal actúa como una capa de producto sobre varios sistemas. Cada fuente tiene una responsabilidad distinta y el frontend no habla directamente con los servicios sensibles: el servidor valida la sesión, resuelve el cliente vinculado y consulta lo necesario a través de APIs protegidas.
           </p>
 
-          <div className="card p-6 md:p-8 overflow-hidden mb-6">
+          <div className="card card-lg overflow-hidden relative bg-bg-secondary aspect-video mb-6">
             <Image
               src="/screenshots/arquitectura-portal.webp"
               alt="Arquitectura del portal privado de clientes"
-              width={1200}
-              height={800}
-              className="w-full h-auto rounded"
+              fill
+              className="object-contain p-4"
             />
           </div>
         </section>
