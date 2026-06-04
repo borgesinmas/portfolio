@@ -15,7 +15,7 @@ function HeroProject({ project }: { project: (typeof PROJECTS)[number] }) {
             loop
             muted
             playsInline
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-contain bg-black/40"
           />
         ) : (
           <Image

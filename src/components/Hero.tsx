@@ -11,11 +11,18 @@ const IMAGES = {
 };
 
 function ProjectCard({ src, label, delay, aspect, slug }: { src: string; label: string; delay: string; aspect?: string; slug?: string }) {
+  const isVideo = src.endsWith(".mp4");
+  const mediaClasses = aspect ? "w-full h-full object-contain" : "w-full h-auto object-contain";
+
   const CardContent = (
     <div className="project-card rounded-xl overflow-hidden shadow-xl animate-in hover:ring-2 hover:ring-accent/30 transition-all cursor-pointer" style={{ animationDelay: delay }}>
       <div className={aspect ? `${aspect} overflow-hidden` : "overflow-hidden"}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={src} alt={label} className={aspect ? "w-full h-full object-contain" : "w-full h-auto object-contain"} />
+        {isVideo ? (
+          <video src={src} muted autoPlay loop playsInline className={mediaClasses} />
+        ) : (
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img src={src} alt={label} className={mediaClasses} />
+        )}
       </div>
       <div className="px-3 py-2 bg-white/5 border-t border-white/5 text-[10px] uppercase tracking-widest text-gray-500 font-semibold">
         {label}
@@ -64,7 +71,7 @@ export function Hero() {
           <div className="col-span-2 w-full">
             <ProjectCard src={IMAGES.workflow} label="+10 Flujos de trabajo de n8n" delay="0.1s" slug="n8n-workflows" />
           </div>
-          <ProjectCard src={IMAGES.crm} label="Command Center" delay="0.15s" slug="command-center" />
+          <ProjectCard src="/screenshots/growork.mp4" label="Growork" delay="0.15s" slug="growork" />
           <ProjectCard src={IMAGES.integration} label="Project Flow" delay="0.2s" slug="project-flow" />
         </div>
 

@@ -83,13 +83,13 @@ export const PROJECTS: Project[] = [
     longDescription:
       "Growork empezó como una web pública para vender servicios de empleabilidad en Suiza, pero acabó convirtiéndose en una plataforma completa: captación, evaluación, pagos, CRM, portal privado, automatizaciones, SEO, analítica y operaciones conectadas. Es el núcleo de un ecosistema de herramientas internas.",
     results: [
-      { value: "12+", label: "Sistemas integrados" },
-      { value: "54", label: "API routes" },
-      { value: "8", label: "Flujos clave" },
+      { value: "4", label: "Productos: web pública, scraper, Email OS y portal" },
+      { value: "54", label: "API routes en la web pública" },
+      { value: "13", label: "Módulos NestJS en la web interna" },
     ],
-    stack: ["Next.js 16", "React 19", "TypeScript", "PostgreSQL", "Stripe", "Twenty CRM", "OpenAI", "n8n", "Tailwind CSS 4", "Cloudflare"],
-    images: ["/screenshots/central.webp", "/screenshots/manager.webp"],
-    heroImage: "/screenshots/central.webp",
+    stack: ["Next.js 16", "React 19", "TypeScript", "PostgreSQL", "Stripe", "Twenty CRM", "NestJS", "OpenAI", "n8n", "Tailwind CSS 4", "Cloudflare", "Gmail API", "Google Workspace"],
+    images: ["/screenshots/PORTAL.webp", "/screenshots/pago.webp", "/screenshots/vlog.webp", "/screenshots/webinterna1.webp"],
+    heroImage: "/screenshots/PORTAL.webp",
     video: "/screenshots/growork.mp4",
     websiteUrl: "https://growork.es",
     features: [

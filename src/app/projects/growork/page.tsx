@@ -64,8 +64,8 @@ const systemLayers = [
   },
   {
     title: "Sistemas internos",
-    text: "Cada herramienta conserva una parte de la verdad: CRM, candidaturas, respuestas, precios, documentos y automatizaciones.",
-    items: ["Twenty CRM", "Web interna", "Finance API", "n8n", "Cloudflare Access"],
+    text: "Cada herramienta conserva su propio dominio de verdad: Twenty CRM para leads y clientes, web interna (NestJS 16 + Next.js + 13 módulos + 13 entidades TypeORM) para candidaturas, respuestas, warmup y trazabilidad operativa, Finance para precios dinámicos y n8n para automatización de documentos.",
+    items: ["Twenty CRM", "Web interna (NestJS)", "Finance API", "n8n", "Cloudflare Access"],
   },
   {
     title: "Portal privado",
@@ -456,37 +456,49 @@ const screenshots = [
     src: "/screenshots/PORTAL.webp",
     alt: "Dashboard privado de Growork con plan activo, candidaturas y asistente IA",
     caption:
-      "El portal demuestra que Growork no es solo una web pública: convierte pagos, CRM y operativa interna en una experiencia que el cliente puede entender.",
+      "El portal demuestra que Growork no es solo una web pública: convierte pagos, CRM y operativa interna en una experiencia que el cliente puede entender de un vistazo.",
+  },
+  {
+    src: "/screenshots/pago.webp",
+    alt: "Checkout y planes de Growork con precios dinámicos conectados a Stripe",
+    caption:
+      "El checkout no es solo un botón de pago. Al confirmarse, el webhook de Stripe crea el usuario, registra los servicios en PostgreSQL, sincroniza Twenty CRM, envía los emails de bienvenida y gestiona la activación diferida del plan.",
   },
   {
     src: "/screenshots/n8n-subir-leads.webp",
     alt: "Workflow de n8n para la subida de documentos de leads de Growork",
     caption:
-      "El formulario no termina al enviar. Los documentos viajan a n8n para crear carpetas, subir el CV y la carta, actualizar Twenty y cerrar el flujo sin tareas manuales repetitivas.",
+      "El formulario público no termina al enviar. Los documentos viajan a n8n, que crea las carpetas en Drive, sube el CV y la carta, actualiza Twenty CRM y cierra el flujo sin ninguna tarea manual repetitiva.",
   },
   {
     src: "/screenshots/finanzas.webp",
     alt: "Dashboard financiero interno de Growork",
     caption:
-      "Finance actúa como fuente dinámica de precios y control económico, de modo que la web vende con precios actualizados y conserva un fallback si la API falla.",
+      "Finance actúa como fuente dinámica de precios y control económico. La web pública vende con precios actualizados en tiempo real y conserva un fallback local si la API no responde.",
   },
   {
     src: "/screenshots/webinterna8.webp",
-    alt: "Centro de envíos de la web interna de Growork",
+    alt: "Centro de envíos de la web interna de Growork — consola de operaciones NestJS",
     caption:
-      "La web interna es la fuente operativa de candidaturas, respuestas y trazabilidad. El portal solo muestra una capa clara encima de esa operación.",
+      "La web interna (NestJS 16 + Next.js + 13 módulos + 13 entidades TypeORM) es el motor real de candidaturas, respuestas, warmup y trazabilidad. El portal de clientes solo muestra una capa limpia encima de toda esa operación.",
   },
   {
     src: "/screenshots/vlog.webp",
     alt: "Blog SEO de Growork sobre trabajar en Suiza",
     caption:
-      "El blog se planteó como infraestructura de adquisición orgánica: contenido dinámico, clusters, datos estructurados, sitemap y herramientas internas de gestión.",
+      "El blog se diseñó como infraestructura de adquisición orgánica: contenido dinámico desde PostgreSQL, clusters SEO, datos estructurados, sitemap dinámico, llms.txt y panel admin integrado.",
   },
   {
     src: "/screenshots/arquitectura.webp",
     alt: "Arquitectura de Growork por capas",
     caption:
-      "La parte difícil fue mantener sincronizadas capas con responsabilidades distintas sin trasladar esa complejidad al usuario final.",
+      "La parte más difícil fue mantener sincronizadas capas con responsabilidades distintas sin trasladar esa complejidad al usuario final.",
+  },
+  {
+    src: "/screenshots/arquitectura-portal.webp",
+    alt: "Arquitectura del portal privado de Growork con tres fuentes de datos",
+    caption:
+      "El portal no tiene una única base de datos: combina PostgreSQL propio para sesiones y servicios, Twenty CRM para el perfil comercial y la web interna para candidaturas, respuestas y documentos de cada cliente.",
   },
 ];
 
@@ -691,10 +703,10 @@ export default function GroworkCaseStudy() {
           </div>
 
           <div className="grid md:grid-cols-4 gap-4 mb-8">
-            <Metric value="12+" label="sistemas e integraciones conectadas" />
-            <Metric value="54" label="API routes en la web pública" />
-            <Metric value="33" label="endpoints dentro del área del portal" />
-            <Metric value="6" label="flujos complejos explicados" />
+            <Metric value="4" label="productos: web pública, scraper, Email OS y portal privado" />
+            <Metric value="54" label="API routes en la web pública (33 de ellas dentro del portal)" />
+            <Metric value="13" label="módulos NestJS en la web interna de operaciones" />
+            <Metric value="10+" label="flujos de n8n en producción automatizando el ecosistema" />
           </div>
 
           <div className="flex flex-wrap gap-2">
@@ -935,25 +947,41 @@ export default function GroworkCaseStudy() {
 
         <section className="mb-24">
           <SectionHeading
-            eyebrow="Seguridad e IA"
+            eyebrow="Chatbot IA + Seguridad"
             title="La IA solo era útil si respetaba contexto, permisos y límites"
-            text="El chat no se planteó como una caja abierta. Tenía que ayudar con Growork usando datos del cliente, pero sin exponer documentos, instrucciones internas ni información fuera de su alcance."
+            text="El chatbot del portal no es una caja abierta conectada a OpenAI. Es un asistente con contexto acotado, sanitización de prompts y límites de uso por hora, día y mes."
           />
 
-          <div className="grid md:grid-cols-2 gap-5">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
               {
-                title: "Contexto mínimo necesario",
-                text: "El asistente recibe solo la información relevante del caso: plan, candidaturas, respuestas y perfil operativo. La experiencia parece personal, pero el backend decide qué contexto puede entrar.",
+                title: "Chatbot con contexto privado",
+                text: "El asistente recibe el estado real del cliente: plan activo, candidaturas enviadas, respuestas recibidas, perfil y ciudades objetivo. La respuesta parece personal porque está construida sobre datos reales, no sobre suposiciones genéricas.",
               },
               {
-                title: "Defensas alrededor del producto",
-                text: "Autenticación, cookies HTTP-only, rate limits, sanitización, validación de PDF, API keys server-side y Cloudflare protegen formularios, portal, documentos y automatizaciones.",
+                title: "Sanitización anti-injection",
+                text: "chatSanitizer.ts bloquea intentos de prompt injection antes de llamar a la API. Las respuestas que parecen filtrar instrucciones del sistema se descartan automáticamente sin llegar al usuario.",
+              },
+              {
+                title: "Rate limits por usuario",
+                text: "Límites independientes por hora, día y mes registrados en chat_messages (PostgreSQL). Los mensajes bloqueados se auditan pero no consumen cuota. El modelo usa gpt-4o-mini para mantener el coste bajo control.",
+              },
+              {
+                title: "Cookies HTTP-only y JWT",
+                text: "La sesión del portal vive en una cookie HTTP-only firmada con jose. El frontend nunca toca el token directamente. El proxy (proxy.ts) protege /portal/* antes de renderizar cualquier componente.",
+              },
+              {
+                title: "Defensa en profundidad",
+                text: "CSP estricta, Turnstile en formularios, rate limits por IP, validación de PDF por magic bytes, bcrypt para contraseñas, tokens de un solo uso para resets y Cloudflare Access para los servicios internos.",
+              },
+              {
+                title: "Robots y Cloudflare",
+                text: "robots.ts bloquea la indexación de /portal/, /admin/ y /api/. Cloudflare Access protege las herramientas internas con autenticación antes de que el tráfico llegue al servidor.",
               },
             ].map((item) => (
               <div key={item.title} className="card p-6">
-                <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
-                <p className="text-text-secondary leading-relaxed">{item.text}</p>
+                <h3 className="text-lg font-semibold mb-3">{item.title}</h3>
+                <p className="text-sm text-text-secondary leading-relaxed">{item.text}</p>
               </div>
             ))}
           </div>
@@ -1087,6 +1115,132 @@ export default function GroworkCaseStudy() {
                 </div>
               </div>
             ))}
+          </div>
+        </section>
+
+        <section className="mb-24">
+          <SectionHeading
+            eyebrow="El ciclo completo"
+            title="Cuatro productos que forman un único sistema operativo"
+            text="Lo que el cliente ve como una plataforma es, por dentro, cuatro sistemas independientes que se sincronizan: la web pública capta y cobra, el scraper alimenta la operativa, la web interna ejecuta candidaturas y el portal muestra el resultado."
+          />
+
+          <div className="grid md:grid-cols-2 gap-5 mb-10">
+            {[
+              {
+                num: "01",
+                title: "Web pública — growork.es",
+                tech: "Next.js 16 + React 19 + Stripe + Twenty CRM + n8n",
+                text: "Captación, evaluación, checkout, blog SEO, portal privado y 54 API routes. El webhook de Stripe es el punto central de aprovisionamiento: crea el usuario, registra los servicios, sincroniza el CRM y envía los emails.",
+                link: null,
+              },
+              {
+                num: "02",
+                title: "Scraper de ofertas de empleo",
+                tech: "Python + FastAPI + Playwright + PostgreSQL + APScheduler",
+                text: "Cuatro scrapers (HotelCareer, Hogapage, Gastrojob, Hoteljob) que se ejecutan a diario, extraen emails con múltiples estrategias, deduplicán contactos y exportan los resultados a la base de datos que alimenta los envíos.",
+                link: "/projects/swiss-hotel-job-scraper",
+              },
+              {
+                num: "03",
+                title: "Web interna de operaciones — Email OS",
+                tech: "NestJS 16 + Next.js + PostgreSQL + 13 módulos + 13 entidades TypeORM",
+                text: "La consola operativa real: gestiona clientes sincronizados desde el CRM, ejecuta el motor de envíos diario con warmup progresivo, genera emails con GPT-4o, envía por Gmail API, clasifica respuestas con IA y gestiona cuentas de Google Workspace.",
+                link: "/projects/email-operations-os",
+              },
+              {
+                num: "04",
+                title: "Portal privado del cliente",
+                tech: "Next.js 16 + JWT + PostgreSQL + Twenty CRM + Web interna",
+                text: "El candidato ve candidaturas, respuestas, estadísticas, estado del plan, documentos y un chatbot IA con contexto acotado. Combina tres fuentes distintas: PostgreSQL para la sesión, Twenty para el perfil y la web interna para los datos operativos.",
+                link: "/projects/portal-clientes",
+              },
+            ].map((item) => (
+              <div key={item.title} className="card p-6">
+                <div className="flex items-start gap-4 mb-4">
+                  <span className="text-2xl font-bold font-mono text-accent/35 shrink-0">{item.num}</span>
+                  <div>
+                    <h3 className="text-lg font-bold tracking-tight mb-1">{item.title}</h3>
+                    <p className="text-xs font-mono text-accent-light">{item.tech}</p>
+                  </div>
+                </div>
+                <p className="text-sm text-text-secondary leading-relaxed mb-4">{item.text}</p>
+                {item.link && (
+                  <Link href={item.link} className="text-xs font-mono text-accent hover:text-accent-light transition-colors">
+                    Ver caso de estudio →
+                  </Link>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div className="card p-6 md:p-8 border-accent/20">
+            <p className="text-sm font-mono text-accent-light mb-3 uppercase tracking-wider">El flujo de datos</p>
+            <div className="flex flex-wrap items-center gap-3 text-sm text-text-secondary font-mono">
+              {[
+                "Candidato rellena formulario",
+                "→",
+                "Twenty CRM + n8n crea carpetas",
+                "→",
+                "Scraper extrae ofertas de hoteles",
+                "→",
+                "Email OS genera y envía CVs",
+                "→",
+                "Hotel responde por email",
+                "→",
+                "IA clasifica la respuesta",
+                "→",
+                "Portal muestra el resultado al candidato",
+              ].map((step, i) => (
+                <span
+                  key={i}
+                  className={step === "→" ? "text-accent/50" : "bg-bg-primary/50 border border-border rounded px-2 py-1"}
+                >
+                  {step}
+                </span>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="mb-24">
+          <div className="grid lg:grid-cols-[1fr_0.9fr] gap-6 items-center">
+            <div>
+              <SectionHeading
+                eyebrow="Motor de candidaturas"
+                title="La web interna: el sistema que hace el trabajo real"
+                text="La mayor parte del tiempo operativo de Growork no vive en la web pública, sino en una consola interna completa construida con NestJS y Next.js."
+              />
+              <ul className="space-y-3 text-sm text-text-secondary">
+                {[
+                  "Scheduler diario (6:00 AM): crea los jobs de envío para cada cliente activo.",
+                  "Worker cada minuto: procesa la cola, genera el email con GPT-4o-mini y lo envía por Gmail API.",
+                  "Warmup progresivo: cada cuenta corporativa empieza con 2 emails/día y sube hasta 25.",
+                  "Preview manual: aprueba o rechaza cada email antes de enviarlo si está activado.",
+                  "Respuestas: lee Gmail, deduplica, clasifica con IA (entrevista, negativa, automática) y permite responder en hilo.",
+                  "Google Workspace: crea cuentas corporativas automáticamente cuando un cliente completa el workflow.",
+                  "n8n workflows: WKF-1 a WKF-4 orquestan carpetas en Drive, CV definitivos y credenciales del email corporativo.",
+                ].map((item) => (
+                  <li key={item} className="flex gap-3 items-start">
+                    <span className="text-accent font-mono text-xs mt-1 shrink-0">→</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-6">
+                <Link href="/projects/email-operations-os" className="btn btn-outline">
+                  Ver Email Operations OS
+                </Link>
+              </div>
+            </div>
+            <div className="card card-lg overflow-hidden relative bg-bg-secondary aspect-video">
+              <Image
+                src="/screenshots/webinterna1.webp"
+                alt="Dashboard de la web interna de operaciones de Growork"
+                fill
+                className="object-contain p-4"
+              />
+            </div>
           </div>
         </section>
 
