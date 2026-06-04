@@ -1214,6 +1214,61 @@ status = ("match" if similarity >= 0.50
       "Tailscale crea una red privada para acceder a los recursos que no necesitan estar expuestos públicamente.",
     ],
   },
+  {
+    slug: "finanzas-asia",
+    title: "App de Gastos para Viaje por Asia: Multi-divisa, Balance en Tiempo Real y Supabase",
+    category: "Herramienta personal full-stack",
+    shortLabel: "Finanzas Asia",
+    problem:
+      "Llevar las cuentas de un viaje largo entre dos personas en países con monedas distintas es un caos: quién pagó qué, cuánto le corresponde a cada uno, a qué tipo de cambio, y cuánto se debe en total. Una hoja de cálculo funciona hasta que tienes gastos en baht, dólares y francos mezclados.",
+    solution:
+      "Aplicación web propia con Next.js y Supabase que registra gastos en cuatro divisas, calcula en tiempo real quién le debe cuánto a quién, y muestra estadísticas del viaje por categoría, país y persona. Acceso restringido con Cloudflare Zero Trust a los dos usuarios del viaje y desplegada en VPS propio con Dokploy.",
+    description:
+      "Herramienta personal para gestionar los gastos de un viaje por Asia entre dos personas: multi-divisa (EUR, THB, USD, CHF), balance en tiempo real, estadísticas con gráficos, gestión de alojamientos y acceso protegido con Cloudflare Zero Trust.",
+    longDescription:
+      "En lugar de una hoja de cálculo, construí una app completa para el viaje. Registra gastos en cuatro monedas, recalcula el balance con tipos de cambio en tiempo real, distingue gastos compartidos de personales, y muestra el resumen en un dashboard con KPIs, gráficos de evolución y últimos movimientos.",
+    results: [
+      { value: "4", label: "divisas: EUR, THB, USD, CHF" },
+      { value: "8", label: "módulos: dashboard, gastos, balance, stats, alojamientos, países, conversor, diario" },
+      { value: "2FA", label: "acceso vía Cloudflare Zero Trust" },
+    ],
+    stack: ["Next.js 16", "React 19", "TypeScript", "Supabase", "PostgreSQL", "Tailwind CSS 4", "Recharts", "Cloudflare Zero Trust", "Dokploy", "Docker"],
+    images: ["/screenshots/finanzas.webp"],
+    heroImage: "/screenshots/finanzas.webp",
+    features: [
+      {
+        title: "Dashboard con KPIs en tiempo real",
+        description: "Total del viaje, gasto de hoy, de la semana y media diaria calculados sobre todos los registros. Incluye desglose por categoría con barras de progreso y panel de últimos movimientos.",
+      },
+      {
+        title: "Gastos multi-divisa",
+        description: "Registra en EUR, THB, USD o CHF. La app convierte automáticamente al euro usando los tipos de cambio configurados y guarda tanto el importe original como su equivalente en euros.",
+      },
+      {
+        title: "Balance entre dos personas",
+        description: "Calcula en tiempo real quién debe cuánto a quién, distinguiendo gastos compartidos (50/50), personales de cada uno y liquidaciones ya realizadas. Los tipos de cambio en vivo recalculan el histórico.",
+      },
+      {
+        title: "Estadísticas con gráficos",
+        description: "Distribución por categoría, evolución del gasto a lo largo del viaje y comparativa entre personas. Gráficos de barras, líneas y circular con Recharts, filtrables por usuario.",
+      },
+      {
+        title: "Alojamientos y países",
+        description: "Registro de hoteles con fechas de check-in/check-out, precio por noche y divisa local. Panel de países visitados con moneda y tipo de cambio.",
+      },
+      {
+        title: "Cloudflare Zero Trust",
+        description: "Solo los dos usuarios del viaje pueden acceder. Cloudflare Access actúa como capa de identidad antes de llegar a la app, sin necesidad de un sistema de login propio.",
+      },
+    ],
+    architecture: [
+      "Next.js 16 App Router: Server Components para el dashboard (datos frescos en cada carga) y Client Components para el balance e interactividad en tiempo real.",
+      "Supabase como backend completo: PostgreSQL con tablas de gastos, países, alojamientos, categorías, perfiles, tipos de cambio y liquidaciones.",
+      "Recharts para los gráficos de estadísticas (barras, líneas, pie) renderizados en el cliente con filtrado por usuario.",
+      "Cloudflare Zero Trust como única capa de acceso: autenticación por correo autorizado antes de llegar a la app, sin gestionar sesiones propias.",
+      "Desplegada en VPS propio mediante Dokploy y Docker, en el mismo servidor interno que otras herramientas del ecosistema.",
+    ],
+  },
 ];
 
 export function getProjectBySlug(slug: string): Project | undefined {
