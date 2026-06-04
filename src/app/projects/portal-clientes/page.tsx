@@ -1,7 +1,7 @@
 import Link from "next/link";
-import Image from "next/image";
 import type { Metadata } from "next";
-import { ApiContract, CodeBlock } from "@/components/CaseStudyPrimitives";
+import { ZoomableImage } from "@/components/ZoomableImage";
+import { ApiContract } from "@/components/CaseStudyPrimitives";
 
 export const metadata: Metadata = {
   title: "Portal Privado de Clientes — Growork",
@@ -53,39 +53,6 @@ const productModules = [
     text: "Asistente contextual con datos reales del cliente, límites de uso, sanitización de prompts y alcance restringido a Growork.",
   },
 ];
-
-const securityCode = `// src/lib/portal/session.ts — sesión firmada en cookie HTTP-only
-import { SignJWT, jwtVerify } from "jose";
-
-const secret = new TextEncoder().encode(process.env.PORTAL_JWT_SECRET);
-
-export async function createSession(claims: SessionClaims) {
-  const token = await new SignJWT(claims)
-    .setProtectedHeader({ alg: "HS256" })
-    .setIssuedAt()
-    .setExpirationTime("7d")
-    .sign(secret);
-
-  cookies().set("portal_session", token, {
-    httpOnly: true,                              // no accesible desde JS
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    maxAge: 60 * 60 * 24 * 7,
-  });
-}`;
-
-const ownershipCode = `// La descarga de adjuntos valida la pertenencia antes de servir nada
-const session = await getSessionFromRequest(req);
-if (!session) return unauthorized();
-
-const candidatura = await getCandidatura(id);
-if (candidatura.clientId !== session.clientId) {
-  // Nunca se devuelven documentos de otro cliente, aunque
-  // se adivine el identificador o el nombre del fichero.
-  return forbidden();
-}
-
-return proxyAttachment(candidatura, filename);`;
 
 const portalApi = [
   {
@@ -291,11 +258,12 @@ export default function PortalClientesCaseStudy() {
         </header>
 
         <div className="mb-24 card card-lg overflow-hidden relative bg-bg-secondary aspect-video">
-          <Image
+          <ZoomableImage
             src="/screenshots/PORTAL.webp"
             alt="Dashboard del portal privado de Growork"
             fill
-            className="object-contain p-4"
+            containerClassName="h-full"
+            imageClassName="object-contain p-4"
             priority
           />
         </div>
@@ -358,11 +326,12 @@ export default function PortalClientesCaseStudy() {
           </p>
 
           <div className="card card-lg overflow-hidden relative bg-bg-secondary aspect-video mb-6">
-            <Image
+            <ZoomableImage
               src="/screenshots/arquitectura-portal.webp"
               alt="Arquitectura del portal privado de clientes"
               fill
-              className="object-contain p-4"
+              containerClassName="h-full"
+              imageClassName="object-contain p-4"
             />
           </div>
         </section>
@@ -388,21 +357,6 @@ export default function PortalClientesCaseStudy() {
           <p className="text-lg text-text-secondary leading-relaxed mb-8">
             La parte sensible del portal no era solo autenticar usuarios. Había que proteger documentos personales, adjuntos, pagos, sesiones y un asistente IA que conoce el contexto del cliente sin convertirse en una puerta abierta a los datos internos.
           </p>
-
-          <div className="grid lg:grid-cols-2 gap-6 mb-8">
-            <CodeBlock
-              code={securityCode}
-              filename="src/lib/portal/session.ts"
-              language="typescript"
-              caption="La sesión vive en una cookie HTTP-only firmada con jose. El token nunca queda expuesto a JavaScript del navegador."
-            />
-            <CodeBlock
-              code={ownershipCode}
-              filename="src/app/api/portal/.../attachments/[filename]/route.ts"
-              language="typescript"
-              caption="Cada descarga comprueba la pertenencia: el identificador del cliente del recurso debe coincidir con el de la sesión."
-            />
-          </div>
 
           <div className="grid md:grid-cols-2 gap-4">
             {[

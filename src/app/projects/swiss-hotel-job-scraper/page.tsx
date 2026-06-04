@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { ZoomableImage } from "@/components/ZoomableImage";
 import type { ReactNode } from "react";
 import {
   ArrowLeft,
@@ -14,7 +14,7 @@ import {
   ShieldCheck,
   Workflow,
 } from "lucide-react";
-import { CodeBlock, DataModelTable } from "@/components/CaseStudyPrimitives";
+import { DataModelTable } from "@/components/CaseStudyPrimitives";
 
 export const metadata: Metadata = {
   title: "Scraper de Empleo de Hoteles Suizos — Caso de Estudio",
@@ -215,74 +215,6 @@ const dataModel = [
   },
 ];
 
-const codeEvidence = [
-  {
-    title: "Vista unificada que deduplica por email",
-    filename: "migrations/unified_jobs.sql",
-    language: "sql",
-    code: `-- Cuatro fuentes con esquemas casi iguales se unen en una sola vista.
--- DISTINCT ON (LOWER(email)) deja un contacto único, el más reciente.
-CREATE VIEW job_offers AS
-SELECT DISTINCT ON (LOWER(email))
-  unified_id, puesto, ciudad, email, url_oferta, empresa, fuente, fecha_scrape
-FROM (
-  SELECT 'hotelcareer_' || id::text AS unified_id, puesto, ciudad, email,
-         url_oferta, empresa, 'hotelcareer.ch' AS fuente, fecha_scrape
-    FROM job_offers_hotelcareer
-  UNION ALL SELECT 'hogapage_'  || id::text, puesto, ciudad, email, url_oferta, empresa, 'hogapage.ch',  fecha_scrape FROM job_offers_hogapage
-  UNION ALL SELECT 'gastrojob_' || id::text, puesto, ciudad, email, url_oferta, empresa, 'gastrojob.ch', fecha_scrape FROM job_offers_gastrojob
-  UNION ALL SELECT 'hoteljob_'  || id::text, puesto, ciudad, email, url_oferta, empresa, 'hoteljob.de',  fecha_scrape FROM job_offers_hoteljob
-) AS all_offers
-WHERE email IS NOT NULL AND email <> ''
-ORDER BY LOWER(email), fecha_scrape DESC NULLS LAST;`,
-    caption:
-      "La deduplicación vive en la base de datos, no en la aplicación: el prefijo unified_id conserva el origen y DISTINCT ON garantiza un contacto único por email.",
-  },
-  {
-    title: "Extracción de email con varias estrategias y degradación",
-    filename: "scraper/email_extractor.py",
-    language: "python",
-    code: `def extraer_email(page) -> tuple[str | None, str]:
-    # 1) mailto directo dentro del bloque de contacto
-    link = page.query_selector("#contact_fields a#email[href^='mailto:']")
-    if link:
-        email = normalize_email(link.get_attribute("href"))
-        if EMAIL_REGEX.search(email):
-            return email, "mailto_id"
-
-    # 2) texto del contenedor: directo y luego ofuscado
-    text = page.inner_text("#contact_container") or ""
-    if (m := EMAIL_REGEX.search(text)):
-        return normalize_email(m.group()), "container_regex"
-    if (m := OBFUSCATED_REGEX.search(text)):           # "hr [at] hotel [dot] com"
-        return normalize_email(m.group()), "ofuscado"
-
-    # 3) ultimo recurso: barrido de toda la pagina
-    if (m := EMAIL_REGEX.search(page.inner_text("body"))):
-        return normalize_email(m.group()), "fullpage_regex"
-    return None, "none"`,
-    caption:
-      "Seis estrategias en cascada con degradación elegante: cada una devuelve también su nombre, lo que hace observable de dónde salió cada email.",
-  },
-  {
-    title: "Hora de ejecución aleatoria dentro de una ventana",
-    filename: "app/services/scheduler.py",
-    language: "python",
-    code: `def calcular_hora_aleatoria(window_start: str, window_end: str) -> str:
-    sh, sm = map(int, window_start.split(":"))
-    eh, em = map(int, window_end.split(":"))
-    minuto = random.randint(sh * 60 + sm, eh * 60 + em)
-    return f"{minuto // 60:02d}:{minuto % 60:02d}"
-
-# Un re-scheduler a las 00:01 recalcula la hora cada dia
-self.scheduler.add_job(self.reschedule_for_today,
-                       CronTrigger(hour=0, minute=1),
-                       id="daily_rescheduler", replace_existing=True)`,
-    caption:
-      "La extracción diaria no se lanza siempre a la misma hora: se sortea un minuto dentro de la ventana configurada y se vuelve a sortear cada noche para no ser predecible.",
-  },
-];
-
 function SectionLabel({ children }: { children: ReactNode }) {
   return (
     <p className="text-xs font-mono text-accent-light uppercase tracking-wider mb-3">
@@ -330,11 +262,12 @@ export default function SwissHotelJobScraperPage() {
 
         <section className="mb-20">
           <div className="card card-lg overflow-hidden relative bg-bg-secondary aspect-video">
-            <Image
+            <ZoomableImage
               src="/screenshots/scraper.webp"
               alt="Dashboard del scraper mostrando el historial de ejecuciones de HotelCareer"
               fill
-              className="object-contain p-4"
+              containerClassName="h-full"
+              imageClassName="object-contain p-4"
               priority
             />
           </div>
@@ -480,11 +413,12 @@ export default function SwissHotelJobScraperPage() {
 
         <section className="mb-24">
           <div className="card card-lg overflow-hidden relative bg-bg-secondary aspect-video">
-            <Image
+            <ZoomableImage
               src="/screenshots/scrapersito.webp"
               alt="Dashboard del scraper de Hogapage con el historial de ejecuciones"
               fill
-              className="object-contain p-4"
+              containerClassName="h-full"
+              imageClassName="object-contain p-4"
             />
           </div>
         </section>
@@ -516,30 +450,6 @@ export default function SwissHotelJobScraperPage() {
                 </li>
               ))}
             </ul>
-          </div>
-        </section>
-
-        <section className="mb-24">
-          <SectionLabel>Evidencia técnica</SectionLabel>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-8">
-            Las decisiones importantes están en el código.
-          </h2>
-          <p className="text-lg text-text-secondary leading-relaxed mb-10 max-w-4xl">
-            Tres piezas concentran el criterio del proyecto: cómo se deduplican cuatro fuentes en una sola consulta, cómo se rescatan emails ofuscados y cómo se evita ser predecible al programar la extracción. Fragmentos reales, sanitizados.
-          </p>
-
-          <div className="space-y-6">
-            {codeEvidence.map((item) => (
-              <div key={item.filename + item.title}>
-                <h3 className="text-lg font-semibold mb-3">{item.title}</h3>
-                <CodeBlock
-                  code={item.code}
-                  filename={item.filename}
-                  language={item.language}
-                  caption={item.caption}
-                />
-              </div>
-            ))}
           </div>
         </section>
 

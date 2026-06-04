@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { ZoomableImage } from "@/components/ZoomableImage";
 import type { ReactNode } from "react";
 import {
   ArrowLeft,
@@ -18,7 +18,6 @@ import {
   ShieldCheck,
   Workflow,
 } from "lucide-react";
-import { CodeBlock } from "@/components/CaseStudyPrimitives";
 
 export const metadata: Metadata = {
   title: "Command Center — Caso de Estudio",
@@ -187,33 +186,6 @@ const STACK = [
   { name: "Subdominios de Growork", why: "Cada herramienta tiene una entrada clara y recordable dentro del ecosistema." },
 ];
 
-const dockerfileCode = `# Etapa de build: compila la web estática con Vite
-FROM node:20-alpine AS build-stage
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build
-
-# Etapa de producción: solo Nginx sirviendo estáticos (~40 MB)
-FROM nginx:alpine AS production-stage
-COPY --from=build-stage /app/dist /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]`;
-
-const themeCode = `// Tema claro/oscuro: respeta la preferencia del sistema y la persiste
-const isDark =
-  localStorage.theme === "dark" ||
-  (!("theme" in localStorage) &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches);
-
-document.documentElement.classList.toggle("dark", isDark);
-
-themeToggle.addEventListener("click", () => {
-  const dark = document.documentElement.classList.toggle("dark");
-  localStorage.theme = dark ? "dark" : "light";
-});`;
-
 function SectionLabel({ children }: { children: ReactNode }) {
   return (
     <p className="text-xs font-mono text-accent-light uppercase tracking-wider mb-3">
@@ -261,11 +233,12 @@ export default function CommandCenterPage() {
 
         <section className="mb-20">
           <div className="card card-lg overflow-hidden relative bg-bg-secondary aspect-video">
-            <Image
+            <ZoomableImage
               src="/screenshots/central.webp"
               alt="Command Center de Growork con tarjetas de acceso a n8n, scraper, web interna, finanzas, CRM, base de datos, gestor de contraseñas, Dokploy y Project Flow"
               fill
-              className="object-contain p-4"
+              containerClassName="h-full"
+              imageClassName="object-contain p-4"
               priority
             />
           </div>
@@ -377,37 +350,6 @@ export default function CommandCenterPage() {
                 </div>
               </div>
             ))}
-          </div>
-        </section>
-
-        <section className="mb-24">
-          <SectionLabel>Evidencia técnica</SectionLabel>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-8">
-            Sencilla por fuera, cuidada por dentro.
-          </h2>
-          <p className="text-lg text-text-secondary leading-relaxed mb-10 max-w-4xl">
-            Que sea una web estática no significa que sea descuidada: se empaqueta con un build multi-stage que deja una imagen mínima de Nginx, y la interacción respeta la preferencia de tema del sistema. Fragmentos reales, sanitizados.
-          </p>
-
-          <div className="grid lg:grid-cols-2 gap-6">
-            <div>
-              <h3 className="text-lg font-semibold mb-3">Build multi-stage (Node → Nginx)</h3>
-              <CodeBlock
-                code={dockerfileCode}
-                filename="Dockerfile"
-                language="dockerfile"
-                caption="La fase de Node solo compila; la imagen final es Nginx sirviendo estáticos. Resultado: una imagen pequeña, rápida de arrancar y fácil de mantener."
-              />
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold mb-3">Tema persistente con preferencia del sistema</h3>
-              <CodeBlock
-                code={themeCode}
-                filename="src/main.js"
-                language="javascript"
-                caption="Sin framework: detecta la preferencia del sistema, la persiste en localStorage y alterna la clase dark del documento."
-              />
-            </div>
           </div>
         </section>
 

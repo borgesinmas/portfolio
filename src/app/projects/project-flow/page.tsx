@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { ZoomableImage } from "@/components/ZoomableImage";
 import type { ReactNode } from "react";
 import {
   Activity,
@@ -18,7 +18,7 @@ import {
   ShieldCheck,
   UsersRound,
 } from "lucide-react";
-import { CodeBlock, DataModelTable } from "@/components/CaseStudyPrimitives";
+import { DataModelTable } from "@/components/CaseStudyPrimitives";
 
 export const metadata: Metadata = {
   title: "Project Flow — Caso de Estudio",
@@ -256,59 +256,6 @@ const dataModel = [
   },
 ];
 
-const codeEvidence = [
-  {
-    title: "Acceso real con JWT y guarda de administración",
-    filename: "api/middleware.js",
-    language: "javascript",
-    code: `const JWT_SECRET = process.env.JWT_SECRET;
-
-export function authMiddleware(req, res, next) {
-  const header = req.headers.authorization;
-  if (!header?.startsWith("Bearer ")) {
-    return res.status(401).json({ error: "Token no proporcionado" });
-  }
-  try {
-    const payload = jwt.verify(header.slice(7), JWT_SECRET);
-    req.userId = payload.userId;
-    next();
-  } catch {
-    return res.status(401).json({ error: "Token invalido o expirado" });
-  }
-}
-
-// Las rutas sensibles exigen acceso completo, no solo estar logueado.
-export function adminOnly(req, res, next) {
-  if (!req.user?.has_full_access) {
-    return res.status(403).json({ error: "Acceso denegado" });
-  }
-  next();
-}`,
-    caption:
-      "El acceso pasó de un selector de usuario en localStorage a JWT real: token verificado por middleware y una guarda adicional para las rutas que requieren acceso completo.",
-  },
-  {
-    title: "Una tabla que mezcla lo relacional y lo flexible",
-    filename: "db/schema.sql",
-    language: "sql",
-    code: `-- La tarea combina columnas relacionales con estructuras que cambian.
-CREATE TABLE tasks (
-  id           VARCHAR(50) PRIMARY KEY,
-  project_id   VARCHAR(50) REFERENCES projects(id) ON DELETE CASCADE,
-  assignee_id  VARCHAR(50) REFERENCES users(id),
-  status       VARCHAR(50) DEFAULT 'Pendiente',
-  estimate     NUMERIC DEFAULT 0,    -- horas planificadas (planning)
-  planned_date DATE,                 -- semana de carga
-  dependencies TEXT[] DEFAULT '{}',  -- relaciones entre tareas
-  subtasks     JSONB  DEFAULT '[]',  -- estructura que cambia mucho
-  request_ids  TEXT[] DEFAULT '{}',  -- solicitudes vinculadas
-  links        JSONB  DEFAULT '[]'
-);`,
-    caption:
-      "El núcleo (proyecto, responsable, estado, estimación) es relacional e indexado; lo que cambia de forma (subtareas, enlaces) vive en JSONB. estimate + planned_date alimentan el planning por capacidad.",
-  },
-];
-
 function SectionLabel({ children }: { children: ReactNode }) {
   return (
     <p className="text-xs font-mono text-accent-light uppercase tracking-wider mb-3">
@@ -356,11 +303,12 @@ export default function ProjectFlowPage() {
 
         <section className="mb-20">
           <div className="card card-lg overflow-hidden relative bg-bg-secondary aspect-video">
-            <Image
+            <ZoomableImage
               src="/screenshots/manager.webp"
               alt="Dashboard de Project Flow con navegación lateral, prioridades, solicitudes y carga operativa"
               fill
-              className="object-contain p-4"
+              containerClassName="h-full"
+              imageClassName="object-contain p-4"
               priority
             />
           </div>
@@ -484,30 +432,6 @@ export default function ProjectFlowPage() {
             Nueve tablas sostienen el workspace. Lo estable (usuarios, proyectos, tareas, solicitudes) es relacional e indexado; lo que cambia de forma (fases, subtareas, historial, payloads) vive en JSONB.
           </p>
           <DataModelTable items={dataModel} />
-        </section>
-
-        <section className="mb-24">
-          <SectionLabel>Evidencia técnica</SectionLabel>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-8">
-            Lo que hace que sea una app interna seria.
-          </h2>
-          <p className="text-lg text-text-secondary leading-relaxed mb-10 max-w-4xl">
-            Dos piezas resumen el salto de prototipo a producto: el acceso real con JWT y un modelo de datos que sabe cuándo ser relacional y cuándo ser flexible. Fragmentos reales, sanitizados.
-          </p>
-
-          <div className="space-y-6">
-            {codeEvidence.map((item) => (
-              <div key={item.filename + item.title}>
-                <h3 className="text-lg font-semibold mb-3">{item.title}</h3>
-                <CodeBlock
-                  code={item.code}
-                  filename={item.filename}
-                  language={item.language}
-                  caption={item.caption}
-                />
-              </div>
-            ))}
-          </div>
         </section>
 
         <section className="mb-24">

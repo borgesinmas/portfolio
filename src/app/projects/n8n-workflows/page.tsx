@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
-import { CodeBlock } from "@/components/CaseStudyPrimitives";
+import { ZoomableImage } from "@/components/ZoomableImage";
 
 export const metadata: Metadata = {
   title: "Capa operativa n8n — Caso de Estudio",
@@ -290,85 +290,6 @@ const LEARNINGS = [
 
 const FLOW_STEPS = ["Evento", "Validación", "Transformación", "API externa", "Estado", "Notificación"];
 
-const CODE_SNIPPETS = [
-  {
-    title: "Selección ponderada del creador de CV",
-    filename: "WKF-1.1 · Code node",
-    language: "javascript",
-    code: `// Menor tarifa y menos trabajos activos => mayor probabilidad.
-const weights = candidatos.map((c) => {
-  const tarifa = parseFloat(c.tarifa) || 0;
-  const jobs = c.activeJobs || 0;
-  return (1 / (tarifa + 1)) * (1 / (jobs + 1));
-});
-
-// Reparto por ruleta sobre la suma de pesos.
-const total = weights.reduce((sum, w) => sum + w, 0);
-let r = Math.random() * total;
-for (let i = 0; i < candidatos.length; i++) {
-  r -= weights[i];
-  if (r <= 0) { seleccionado = candidatos[i]; break; }
-}`,
-    caption:
-      "El reparto de trabajo no es un 50/50 ciego: pondera tarifa y carga activa para que el creador más barato y menos saturado tenga más opciones, sin dejar de ser aleatorio.",
-  },
-  {
-    title: "Barajado determinista por día y persona",
-    filename: "WKF · Envío masivo · Code node",
-    language: "javascript",
-    code: `// La misma semilla produce el mismo orden ese día (reproducible),
-// pero cambia cada día y para cada persona.
-const seedFn = xmur3(\`\${today}::\${persona}\`);
-const rand = mulberry32(seedFn());
-
-function shuffleDet(arr) {
-  const a = arr.slice();
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(rand() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-const orden = shuffleDet(destinatarios);`,
-    caption:
-      "Un Fisher-Yates sembrado (xmur3 + mulberry32) reparte los envíos de forma reproducible: el orden se puede reconstruir, pero no parece un patrón fijo de cara a Gmail.",
-  },
-  {
-    title: "Alias normalizado y dominio por capacidad",
-    filename: "WKF-1.4 · Code node",
-    language: "javascript",
-    code: `function normalizar(str) {
-  return (str || "")
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\\u0300-\\u036f]/g, "") // quita acentos
-    .replace(/[^a-z0-9]/g, "");          // solo alfanumerico
-}
-
-const aliasBase = normalizar(nombre) + normalizar(apellido);
-
-// Solo dominios activos con hueco libre, sorteados por prioridad.
-const disponibles = dominios.filter(
-  (d) => d.activo && Number(d.usuariosActuales) < Number(d.maxUsuarios),
-);
-const emailFinal = aliasBase + "@" + elegirPonderado(disponibles).dominio;`,
-    caption:
-      "La creación de cuentas corporativas normaliza identidades (sin acentos ni símbolos) y reparte la carga entre dominios respetando su capacidad máxima.",
-  },
-  {
-    title: "Guardia de seguridad en los webhooks internos",
-    filename: "WKF · Webhook · Code node",
-    language: "javascript",
-    code: `// Cada webhook interno exige un secreto compartido antes de operar.
-const secret = headers["x-webhook-secret"];
-if (secret !== process.env.N8N_WEBHOOK_SECRET) {
-  return respondWith(401, { error: "unauthorized" });
-}`,
-    caption:
-      "Los endpoints de n8n no quedan abiertos: validan un x-webhook-secret antes de tocar Drive, el CRM o Workspace. (El secreto real vive en variables de entorno, nunca en el código.)",
-  },
-];
-
 function SectionHeading({
   eyebrow,
   title,
@@ -592,11 +513,12 @@ export default function N8nWorkflowsPage() {
                 </div>
 
                 <div className="mb-8 card card-lg overflow-hidden relative bg-bg-secondary aspect-video">
-                  <Image
+                  <ZoomableImage
                     src={wf.image}
                     alt={`Workflow ${wf.title}`}
                     fill
-                    className="object-contain p-4"
+                    containerClassName="h-full"
+                    imageClassName="object-contain p-4"
                   />
                 </div>
 
@@ -631,28 +553,6 @@ export default function N8nWorkflowsPage() {
                     <p className="text-sm text-text-secondary leading-relaxed">{wf.challenge}</p>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="mb-24">
-          <SectionHeading
-            eyebrow="Evidencia técnica"
-            title="El techo técnico está en los nodos de código"
-            text="Detrás de la interfaz visual hay JavaScript real resolviendo selección ponderada, barajado determinista, normalización de identidades y seguridad de webhooks. Fragmentos reales, sanitizados."
-          />
-
-          <div className="space-y-6">
-            {CODE_SNIPPETS.map((snippet) => (
-              <div key={snippet.title}>
-                <h3 className="text-lg font-semibold mb-3">{snippet.title}</h3>
-                <CodeBlock
-                  code={snippet.code}
-                  filename={snippet.filename}
-                  language={snippet.language}
-                  caption={snippet.caption}
-                />
               </div>
             ))}
           </div>

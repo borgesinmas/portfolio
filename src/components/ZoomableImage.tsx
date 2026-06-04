@@ -83,14 +83,13 @@ export function ZoomableImage({
                 </svg>
               </button>
 
-              <div className="relative overflow-hidden rounded-xl border border-white/15 bg-[#090C10] shadow-[0_30px_120px_rgba(0,0,0,0.65)] max-h-[84vh]">
+              <div className="relative overflow-hidden rounded-xl border border-white/15 bg-[#090C10] shadow-[0_30px_120px_rgba(0,0,0,0.65)]">
                 <Image
                   src={src}
                   alt={alt}
-                  {...(fill
-                    ? { fill: true }
-                    : { width: width ?? 1600, height: height ?? 900 })}
-                  className={fill ? "object-contain" : "max-h-[84vh] w-full object-contain"}
+                  width={1920}
+                  height={1080}
+                  className="max-h-[84vh] w-full object-contain"
                   priority
                 />
               </div>

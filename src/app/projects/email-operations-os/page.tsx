@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ZoomableImage } from "@/components/ZoomableImage";
-import { CodeBlock, DataModelTable } from "@/components/CaseStudyPrimitives";
+import { DataModelTable } from "@/components/CaseStudyPrimitives";
 
 export const metadata: Metadata = {
   title: "Sistema de Envíos Growork — Caso de Estudio",
@@ -251,81 +251,6 @@ const dataModel = [
     purpose:
       "Auditoría de cada llamada a OpenAI (operación, modelo, tokens y coste) y lista de rebotes/inválidos para excluir destinatarios con mala reputación.",
     fields: ["operation", "model", "inputTokens", "outputTokens", "email", "is_bounced", "is_invalid"],
-  },
-];
-
-const codeEvidence = [
-  {
-    title: "Scheduler diario en zona horaria explícita",
-    filename: "backend/src/scheduler/scheduler.service.ts",
-    language: "typescript",
-    code: `// Un único job diario por cliente activo, en hora de Canarias.
-@Cron('0 0 6 * * *', { timeZone: 'Atlantic/Canary' })
-async handleDailyJobCreation() {
-  // 1. Clientes con estado 'In Progress' y plan vigente (fail-closed).
-  // 2. En parejas, solo el primario recibe SendJob.
-  // 3. Idempotente: no crea dos jobs para el mismo día (CURRENT_DATE).
-  // 4. Calcula una hora de arranque aleatoria dentro de la ventana.
-}`,
-    caption:
-      "El reparto diario es idempotente y consciente de la zona horaria; la asincronía del worker se ordena con un scheduler que no duplica trabajo.",
-  },
-  {
-    title: "Warmup: el límite diario sube solo si ayer se envió",
-    filename: "backend/src/scheduler/scheduler.service.ts",
-    language: "typescript",
-    code: `if (settings.isWarmupActive &&
-    settings.currentDailyLimit < settings.targetDailyLimit) {
-
-  const yesterdayJob = await this.sendJobRepository
-    .createQueryBuilder('job')
-    .where('job.client_id = :clientId', { clientId: client.id })
-    .andWhere("DATE(job.scheduled_date) = CURRENT_DATE - INTERVAL '1 day'")
-    .andWhere('job.status = :status', { status: SendJobStatus.DONE })
-    .andWhere('job.emails_sent_count > 0')
-    .getOne();
-
-  if (yesterdayJob) {
-    const next = settings.currentDailyLimit + settings.warmupDailyIncrement;
-    settings.currentDailyLimit = Math.min(next, settings.targetDailyLimit);
-    await this.settingsRepository.save(settings);
-  }
-}`,
-    caption:
-      "El warmup no escala por calendario, sino por entrega real del día anterior. Así protege la reputación del dominio antes de subir el volumen.",
-  },
-  {
-    title: "Respuestas en hilo conforme a RFC 5322",
-    filename: "backend/src/email/email.service.ts",
-    language: "typescript",
-    code: `// Para que el hotel vea la respuesta dentro de la misma conversación,
-// hay que reconstruir la cadena de headers, no solo el threadId de Gmail.
-await transporter.sendMail({
-  to,
-  from: fromEmail,
-  subject: replySubject,
-  html: htmlContent,
-  headers: {
-    'In-Reply-To': normalizeMessageId(inReplyToMessageId),
-    References: buildReferencesHeader(existingReferences, inReplyToMessageId),
-  },
-});`,
-    caption:
-      "El threading correcto exige In-Reply-To y la cadena References (RFC 5322), además del threadId propietario de Gmail. Un detalle invisible que evita romper conversaciones.",
-  },
-  {
-    title: "Anti-duplicados a nivel de base de datos",
-    filename: "backend/src/entities/email-send.entity.ts",
-    language: "typescript",
-    code: `@Entity('email_sends')
-// Dos garantías a nivel de esquema, no de aplicación:
-@Unique(['clientId', 'jobOfferId'])      // nunca la misma oferta dos veces
-@Unique(['clientId', 'recipientEmail'])  // nunca el mismo destinatario dos veces
-export class EmailSend {
-  // ...
-}`,
-    caption:
-      "Las reglas críticas viven en el esquema. Aunque dos ticks del worker compitan, la base de datos impide enviar la misma candidatura por duplicado.",
   },
 ];
 
@@ -731,28 +656,6 @@ export default function EmailOperationsCaseStudy() {
             text="La base de datos no solo almacena clientes: también guarda configuración, jobs, envíos, respuestas, estados de workflow, dominios, reputación y la auditoría de cada llamada a la IA."
           />
           <DataModelTable items={dataModel} />
-        </section>
-
-        <section className="mb-24">
-          <SectionHeading
-            eyebrow="Evidencia técnica"
-            title="Las garantías importantes viven en el código, no en la interfaz"
-            text="Cuando un sistema envía emails desde cuentas de clientes, una equivocación no es estética: puede quemar dominios, duplicar contactos o romper un hilo de conversación. Fragmentos reales, sanitizados."
-          />
-
-          <div className="space-y-6">
-            {codeEvidence.map((item) => (
-              <div key={item.filename + item.title}>
-                <h3 className="text-lg font-semibold mb-3">{item.title}</h3>
-                <CodeBlock
-                  code={item.code}
-                  filename={item.filename}
-                  language={item.language}
-                  caption={item.caption}
-                />
-              </div>
-            ))}
-          </div>
         </section>
 
         <section className="mb-24">

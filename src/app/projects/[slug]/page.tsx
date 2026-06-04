@@ -1,9 +1,10 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import { ZoomableImage } from "@/components/ZoomableImage";
 import type { ReactNode } from "react";
 import { getProjectBySlug, PROJECTS } from "@/lib/projects";
-import { ApiContract, CodeBlock, DataModelTable } from "@/components/CaseStudyPrimitives";
+import { ApiContract, DataModelTable } from "@/components/CaseStudyPrimitives";
 
 function ProjectFeatureIcon({ icon, title }: { icon?: string; title: string }) {
   if (!icon) return null;
@@ -282,12 +283,13 @@ export default async function ProjectPage({ params }: Props) {
                 className={`card overflow-hidden ${i < 2 ? "lg:col-span-2" : ""}`}
               >
                 <div className="relative aspect-video bg-bg-primary border-b border-border overflow-hidden">
-                  <Image
+                  <ZoomableImage
                     src={item.image}
                     alt={item.alt}
                     fill
                     sizes="(min-width: 1024px) 50vw, 100vw"
-                    className="object-contain p-4"
+                    containerClassName="h-full"
+                    imageClassName="object-contain p-4"
                   />
                 </div>
                 <div className="p-6 md:p-8">
@@ -586,39 +588,6 @@ export default async function ProjectPage({ params }: Props) {
         </section>
       )}
 
-      {/* Code Evidence */}
-      {project.codeEvidence && project.codeEvidence.length > 0 && (
-        <section className="max-w-content mx-auto px-6 mb-20">
-          <div className="mb-10">
-            <h2 className="text-sm font-mono text-accent-light mb-3 uppercase tracking-wider">
-              Evidencia técnica
-            </h2>
-            <p className="text-2xl md:text-3xl font-bold tracking-tight">
-              {project.codeEvidenceTitle ?? "Fragmentos del código real"}
-            </p>
-            {project.codeEvidenceIntro && (
-              <p className="text-text-secondary text-lg leading-relaxed mt-4 max-w-3xl">
-                {project.codeEvidenceIntro}
-              </p>
-            )}
-          </div>
-          <div className="space-y-6">
-            {project.codeEvidence.map((item, i) => (
-              <div key={i}>
-                {item.title && (
-                  <h3 className="text-lg font-semibold mb-3">{item.title}</h3>
-                )}
-                <CodeBlock
-                  code={item.code}
-                  filename={item.filename}
-                  language={item.language}
-                  caption={item.caption}
-                />
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
 
       {/* Tech Stack */}
       <section className="max-w-content mx-auto px-6 mb-20">
