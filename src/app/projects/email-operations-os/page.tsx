@@ -116,6 +116,7 @@ const workflowSteps = [
     mode: "Automático",
     text:
       "Cuando entra un cliente desde Twenty, n8n crea la carpeta principal y las subcarpetas CV, OLD, NEW y DEFINITIVA. Devuelve los identificadores al backend para que el resto del sistema sepa dónde leer y escribir.",
+    link: "/projects/n8n-workflows#workflow-04",
   },
   {
     id: "WKF-1.1",
@@ -123,6 +124,7 @@ const workflowSteps = [
     mode: "Manual",
     text:
       "Desde el Kanban se dispara el workflow que comparte las carpetas con el creador correcto según el idioma. El backend registra el creador y mueve al cliente al siguiente paso.",
+    link: "/projects/n8n-workflows#workflow-05",
   },
   {
     id: "WKF-1.2",
@@ -130,6 +132,7 @@ const workflowSteps = [
     mode: "Automático",
     text:
       "n8n revisa la carpeta NEW y avisa cuando aparece un archivo nuevo. El cliente se coloca en la columna de aprobación, con la metadata del archivo recibido.",
+    link: "/projects/n8n-workflows#workflow-06",
   },
   {
     id: "WKF-1.3",
@@ -137,6 +140,7 @@ const workflowSteps = [
     mode: "Manual",
     text:
       "El operador selecciona el CV correcto desde la interfaz. n8n lo mueve a la carpeta definitiva, retira los accesos temporales y el backend marca el CV como finalizado.",
+    link: "/projects/n8n-workflows#workflow-07",
   },
   {
     id: "WKF-1.4",
@@ -144,6 +148,7 @@ const workflowSteps = [
     mode: "Automático",
     text:
       "Tras aprobar el CV, se crea la cuenta de Google Workspace, se guardan email y contraseña, se sincroniza con Twenty y, si hay pareja, se reutiliza o propaga la misma cuenta.",
+    link: "/projects/n8n-workflows#workflow-08",
   },
 ];
 
@@ -681,7 +686,18 @@ export default function EmailOperationsCaseStudy() {
                   <p className="text-2xl font-bold text-accent-light font-mono">{workflow.id}</p>
                   <p className="text-xs text-text-muted mt-1">{workflow.mode}</p>
                 </div>
-                <h3 className="text-xl font-semibold">{workflow.title}</h3>
+                <div>
+                  <h3 className="text-xl font-semibold mb-3">{workflow.title}</h3>
+                  <Link
+                    href={workflow.link}
+                    className="inline-flex items-center gap-1.5 text-xs font-mono text-accent hover:text-accent-light transition-colors"
+                  >
+                    Ver workflow
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                </div>
                 <p className="text-text-secondary leading-relaxed">{workflow.text}</p>
               </div>
             ))}

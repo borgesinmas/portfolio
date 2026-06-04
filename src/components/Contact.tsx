@@ -20,7 +20,7 @@ export function Contact() {
   return (
     <section id="contact" className="py-20 sm:py-28 bg-bg-secondary">
       <div className="max-w-content mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 lg:items-start">
+        <div className="grid lg:grid-cols-2 gap-16 lg:items-center">
           {/* Columna izquierda: contexto + foto */}
           <div>
             <p className="text-sm font-mono text-accent-light mb-3">Contacto</p>
