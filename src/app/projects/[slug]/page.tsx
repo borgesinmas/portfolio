@@ -77,8 +77,23 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
+// Slugs que tienen su propia página a medida en /projects/<slug>/page.tsx.
+// Si se incluyen aquí, el template dinámico sobrescribe la página bespoke
+// en el export estático (output: "export") y la deja inaccesible.
+const BESPOKE_SLUGS = new Set([
+  "growork",
+  "email-operations-os",
+  "n8n-workflows",
+  "swiss-hotel-job-scraper",
+  "command-center",
+  "project-flow",
+  "portal-clientes",
+]);
+
 export async function generateStaticParams() {
-  return PROJECTS.map((p) => ({ slug: p.slug }));
+  return PROJECTS
+    .filter((p) => !BESPOKE_SLUGS.has(p.slug))
+    .map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: Props) {
