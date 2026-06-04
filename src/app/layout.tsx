@@ -30,6 +30,10 @@ export const metadata: Metadata = {
   },
   twitter: { card: "summary_large_image", title: "Luis Martínez", images: ["/og-image.svg"] },
   robots: { index: true, follow: true },
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+  },
 };
 
 export const viewport: Viewport = {

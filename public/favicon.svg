@@ -1,0 +1,30 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Friendly AI robot favicon transparent">
+  <defs>
+    <linearGradient id="blue" x1="10" y1="14" x2="54" y2="52" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#38BDF8"/>
+      <stop offset="0.55" stop-color="#2563EB"/>
+      <stop offset="1" stop-color="#1D4ED8"/>
+    </linearGradient>
+    <linearGradient id="cyan" x1="18" y1="24" x2="46" y2="43" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#67E8F9"/>
+      <stop offset="1" stop-color="#22D3EE"/>
+    </linearGradient>
+    <linearGradient id="shell" x1="14" y1="16" x2="52" y2="51" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#DCEBFA"/>
+    </linearGradient>
+  </defs>
+  <rect x="6.5" y="28" width="9" height="17" rx="5" fill="url(#blue)" stroke="#041A3A" stroke-width="3"/>
+  <rect x="48.5" y="28" width="9" height="17" rx="5" fill="url(#blue)" stroke="#041A3A" stroke-width="3"/>
+  <path d="M32 18V11" stroke="#041A3A" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="32" cy="9" r="5.2" fill="url(#cyan)" stroke="#041A3A" stroke-width="3"/>
+  <circle cx="30.5" cy="7.4" r="1.5" fill="#FFFFFF" opacity="0.95"/>
+  <rect x="11" y="18" width="42" height="34" rx="15" fill="url(#shell)" stroke="#041A3A" stroke-width="3.5"/>
+  <rect x="16" y="25" width="32" height="20" rx="10" fill="#07152F"/>
+  <circle cx="25" cy="34" r="4.2" fill="url(#cyan)"/>
+  <circle cx="39" cy="34" r="4.2" fill="url(#cyan)"/>
+  <circle cx="23.8" cy="32.5" r="1.25" fill="#FFFFFF" opacity="0.95"/>
+  <circle cx="37.8" cy="32.5" r="1.25" fill="#FFFFFF" opacity="0.95"/>
+  <path d="M27 39.2C28.4 41 30 41.8 32 41.8C34 41.8 35.6 41 37 39.2" stroke="#22D3EE" stroke-width="3" stroke-linecap="round"/>
+  <rect x="24" y="50" width="16" height="5" rx="2.5" fill="url(#blue)" stroke="#041A3A" stroke-width="3"/>
+</svg>
