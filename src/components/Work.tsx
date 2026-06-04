@@ -7,7 +7,7 @@ function HeroProject({ project }: { project: (typeof PROJECTS)[number] }) {
 
   return (
     <div className="work-hero rounded-2xl overflow-hidden group grid lg:grid-cols-[2fr_1fr]">
-      <div className="relative aspect-[16/10] lg:aspect-auto">
+      <div className={project.video ? "relative" : "relative aspect-[16/10] lg:aspect-auto"}>
         {project.video ? (
           <video
             src={project.video}
@@ -15,7 +15,7 @@ function HeroProject({ project }: { project: (typeof PROJECTS)[number] }) {
             loop
             muted
             playsInline
-            className="absolute inset-0 w-full h-full object-contain bg-black/40"
+            className="w-full h-auto block"
           />
         ) : (
           <Image
