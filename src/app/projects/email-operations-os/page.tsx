@@ -29,7 +29,7 @@ const stack = [
 const webSections = [
   {
     name: "Dashboard",
-    image: "/screenshots/webinterna1.png",
+    image: "/screenshots/webinterna1.webp",
     imageAlt: "Panel de control de la web interna de envíos",
     caption: "Vista general de salud: clientes, estados, rendimiento de emails, pipeline y consumo de IA.",
     purpose:
@@ -39,7 +39,7 @@ const webSections = [
   },
   {
     name: "Clientes",
-    image: "/screenshots/webinterna2.png",
+    image: "/screenshots/webinterna2.webp",
     imageAlt: "Gestión de clientes con estado CRM, plan, preview y warmup",
     caption: "Tabla operativa para decidir quién envía, con qué plan, en qué estado y con qué volumen.",
     purpose:
@@ -49,7 +49,7 @@ const webSections = [
   },
   {
     name: "Pipeline de workflows",
-    image: "/screenshots/webinterna3.png",
+    image: "/screenshots/webinterna3.webp",
     imageAlt: "Pipeline de workflows por cliente en formato Kanban",
     caption: "Kanban secuencial para saber qué cliente necesita carpeta, creador, CV final o email corporativo.",
     purpose:
@@ -59,7 +59,7 @@ const webSections = [
   },
   {
     name: "Creadores de CV",
-    image: "/screenshots/webinterna4.png",
+    image: "/screenshots/webinterna4.webp",
     imageAlt: "Gestión de creadores de CV e idiomas asignados",
     caption: "Inventario de creadores, idiomas, estado y asignaciones para mantener el flujo documental.",
     purpose:
@@ -69,7 +69,7 @@ const webSections = [
   },
   {
     name: "Dominios",
-    image: "/screenshots/webinterna5.png",
+    image: "/screenshots/webinterna5.webp",
     imageAlt: "Gestión de dominios para correos corporativos",
     caption: "Control de dominios activos, prioridad y capacidad antes de crear cuentas de Workspace.",
     purpose:
@@ -79,7 +79,7 @@ const webSections = [
   },
   {
     name: "Correos corporativos",
-    image: "/screenshots/webinterna6.png",
+    image: "/screenshots/webinterna6.webp",
     imageAlt: "Gestión de correos corporativos conectados a Google Workspace",
     caption: "Cuentas activas, pendientes de borrado, uso por dominio y sincronización con Google Workspace.",
     purpose:
@@ -89,7 +89,7 @@ const webSections = [
   },
   {
     name: "Preview de emails",
-    image: "/screenshots/webinterna7.png",
+    image: "/screenshots/webinterna7.webp",
     imageAlt: "Preview de emails pendientes de revisión",
     caption: "Zona de control humano: revisar, aprobar, rechazar, editar o regenerar antes de enviar.",
     purpose:
@@ -99,7 +99,7 @@ const webSections = [
   },
   {
     name: "Centro de envíos",
-    image: "/screenshots/webinterna8.png",
+    image: "/screenshots/webinterna8.webp",
     imageAlt: "Centro de envíos con monitor, enviados y respuestas",
     caption: "Monitor diario de jobs, historial de envíos y gestión de respuestas desde una sola pantalla.",
     purpose:

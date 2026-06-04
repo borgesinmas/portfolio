@@ -28,7 +28,7 @@ export function Contact() {
             <p className="text-text-secondary leading-relaxed mb-8">
               Cuéntame sobre tu proyecto, proceso o idea. Te respondo en menos de 24h con una propuesta clara.
             </p>
-            <div className="relative w-full max-w-md aspect-[4/5] mb-8 rounded-2xl overflow-hidden border-2 border-border hover:border-accent/40 transition-colors">
+            <div className="relative w-full max-w-xs aspect-square rounded-2xl overflow-hidden border-2 border-border hover:border-accent/40 transition-colors">
               <Image
                 src="/screenshots/foto-luis.webp"
                 alt="Luis Martínez"
@@ -39,7 +39,7 @@ export function Contact() {
           </div>
 
           {/* Columna derecha: canales de contacto */}
-          <div className="lg:mt-36 space-y-4">
+          <div className="space-y-4">
             <a
               href="https://wa.me/34625836509?text=Hola%20Luis%2C%20vi%20tu%20portfolio%20y%20me%20gustaría%20hablar%20contigo."
               target="_blank"
