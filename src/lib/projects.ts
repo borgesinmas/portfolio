@@ -1216,57 +1216,184 @@ status = ("match" if similarity >= 0.50
   },
   {
     slug: "finanzas-asia",
-    title: "App de Gastos para Viaje por Asia: Multi-divisa, Balance en Tiempo Real y Supabase",
+    title: "Rastreador de Gastos para Viaje por Asia: Balance en Vivo, Multi-divisa y Cloudflare Zero Trust",
     category: "Herramienta personal full-stack",
     shortLabel: "Finanzas Asia",
     problem:
-      "Llevar las cuentas de un viaje largo entre dos personas en países con monedas distintas es un caos: quién pagó qué, cuánto le corresponde a cada uno, a qué tipo de cambio, y cuánto se debe en total. Una hoja de cálculo funciona hasta que tienes gastos en baht, dólares y francos mezclados.",
+      "Estoy de viaje por Asia con un amigo. Cada día hay gastos en baht tailandeses, dólares o euros: quién paga el hotel, quién invita a comer, qué es gasto compartido y qué es personal. Las apps genéricas como Splitwise no resuelven el problema real: si pagas 1.000 THB hoy y mañana el baht se mueve, la deuda en euros cambia. Una hoja de cálculo tampoco: hay que actualizarla a mano, no tiene historial limpio ni cálculo automático por persona.",
     solution:
-      "Aplicación web propia con Next.js y Supabase que registra gastos en cuatro divisas, calcula en tiempo real quién le debe cuánto a quién, y muestra estadísticas del viaje por categoría, país y persona. Acceso restringido con Cloudflare Zero Trust a los dos usuarios del viaje y desplegada en VPS propio con Dokploy.",
+      "Construí una aplicación web completa con Next.js y Supabase que registra cada gasto en su divisa original (EUR, THB, USD, CHF) y recalcula el balance entre los dos viajeros usando los tipos de cambio actuales de la API de Frankfurter cada vez que se abre la página. Si el baht sube o baja, la deuda de hoy refleja lo que se debe hoy, no lo que valía el día del pago. El acceso está restringido con Cloudflare Zero Trust a los dos correos autorizados, sin necesidad de gestionar un sistema de login propio.",
     description:
-      "Herramienta personal para gestionar los gastos de un viaje por Asia entre dos personas: multi-divisa (EUR, THB, USD, CHF), balance en tiempo real, estadísticas con gráficos, gestión de alojamientos y acceso protegido con Cloudflare Zero Trust.",
+      "App web para gestionar los gastos de un viaje por Asia entre dos personas: registra en cuatro divisas (EUR, THB, USD, CHF), recalcula el balance al tipo de cambio en vivo, muestra estadísticas con Recharts, lleva un registro de alojamientos y funciona detrás de Cloudflare Zero Trust desplegada en VPS propio.",
     longDescription:
-      "En lugar de una hoja de cálculo, construí una app completa para el viaje. Registra gastos en cuatro monedas, recalcula el balance con tipos de cambio en tiempo real, distingue gastos compartidos de personales, y muestra el resumen en un dashboard con KPIs, gráficos de evolución y últimos movimientos.",
+      "En lugar de depender de una app de terceros con datos en servidores ajenos, construí una herramienta propia en una semana. La decisión técnica más interesante fue separar el importe original del gasto (en THB, USD o CHF) del equivalente en euros: al abrir la página de balance, la app pide los tipos de cambio actuales a Frankfurter y recalcula toda la deuda histórica, así que el número que ves siempre refleja lo que se debe hoy al precio actual del dinero.",
     results: [
-      { value: "4", label: "divisas: EUR, THB, USD, CHF" },
-      { value: "8", label: "módulos: dashboard, gastos, balance, stats, alojamientos, países, conversor, diario" },
-      { value: "2FA", label: "acceso vía Cloudflare Zero Trust" },
+      { value: "4", label: "divisas nativas: EUR, THB, USD, CHF" },
+      { value: "7", label: "tablas en Supabase" },
+      { value: "Live", label: "balance recalculado al tipo de cambio actual vía Frankfurter API" },
     ],
-    stack: ["Next.js 16", "React 19", "TypeScript", "Supabase", "PostgreSQL", "Tailwind CSS 4", "Recharts", "Cloudflare Zero Trust", "Dokploy", "Docker"],
-    images: ["/screenshots/finanzas.webp"],
+    stack: ["Next.js 16", "React 19", "TypeScript", "Supabase", "PostgreSQL", "Tailwind CSS 4", "Recharts", "Frankfurter API", "Cloudflare Zero Trust", "Dokploy", "Docker"],
+    images: ["/screenshots/finanzas.webp", "/screenshots/finanzas2.webp", "/screenshots/finanzas3.webp"],
     heroImage: "/screenshots/finanzas.webp",
+    evidenceEyebrow: "App en uso",
+    evidenceTitle: "Dashboard, balance en vivo y estadísticas",
+    evidenceIntro: "Las tres capturas muestran las partes más técnicas de la app: el dashboard con KPIs del viaje, el balance calculado al tipo de cambio actual y los gráficos de estadísticas por categoría y persona.",
+    evidence: [
+      {
+        title: "Dashboard del viaje",
+        description: "Vista principal con los KPIs del viaje: total gastado, gasto del día, de la semana y media diaria. Incluye el desglose de las categorías principales con barras de progreso y los últimos movimientos con su categoría, país y quién pagó.",
+        image: "/screenshots/finanzas.webp",
+        alt: "Dashboard de la app de finanzas del viaje por Asia con KPIs y desglose por categorías",
+      },
+      {
+        title: "Balance y deuda en tiempo real",
+        description: "El balance muestra en todo momento quién le debe cuánto a quién, calculado al tipo de cambio actual de Frankfurter API. El badge 'Tasas en vivo' confirma que los datos son frescos. La tarjeta principal resume el saldo neto y el listado detalla cada gasto pendiente de liquidar.",
+        image: "/screenshots/finanzas2.webp",
+        alt: "Página de balance de la app mostrando la deuda entre los dos viajeros calculada al tipo de cambio en vivo",
+      },
+      {
+        title: "Estadísticas con gráficos Recharts",
+        description: "Panel de estadísticas con gráfico de barras por categoría, evolución del gasto a lo largo del viaje y distribución circular. Los gráficos se pueden filtrar por persona: los gastos compartidos se dividen al 50% al aplicar el filtro.",
+        image: "/screenshots/finanzas3.webp",
+        alt: "Página de estadísticas con gráficos de barras, líneas y circular del gasto del viaje por Asia",
+      },
+    ],
+    featuresIntro:
+      "Cada módulo resuelve una necesidad concreta del viaje. No es un clon genérico: las decisiones de diseño responden a problemas reales que aparecieron durante los primeros días.",
     features: [
       {
-        title: "Dashboard con KPIs en tiempo real",
-        description: "Total del viaje, gasto de hoy, de la semana y media diaria calculados sobre todos los registros. Incluye desglose por categoría con barras de progreso y panel de últimos movimientos.",
+        title: "Balance en tiempo real con tipos de cambio vivos",
+        description: "La característica más importante. Al abrir el balance, la app consulta Frankfurter API para obtener EUR/THB, EUR/USD y EUR/CHF actuales, y recalcula toda la deuda histórica con esas tasas. Si pagué 1.000 THB cuando el baht valía 38€ y hoy vale 40€, la deuda refleja 25€, no 26,31€. Con fallback a Supabase si la API falla, y a valores hardcoded como último recurso.",
       },
       {
-        title: "Gastos multi-divisa",
-        description: "Registra en EUR, THB, USD o CHF. La app convierte automáticamente al euro usando los tipos de cambio configurados y guarda tanto el importe original como su equivalente en euros.",
+        title: "Tres tipos de gasto por cada registro",
+        description: "Cada gasto es 'compartido' (50/50), 'personal de A' o 'personal de B'. El balance distingue quién pagó físicamente de quién es responsable: si A paga algo que es de B, la deuda sube aunque ambos usen la misma tarjeta. Los gastos liquidados se pueden marcar como 'is_settled' sin borrarlos.",
       },
       {
-        title: "Balance entre dos personas",
-        description: "Calcula en tiempo real quién debe cuánto a quién, distinguiendo gastos compartidos (50/50), personales de cada uno y liquidaciones ya realizadas. Los tipos de cambio en vivo recalculan el histórico.",
+        title: "Multi-divisa nativa con cuatro columnas de importe",
+        description: "Cada gasto almacena el importe original (amount_thb, amount_usd, amount_chf, amount_eur) más la divisa de entrada. Así el recálculo al tipo de cambio vivo siempre parte del importe original, no de una conversión ya guardada que nadie actualizaría.",
       },
       {
-        title: "Estadísticas con gráficos",
-        description: "Distribución por categoría, evolución del gasto a lo largo del viaje y comparativa entre personas. Gráficos de barras, líneas y circular con Recharts, filtrables por usuario.",
+        title: "Dashboard con KPIs y desglose por categoría",
+        description: "Total del viaje, gasto del día, de la semana y media diaria calculados al vuelo. Desglose de las cinco categorías principales con barras de progreso, últimos ocho movimientos, panel de tipos de cambio y estado del alojamiento activo si hay uno en curso.",
       },
       {
-        title: "Alojamientos y países",
-        description: "Registro de hoteles con fechas de check-in/check-out, precio por noche y divisa local. Panel de países visitados con moneda y tipo de cambio.",
+        title: "Estadísticas con gráficos Recharts",
+        description: "Gráfico de barras por categoría, evolución del gasto por semana (línea) y gráfico circular de distribución. Los tres se pueden filtrar por persona: los gastos compartidos se dividen al 50% al aplicar el filtro.",
+      },
+      {
+        title: "Alojamientos, países, categorías y diario",
+        description: "Registro completo de hoteles con check-in, check-out y precio por noche vinculado al gasto. Panel de países visitados con su moneda local. Categorías personalizables con emoji e color. Conversor de divisas integrado. Diario de viaje.",
+      },
+    ],
+    toolsIntro:
+      "Elegí herramientas que me permitieran tener algo funcional y desplegado en pocos días, sin sacrificar la parte técnica que me importaba: el cálculo de balance en vivo.",
+    tools: [
+      {
+        title: "Next.js 16 + React 19",
+        icon: "route",
+        description:
+          "App Router con Server Components para el dashboard (datos siempre frescos sin caché) y Client Components para el balance e interactividad. Todo en un solo proyecto sin backend separado.",
+      },
+      {
+        title: "Supabase",
+        icon: "cloud",
+        description:
+          "Backend gestionado: PostgreSQL, API REST autogenerada y cliente JavaScript. No tuve que gestionar un servidor de base de datos ni escribir un backend propio. RLS configurado aunque desactivado para uso personal entre dos usuarios de confianza.",
+      },
+      {
+        title: "Frankfurter API",
+        icon: "server",
+        description:
+          "API pública y gratuita para tipos de cambio en tiempo real sin necesidad de API key. Con cadena de fallback: API en vivo → última tasa guardada en Supabase → valores hardcoded. El resultado siempre muestra si el dato es 'en vivo' o 'histórico'.",
+      },
+      {
+        title: "Recharts",
+        icon: "terminal",
+        description:
+          "Gráficos de barras, líneas y circular para las estadísticas. Elegido por su integración natural con React y porque los datos ya están en el estado del componente sin necesidad de configuración extra.",
       },
       {
         title: "Cloudflare Zero Trust",
-        description: "Solo los dos usuarios del viaje pueden acceder. Cloudflare Access actúa como capa de identidad antes de llegar a la app, sin necesidad de un sistema de login propio.",
+        icon: "shield",
+        description:
+          "Capa de acceso antes de llegar a la app. Solo los dos correos autorizados pueden entrar. Elimina la necesidad de construir un sistema de autenticación propio: ni JWT, ni base de usuarios, ni formulario de login.",
+      },
+      {
+        title: "Dokploy + Docker + VPS",
+        icon: "deploy",
+        description:
+          "Desplegado en el mismo VPS que otras herramientas internas. Docker para el contenedor, Dokploy para gestionar el despliegue sin comandos manuales y Cloudflare para el DNS y el proxy.",
       },
     ],
+    challengesIntro:
+      "El problema técnico principal no era guardar gastos, sino calcular correctamente quién debe cuánto cuando las divisas se mueven.",
+    challenges: [
+      {
+        title: "Deuda que cambia con el mercado",
+        description:
+          "Si guardara la conversión a euros en el momento del gasto, la deuda sería estática y técnicamente incorrecta: el dinero que se debe hoy no tiene el valor de hace tres semanas. La solución fue guardar siempre el importe original en su divisa y recalcular al tipo de cambio actual en cada carga de la página.",
+      },
+      {
+        title: "Separar quién pagó de quién es responsable",
+        description:
+          "El modelo más simple sería: 'A pagó X, B pagó Y, se divide por 2'. Pero eso no cubre gastos personales de uno pagados por el otro, ni liquidaciones parciales. El modelo real tiene cuatro variables por persona: lo que pagó, lo que le corresponde, lo que ya ha liquidado y el saldo neto resultante.",
+      },
+      {
+        title: "Fallback en cascada para los tipos de cambio",
+        description:
+          "Frankfurter puede fallar o tardar. Si falla, la app cae al último tipo guardado en Supabase. Si tampoco hay datos en Supabase (app recién instalada), usa valores hardcoded y lo indica visualmente con un badge 'Tasas históricas' en vez de 'Tasas en vivo'.",
+      },
+      {
+        title: "Sin sistema de autenticación propio",
+        description:
+          "Para dos usuarios conocidos con correos fijos, construir un sistema de registro, login, JWT y recuperación de contraseña es sobrediseño. Cloudflare Zero Trust resuelve el acceso antes de que la petición llegue a la app, sin una sola línea de código de auth.",
+      },
+    ],
+    dataModelTitle: "Siete tablas para un viaje completo",
+    dataModelIntro:
+      "El modelo refleja la realidad del viaje: gastos en varias monedas vinculados a países y alojamientos, dos personas con su perfil y presupuesto, y un historial de liquidaciones separado de los gastos.",
+    dataModel: [
+      {
+        name: "expenses",
+        purpose:
+          "El núcleo del sistema. Guarda cuatro columnas de importe (amount_thb, amount_usd, amount_chf, amount_eur) más la divisa original (input_currency) para poder recalcular siempre desde el valor nativo.",
+        fields: ["date", "country_id", "accommodation_id", "category_id", "amount_thb / usd / chf / eur", "input_currency", "paid_by (profile_id)", "expense_for (shared|persona_a|persona_b)", "is_settled"],
+      },
+      {
+        name: "settlements",
+        purpose:
+          "Transferencias reales de dinero entre las dos personas, separadas de los gastos. Permiten liquidar la deuda sin marcar cada gasto individual como saldado.",
+        fields: ["from_profile", "to_profile", "amount_eur", "date", "notes"],
+      },
+      {
+        name: "profiles",
+        purpose:
+          "Los dos viajeros con su nombre, color, emoji y presupuesto total para el viaje. La tabla tiene solo dos filas.",
+        fields: ["display_name", "color", "emoji", "total_budget"],
+      },
+      {
+        name: "currency_rates",
+        purpose:
+          "Cache de tipos de cambio en Supabase. La API de Frankfurter hace upsert por fecha, así que hay una fila por día con las tasas EUR→THB, EUR→USD y EUR→CHF.",
+        fields: ["date (PK)", "eur_to_thb", "eur_to_usd", "eur_to_chf", "source (live|fallback)"],
+      },
+      {
+        name: "countries · accommodations · categories",
+        purpose:
+          "Tablas de referencia: países visitados con su divisa local, hoteles con check-in/check-out y precio por noche, y categorías de gasto con emoji y color personalizables.",
+        fields: ["flag_emoji", "currency_code", "exchange_rate", "check_in / check_out", "price_per_night", "icon", "color"],
+      },
+    ],
+    architectureIntro:
+      "La arquitectura prioriza velocidad de entrega y mantenimiento mínimo. Un único contenedor Docker con Next.js, Supabase como backend gestionado y Cloudflare haciendo el trabajo de autenticación.",
     architecture: [
-      "Next.js 16 App Router: Server Components para el dashboard (datos frescos en cada carga) y Client Components para el balance e interactividad en tiempo real.",
-      "Supabase como backend completo: PostgreSQL con tablas de gastos, países, alojamientos, categorías, perfiles, tipos de cambio y liquidaciones.",
-      "Recharts para los gráficos de estadísticas (barras, líneas, pie) renderizados en el cliente con filtrado por usuario.",
-      "Cloudflare Zero Trust como única capa de acceso: autenticación por correo autorizado antes de llegar a la app, sin gestionar sesiones propias.",
-      "Desplegada en VPS propio mediante Dokploy y Docker, en el mismo servidor interno que otras herramientas del ecosistema.",
+      "Next.js 16 App Router: Server Components para el dashboard (force-dynamic, sin caché), Client Components para balance, gastos y estadísticas (interacción, filtros, estado local).",
+      "Supabase como backend completo: PostgreSQL con 7 tablas, API REST autogenerada y cliente JS. Las migraciones SQL están versionadas en el repositorio.",
+      "Frankfurter API para tipos de cambio en vivo (EUR/THB, EUR/USD, EUR/CHF). Cadena de fallback en tres niveles: API → Supabase cache → valores hardcoded.",
+      "effectiveEurAtLiveRate(): función que recalcula el equivalente en euros de cada gasto usando siempre el importe nativo original y las tasas actuales, no las históricas.",
+      "Cloudflare Zero Trust como única capa de autenticación. Sin JWT propio, sin tabla de usuarios, sin formulario de login.",
+      "Docker + Dokploy en VPS propio. Un solo contenedor. Mismo servidor que otras herramientas del ecosistema.",
     ],
   },
 ];
