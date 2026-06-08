@@ -67,9 +67,19 @@ export function Navbar({ variant = "dark" }: NavbarProps) {
           ))}
         </div>
 
-        <a href="/#contact" className="btn btn-primary text-sm !py-2 !px-4">
-          Hablemos
-        </a>
+        <div className="flex items-center gap-2">
+          <a
+            href="/Luis%20Martinez%20Borges%20CV.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-outline text-sm !py-2 !px-4"
+          >
+            Ver CV
+          </a>
+          <a href="/#contact" className="btn btn-primary text-sm !py-2 !px-4">
+            Hablemos
+          </a>
+        </div>
       </nav>
     </header>
   );
