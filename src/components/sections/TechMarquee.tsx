@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const TECHS = [
   { name: "Zoho", src: "/screenshots/zoho-logo.svg" },
-  { name: "Antigravity", src: "/screenshots/antigrabity-logo.webp" },
+  { name: "Antigravity", src: "/screenshots/antigravity.png" },
   { name: "ChatGPT", src: "/screenshots/chatgpt-logo.webp" },
   { name: "Dokploy", src: "/screenshots/dokploy-logo.webp" },
   { name: "Anthropic", src: "/screenshots/anthropic-logo.svg" },
@@ -12,6 +12,8 @@ const TECHS = [
   { name: "PostgreSQL", src: "/screenshots/postgresql.webp" },
   { name: "React", src: "/screenshots/react.webp" },
   { name: "Stripe", src: "/screenshots/stripe.webp" },
+  { name: "Power BI", src: "/screenshots/powebi.png" },
+  { name: "MySQL", src: "/screenshots/mysql.png" },
 ];
 
 export function TechMarquee() {

@@ -579,7 +579,7 @@ status = ("match" if similarity >= 0.50
   },
   {
     slug: "n8n-workflows",
-    title: "Capa de Automatización con n8n: 11 Flujos en Producción para Drive, CRM y Google Workspace",
+    title: "Capa de Automatización n8n: 11 Flujos en Producción",
     category: "Automatización con IA",
     shortLabel: "+10 Flujos de trabajo de n8n",
     problem:
@@ -946,7 +946,7 @@ status = ("match" if similarity >= 0.50
   },
   {
     slug: "project-flow",
-    title: "Workspace de Agencia: Proyectos, Capacidad y Solicitudes entre Departamentos",
+    title: "Workspace de Agencia: Proyectos, Capacidad y Solicitudes",
     category: "Workspace interno",
     shortLabel: "Project Flow",
     problem:
@@ -1216,7 +1216,7 @@ status = ("match" if similarity >= 0.50
   },
   {
     slug: "finanzas-asia",
-    title: "Rastreador de Gastos para Viaje por Asia: Balance en Vivo, Multi-divisa y Cloudflare Zero Trust",
+    title: "Rastreador de Gastos: Viaje por Asia, Multi-divisa y Balance en Vivo",
     category: "Herramienta personal full-stack",
     shortLabel: "Finanzas Asia",
     problem:
