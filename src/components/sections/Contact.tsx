@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { MessageCircle, Mail, FileDown } from "lucide-react";
+import { MessageCircle, Mail, FileText } from "lucide-react";
 
 export function Contact() {
   const [copied, setCopied] = useState(false);
@@ -61,11 +61,12 @@ export function Contact() {
 
             <a
               href="/Luis%20Martinez%20Borges%20CV.pdf"
-              download="Luis Martinez Borges CV.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn btn-outline w-full justify-center gap-2"
             >
-              <FileDown size={18} aria-hidden="true" />
-              Descargar CV
+              <FileText size={18} aria-hidden="true" />
+              Ver CV
             </a>
 
             <div className="pt-8 mt-4 border-t border-border flex items-center justify-center gap-10">
