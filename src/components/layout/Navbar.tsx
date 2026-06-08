@@ -69,7 +69,7 @@ export function Navbar({ variant = "dark" }: NavbarProps) {
 
         <div className="flex items-center gap-2">
           <a
-            href="/Luis%20Martinez%20Borges%20CV.pdf"
+            href="/cv"
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-outline text-sm !py-2 !px-4"

@@ -59,7 +59,7 @@ export function Hero() {
             Ver proyectos
           </a>
           <a
-            href="/Luis%20Martinez%20Borges%20CV.pdf"
+            href="/cv"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-transparent hover:bg-white/5 border border-white/20 text-white font-semibold py-3 px-8 rounded-full transition-colors"
