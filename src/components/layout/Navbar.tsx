@@ -72,7 +72,7 @@ export function Navbar({ variant = "dark" }: NavbarProps) {
             href="/cv"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn btn-outline text-sm !py-2 !px-4"
+            className="hidden sm:inline-flex btn btn-outline text-sm !py-2 !px-4"
           >
             Ver CV
           </a>

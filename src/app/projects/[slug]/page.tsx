@@ -158,7 +158,7 @@ export default async function ProjectPage({ params }: Props) {
 
       {/* Hero Section */}
       <section className="max-w-content mx-auto px-6 pt-12 pb-20">
-        <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-10">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight mb-8 sm:mb-10">
           {project.title}
         </h1>
 
@@ -639,19 +639,19 @@ export default async function ProjectPage({ params }: Props) {
 
       {/* Navigation */}
       <section className="max-w-content mx-auto px-6 py-16 border-t border-white/5">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-start gap-4">
           {prev ? (
             <Link
               href={`/projects/${prev.slug}`}
-              className="group flex flex-col"
+              className="group flex flex-col min-w-0 max-w-[45%]"
             >
-              <span className="text-xs text-text-muted font-mono mb-1 flex items-center gap-1">
+              <span className="text-xs text-text-muted font-mono mb-1 flex items-center gap-1 shrink-0">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M19 12H5M12 19l-7-7 7-7" />
                 </svg>
-                Proyecto anterior
+                Anterior
               </span>
-              <span className="text-text-primary group-hover:text-accent transition-colors font-semibold text-lg">
+              <span className="text-text-primary group-hover:text-accent transition-colors font-semibold text-base sm:text-lg line-clamp-2">
                 {prev.title}
               </span>
             </Link>
@@ -661,15 +661,15 @@ export default async function ProjectPage({ params }: Props) {
           {next ? (
             <Link
               href={`/projects/${next.slug}`}
-              className="group flex flex-col items-end text-right"
+              className="group flex flex-col items-end text-right min-w-0 max-w-[45%]"
             >
-              <span className="text-xs text-text-muted font-mono mb-1 flex items-center gap-1">
-                Siguiente proyecto
+              <span className="text-xs text-text-muted font-mono mb-1 flex items-center gap-1 shrink-0">
+                Siguiente
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
               </span>
-              <span className="text-text-primary group-hover:text-accent transition-colors font-semibold text-lg">
+              <span className="text-text-primary group-hover:text-accent transition-colors font-semibold text-base sm:text-lg line-clamp-2">
                 {next.title}
               </span>
             </Link>

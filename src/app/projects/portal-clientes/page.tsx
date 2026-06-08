@@ -227,7 +227,7 @@ export default function PortalClientesCaseStudy() {
             <span className="text-xs text-text-muted font-mono">Parte del ecosistema Growork</span>
           </div>
 
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-8">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-8">
             Portal de clientes Growork
           </h1>
 

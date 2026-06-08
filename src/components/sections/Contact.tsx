@@ -71,7 +71,7 @@ export function Contact() {
 
             <div className="pt-8 mt-4 border-t border-border flex items-center justify-center gap-10">
               <a
-                href="https://github.com/luismartinezborges"
+                href="https://github.com/Groworker"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-text-muted hover:text-accent transition-colors"

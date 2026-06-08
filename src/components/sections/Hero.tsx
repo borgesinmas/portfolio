@@ -39,13 +39,13 @@ function ProjectCard({ src, label, delay, aspect, slug }: { src: string; label: 
 
 export function Hero() {
   return (
-    <main className="relative flex-grow flex flex-col lg:flex-row items-center pt-32 lg:pt-8 min-h-screen px-6 md:px-12 lg:px-24">
+    <main className="relative flex-grow flex flex-col lg:flex-row items-center pt-24 sm:pt-28 lg:pt-8 min-h-screen px-5 sm:px-6 md:px-12 lg:px-24">
       <div
         className="absolute inset-0 -z-10 bg-cover bg-center bg-no-repeat opacity-30"
         style={{ backgroundImage: "url(/screenshots/fondo-port.webp)" }}
       />
       <div className="w-full lg:w-2/5 flex flex-col justify-center py-12 lg:py-0 z-10 relative">
-        <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tight mb-6">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tight mb-6">
           Convierto procesos en<br />
           <span className="text-brand-blue">sistemas que funcionan solos</span>
         </h1>

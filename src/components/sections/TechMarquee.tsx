@@ -28,11 +28,11 @@ export function TechMarquee() {
       </div>
 
       <div className="px-4 sm:px-6">
-        <div className="flex flex-nowrap justify-center gap-2">
+        <div className="flex flex-wrap justify-center gap-2">
           {TECHS.map((tech) => (
             <div
               key={tech.name}
-              className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-color)] p-1.5 transition-colors hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)]"
+              className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-color)] p-1.5 transition-colors hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)]"
             >
               <div className="relative w-full h-full bg-white rounded-xl p-2">
                 <Image

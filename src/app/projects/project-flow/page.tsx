@@ -284,7 +284,7 @@ export default function ProjectFlowPage() {
             <span className="text-xs text-text-muted font-mono">React 19 + Express + PostgreSQL</span>
           </div>
 
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-8 max-w-5xl">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-8 max-w-5xl">
             Project Flow
           </h1>
 

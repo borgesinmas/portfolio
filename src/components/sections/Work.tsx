@@ -5,8 +5,8 @@ import { PROJECTS } from "@/lib/projects";
 function HeroProject({ project }: { project: (typeof PROJECTS)[number] }) {
   return (
     <div className="work-hero rounded-2xl overflow-hidden group flex flex-col">
-      {/* Media — ratio cinematográfico, más compacto */}
-      <div className="relative aspect-[21/9] overflow-hidden bg-bg-secondary">
+      {/* Media — ratio 16:9 en móvil, cinematográfico en pantallas mayores */}
+      <div className="relative aspect-video sm:aspect-[21/9] overflow-hidden bg-bg-secondary">
         {project.video ? (
           <video
             src={project.video}
@@ -27,10 +27,10 @@ function HeroProject({ project }: { project: (typeof PROJECTS)[number] }) {
       </div>
 
       {/* Info — una sola fila horizontal */}
-      <div className="bg-bg-secondary border-t border-border px-8 sm:px-10 py-7 flex flex-wrap items-center gap-x-10 gap-y-5">
+      <div className="bg-bg-secondary border-t border-border px-5 sm:px-8 md:px-10 py-6 sm:py-7 flex flex-wrap items-center gap-x-10 gap-y-5">
 
         {/* Título + descripción */}
-        <div className="flex-1 min-w-[240px]">
+        <div className="flex-1 min-w-[200px]">
           <h3 className="text-xl sm:text-2xl font-bold tracking-tight mb-1.5 leading-tight">
             {project.title}
           </h3>
@@ -62,7 +62,7 @@ function HeroProject({ project }: { project: (typeof PROJECTS)[number] }) {
         </div>
 
         {/* Botones */}
-        <div className="flex items-center gap-3 shrink-0 ml-auto">
+        <div className="flex items-center gap-3 shrink-0 w-full sm:w-auto sm:ml-auto">
           <Link
             href={`/projects/${project.slug}`}
             className="btn btn-primary group/cta w-fit transition-all hover:-translate-y-0.5 hover:bg-accent-light hover:shadow-[0_10px_30px_-12px_rgba(52,211,153,0.75)]"

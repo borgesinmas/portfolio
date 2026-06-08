@@ -243,7 +243,7 @@ export default function SwissHotelJobScraperPage() {
             <span className="text-xs text-text-muted font-mono">FastAPI + Playwright + PostgreSQL</span>
           </div>
 
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-8 max-w-5xl">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-8 max-w-5xl">
             Scraper de empleo para hoteles suizos
           </h1>
 

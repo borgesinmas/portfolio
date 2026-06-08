@@ -5,7 +5,7 @@ export function Footer() {
         <span>&copy; {new Date().getFullYear()} Luis Martínez Borges</span>
         <div className="flex gap-6">
           <a href="mailto:agenciasuiza8@gmail.com" className="hover:text-text-primary transition-colors">Email</a>
-          <a href="https://github.com/luismartinezborges" target="_blank" rel="noopener noreferrer" className="hover:text-text-primary transition-colors">GitHub</a>
+          <a href="https://github.com/Groworker" target="_blank" rel="noopener noreferrer" className="hover:text-text-primary transition-colors">GitHub</a>
           <a href="https://linkedin.com/in/luismartinezborges" target="_blank" rel="noopener noreferrer" className="hover:text-text-primary transition-colors">LinkedIn</a>
         </div>
       </div>

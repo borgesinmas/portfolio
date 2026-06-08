@@ -330,7 +330,7 @@ export default function N8nWorkflowsPage() {
           <div className="flex items-center gap-3 mb-8 flex-wrap">
             <span className="text-xs text-text-muted font-mono">2024 — presente</span>
           </div>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-8">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-8">
             Capa de automatización operativa con n8n
           </h1>
           <p className="text-xl md:text-2xl text-text-secondary leading-relaxed mb-6">
