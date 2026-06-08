@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ZoomableImage } from "@/components/ZoomableImage";
+import { ZoomableImage } from "@/components/ui/ZoomableImage";
 import type { ReactNode } from "react";
 import {
   ArrowLeft,
@@ -14,7 +14,7 @@ import {
   ShieldCheck,
   Workflow,
 } from "lucide-react";
-import { DataModelTable } from "@/components/CaseStudyPrimitives";
+import { DataModelTable } from "@/components/case-study/CaseStudyPrimitives";
 
 export const metadata: Metadata = {
   title: "Scraper de Empleo de Hoteles Suizos — Caso de Estudio",

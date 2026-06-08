@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
-import { ZoomableImage } from "@/components/ZoomableImage";
+import { ZoomableImage } from "@/components/ui/ZoomableImage";
 
 export const metadata: Metadata = {
   title: "Capa operativa n8n — Caso de Estudio",

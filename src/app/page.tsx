@@ -1,11 +1,11 @@
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
-import { Hero } from "@/components/Hero";
-import { TechMarquee } from "@/components/TechMarquee";
-import { Services } from "@/components/Services";
-import { Work } from "@/components/Work";
-import { Process } from "@/components/Process";
-import { Contact } from "@/components/Contact";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
+import { Hero } from "@/components/sections/Hero";
+import { TechMarquee } from "@/components/sections/TechMarquee";
+import { Services } from "@/components/sections/Services";
+import { Work } from "@/components/sections/Work";
+import { Process } from "@/components/sections/Process";
+import { Contact } from "@/components/sections/Contact";
 
 export default function HomePage() {
   return (

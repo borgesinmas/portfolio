@@ -1,10 +1,10 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { ZoomableImage } from "@/components/ZoomableImage";
+import { ZoomableImage } from "@/components/ui/ZoomableImage";
 import type { ReactNode } from "react";
 import { getProjectBySlug, PROJECTS } from "@/lib/projects";
-import { ApiContract, DataModelTable } from "@/components/CaseStudyPrimitives";
+import { ApiContract, DataModelTable } from "@/components/case-study/CaseStudyPrimitives";
 
 function ProjectFeatureIcon({ icon, title }: { icon?: string; title: string }) {
   if (!icon) return null;

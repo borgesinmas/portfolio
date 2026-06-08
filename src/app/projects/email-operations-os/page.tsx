@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ZoomableImage } from "@/components/ZoomableImage";
-import { DataModelTable } from "@/components/CaseStudyPrimitives";
+import { ZoomableImage } from "@/components/ui/ZoomableImage";
+import { DataModelTable } from "@/components/case-study/CaseStudyPrimitives";
 
 export const metadata: Metadata = {
   title: "Sistema de Envíos Growork — Caso de Estudio",

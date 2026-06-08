@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ZoomableImage } from "@/components/ZoomableImage";
-import { ApiContract } from "@/components/CaseStudyPrimitives";
+import { ZoomableImage } from "@/components/ui/ZoomableImage";
+import { ApiContract } from "@/components/case-study/CaseStudyPrimitives";
 
 export const metadata: Metadata = {
   title: "Portal Privado de Clientes — Growork",

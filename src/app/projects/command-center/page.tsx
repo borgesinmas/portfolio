@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ZoomableImage } from "@/components/ZoomableImage";
+import { ZoomableImage } from "@/components/ui/ZoomableImage";
 import type { ReactNode } from "react";
 import {
   ArrowLeft,

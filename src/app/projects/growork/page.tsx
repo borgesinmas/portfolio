@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
-import { ZoomableImage } from "@/components/ZoomableImage";
+import { ZoomableImage } from "@/components/ui/ZoomableImage";
 
 export const metadata: Metadata = {
   title: "Growork — Caso de Estudio",
@@ -205,12 +205,12 @@ const techScreenshots = [
 ];
 
 const evolution = [
-  "Nació como una web pública para explicar servicios de empleabilidad en Suiza.",
-  "Se añadió el formulario de evaluación con documentos, Turnstile, Twenty CRM y n8n.",
-  "Llegaron los pagos con Stripe: servicios puntuales, planes y checkout invitado.",
-  "Se construyó el portal privado con candidaturas, respuestas, plan, perfil y chat IA.",
-  "El flujo de parejas obligó a replantear formularios, CRM, Stripe, portal y servicios.",
-  "Se conectó la web interna, se reforzó la seguridad y el blog evolucionó a infraestructura SEO.",
+  "Todo empezó con una idea personal: irme a Suiza a trabajar con mi novia. Después de conseguirlo, pensé que podía ayudar a otros a hacer lo mismo.",
+  "Empecé ofreciendo el servicio de forma directa: hablando con amigos y en grupos de Facebook. Algunos confiaron en mí desde el principio.",
+  "Los resultados llegaron: conseguí bastantes entrevistas para varios candidatos y trabajo real para algunos de ellos, incluida la temporada de invierno de 2025.",
+  "Para ofrecer un servicio más profesional —y aprender a construir y posicionar una web pública— creé growork.es.",
+  "La web ha generado más de 30 leads de forma orgánica. Hoy gestiono los envíos de candidaturas de un cliente al que ya le conseguí trabajo anteriormente.",
+  "El sistema técnico (portal privado, automatización de emails con IA, CRM) creció para dar soporte a ese proceso de principio a fin.",
 ];
 
 function SectionHeading({ eyebrow, title, text }: { eyebrow: string; title: string; text?: string }) {
@@ -518,7 +518,7 @@ export default function GroworkCaseStudy() {
               <ul className="space-y-3 text-sm text-text-secondary mb-6">
                 {[
                   "Scheduler diario (6:00 AM): crea los jobs de envío para cada cliente activo.",
-                  "Worker cada minuto: genera el email con GPT-4o-mini y lo envía por Gmail API.",
+                  "Worker cada minuto: genera el email con GPT-5 mini y lo envía por Gmail API.",
                   "Warmup progresivo: cada cuenta empieza con 2 emails/día y sube hasta 25.",
                   "Preview manual: aprueba o rechaza cada email antes de enviarlo.",
                   "Respuestas: lee Gmail, deduplica y clasifica con IA (entrevista, negativa, automática).",
